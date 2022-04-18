@@ -6,7 +6,7 @@ project(PROJECT)
 # /////////////////////////////// DEPENDENCIES ////////////////////////////////
 # /////////////////////////////////////////////////////////////////////////////
 
-# alternative solution with MSYS2 : https://stackoverflow.com/questions/34226818/undefined-reference-to-ft-load-glyph-and-other-sdl2-ttf-functions-using-cmak
+find_package(OpenGL REQUIRED)
 
 # On windows
 if (WIN32)
@@ -62,7 +62,7 @@ endif ()
 
 if (WIN32) # Copy .dll to build folder
     # SET SDL2 flags
-    target_link_libraries(${PROJECT_NAME} -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES})
+    target_link_libraries(${PROJECT_NAME} -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lglu32 -lopengl32 ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES})
 
     # Duplicate librarys in bin/
     add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different
