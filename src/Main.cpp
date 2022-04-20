@@ -6,8 +6,11 @@
 #include <SDL2/SDL_image.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
+#include <glm/gtx/intersect.hpp>
 
 Game *game = nullptr;
+GLuint idtest;
+glm::vec3 o;
 
 int main(int argc, char *argv[]) {
     game = new Game();
