@@ -46,8 +46,8 @@ extern "C" {
  * etc), but it might also be able to launch file managers for directories and
  * other things.
  *
- * What happens when you open a URL varies wildly as well: your game window
- * may lose focus (and may or may not lose focus if your game was fullscreen
+ * What happens when you open a URL varies wildly as well: your engine window
+ * may lose focus (and may or may not lose focus if your engine was fullscreen
  * or grabbing input at the time). On mobile devices, your app will likely
  * move to the background or your process might be paused. Any given platform
  * may or may not handle a given URL.

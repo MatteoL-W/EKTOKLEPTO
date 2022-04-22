@@ -85,7 +85,7 @@ For more information on how nacl_io and mount points work, see:
     https://developer.chrome.com/native-client/devguide/coding/nacl_io
     https://src.chromium.org/chrome/trunk/src/native_client_sdk/src/libraries/nacl_io/nacl_io.h
 
-To be able to save into the directory "/save/" (like backup of game) :
+To be able to save into the directory "/save/" (like backup of engine) :
 
     mount("", "/save", "html5fs", 0, "type=PERSISTENT");
 

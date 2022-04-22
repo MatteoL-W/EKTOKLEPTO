@@ -2,15 +2,15 @@
 
 #include "../Engine.hpp"
 #include "../Interface.hpp"
-#include "../Menu.hpp"
+#include "../Game.hpp"
 
-class MenuInterface : public Interface {
+class GameInterface : public Interface {
 public:
-    explicit MenuInterface(Engine *game)
-            : engine(game), menu(new Menu()) {
+    explicit GameInterface(Engine *game)
+            : engine(game), game(new Game()) {
     }
 
-    ~MenuInterface() = default;
+    ~GameInterface() = default;
 
     void handleEvents() override;
 
@@ -21,6 +21,6 @@ public:
 private:
     Engine *engine;
 
-    Menu *menu;
+    Game *game;
 };
 

@@ -8,14 +8,14 @@ Background:
   but developers are shipping their own SDL2 with individual Steam games. 
   These games might stop getting updates, but a newer SDL2 might be needed later. 
   Certainly we'll always be fixing bugs in SDL, even if a new video target isn't 
-  ever needed, and these fixes won't make it to a game shipping its own SDL.
+  ever needed, and these fixes won't make it to a engine shipping its own SDL.
 - Even if we replace the SDL2 in those games with a compatible one, that is to 
   say, edit a developer's Steam depot (yuck!), there are developers that are 
   statically linking SDL2 that we can't do this for. We can't even force the 
   dynamic loader to ignore their SDL2 in this case, of course.
-- If you don't ship an SDL2 with the game in some form, people that disabled the
-  Steam Runtime, or just tried to run the game from the command line instead of 
-  Steam might find themselves unable to run the game, due to a missing dependency.
+- If you don't ship an SDL2 with the engine in some form, people that disabled the
+  Steam Runtime, or just tried to run the engine from the command line instead of 
+  Steam might find themselves unable to run the engine, due to a missing dependency.
 - If you want to ship on non-Steam platforms like GOG or Humble Bundle, or target
   generic Linux boxes that may or may not have SDL2 installed, you have to ship 
   the library or risk a total failure to launch. So now, you might have to have 
@@ -26,7 +26,7 @@ Background:
   community about the license change is the static linking. The LGPL forced this 
   as a legal, not technical issue, but zlib doesn't care. Even those that aren't
   concerned about the GNU freedoms found themselves solving the same problems: 
-  swapping in a newer SDL to an older game often times can save the day. 
+  swapping in a newer SDL to an older engine often times can save the day. 
   Static linking stops this dead.
 
 So here's what we did:
@@ -69,7 +69,7 @@ export SDL_DYNAMIC_API=/my/actual/libSDL-2.0.so.0
 ./MyGameThatIsStaticallyLinkedToSDL2
 ```
 
-And now, this game that is statically linked to SDL, can still be overridden 
+And now, this engine that is statically linked to SDL, can still be overridden 
 with a newer, or better, SDL. The statically linked one will only be used as 
 far as calling into the jump table in this case. But in cases where no override
 is desired, the statically linked version will provide its own jump table, 
@@ -78,12 +78,12 @@ and everyone is happy.
 So now:
 - Developers can statically link SDL, and users can still replace it. 
   (We'd still rather you ship a shared library, though!)
-- Developers can ship an SDL with their game, Valve can override it for, say, 
+- Developers can ship an SDL with their engine, Valve can override it for, say, 
   new features on SteamOS, or distros can override it for their own needs, 
   but it'll also just work in the default case.
 - Developers can ship the same package to everyone (Humble Bundle, GOG, etc), 
   and it'll do the right thing.
-- End users (and Valve) can update a game's SDL in almost any case, 
+- End users (and Valve) can update a engine's SDL in almost any case, 
   to keep abandoned games running on newer platforms.
 - Everyone develops with SDL exactly as they have been doing all along. 
   Same headers, same ABI. Just get the latest version to enable this magic.

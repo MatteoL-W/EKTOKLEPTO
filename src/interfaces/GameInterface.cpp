@@ -1,11 +1,11 @@
 #include <SDL2/SDL.h>
 
-#include "../../include/interfaces/MenuInterface.hpp"
+#include "../../include/interfaces/GameInterface.hpp"
 
 /**
  * @brief Handle SDL Events in the menu
  */
-void MenuInterface::handleEvents() {
+void GameInterface::handleEvents() {
     SDL_Event event = engine->event;
     SDL_PollEvent(&event);
 
@@ -18,17 +18,15 @@ void MenuInterface::handleEvents() {
 /**
  * @brief Update the menu
  */
-void MenuInterface::update() {
-    menu->update();
+void GameInterface::update() {
 }
 
 /**
  * @brief Render the menu
  */
-void MenuInterface::render() {
+void GameInterface::render() {
     SDL_RenderClear(Engine::renderer);
 
-    menu->draw();
 
     SDL_RenderPresent(Engine::renderer);
 }

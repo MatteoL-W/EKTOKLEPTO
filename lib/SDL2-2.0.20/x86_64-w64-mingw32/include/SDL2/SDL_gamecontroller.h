@@ -22,7 +22,7 @@
 /**
  *  \file SDL_gamecontroller.h
  *
- *  Include file for SDL game controller event handling
+ *  Include file for SDL engine controller event handling
  */
 
 #ifndef SDL_gamecontroller_h_
@@ -45,7 +45,7 @@ extern "C" {
  *
  *  In order to use these functions, SDL_Init() must have been called
  *  with the ::SDL_INIT_GAMECONTROLLER flag.  This causes SDL to scan the system
- *  for game controllers, and load appropriate drivers.
+ *  for engine controllers, and load appropriate drivers.
  *
  *  If you would like to receive controller updates while the application
  *  is in the background, you should set the following hint before calling
@@ -53,7 +53,7 @@ extern "C" {
  */
 
 /**
- * The gamecontroller structure used to identify an SDL game controller
+ * The gamecontroller structure used to identify an SDL engine controller
  */
 struct _SDL_GameController;
 typedef struct _SDL_GameController SDL_GameController;
@@ -100,7 +100,7 @@ typedef struct SDL_GameControllerButtonBind
 
 
 /**
- *  To count the number of game controllers in the system for the following:
+ *  To count the number of engine controllers in the system for the following:
  *
  *  ```c
  *  int nJoysticks = SDL_NumJoysticks();
@@ -131,7 +131,7 @@ typedef struct SDL_GameControllerButtonBind
  */
 
 /**
- * Load a set of Game Controller mappings from a seekable SDL data stream.
+ * Load a set of Engine Controller mappings from a seekable SDL data stream.
  *
  * You can call this function several times, if needed, to load different
  * database files.
@@ -216,7 +216,7 @@ extern DECLSPEC int SDLCALL SDL_GameControllerNumMappings(void);
 extern DECLSPEC char * SDLCALL SDL_GameControllerMappingForIndex(int mapping_index);
 
 /**
- * Get the game controller mapping string for a given GUID.
+ * Get the engine controller mapping string for a given GUID.
  *
  * The returned string must be freed with SDL_free().
  *
@@ -232,13 +232,13 @@ extern DECLSPEC char * SDLCALL SDL_GameControllerMappingForIndex(int mapping_ind
 extern DECLSPEC char * SDLCALL SDL_GameControllerMappingForGUID(SDL_JoystickGUID guid);
 
 /**
- * Get the current mapping of a Game Controller.
+ * Get the current mapping of a Engine Controller.
  *
  * The returned string must be freed with SDL_free().
  *
  * Details about mappings are discussed with SDL_GameControllerAddMapping().
  *
- * \param gamecontroller the game controller you want to get the current
+ * \param gamecontroller the engine controller you want to get the current
  *                       mapping for
  * \returns a string that has the controller's mapping or NULL if no mapping
  *          is available; call SDL_GetError() for more information.
@@ -251,14 +251,14 @@ extern DECLSPEC char * SDLCALL SDL_GameControllerMappingForGUID(SDL_JoystickGUID
 extern DECLSPEC char * SDLCALL SDL_GameControllerMapping(SDL_GameController *gamecontroller);
 
 /**
- * Check if the given joystick is supported by the game controller interface.
+ * Check if the given joystick is supported by the engine controller interface.
  *
  * `joystick_index` is the same as the `device_index` passed to
  * SDL_JoystickOpen().
  *
  * \param joystick_index the device_index of a device, up to
  *                       SDL_NumJoysticks()
- * \returns SDL_TRUE if the given joystick is supported by the game controller
+ * \returns SDL_TRUE if the given joystick is supported by the engine controller
  *          interface, SDL_FALSE if it isn't or it's an invalid index.
  *
  * \since This function is available since SDL 2.0.0.
@@ -269,7 +269,7 @@ extern DECLSPEC char * SDLCALL SDL_GameControllerMapping(SDL_GameController *gam
 extern DECLSPEC SDL_bool SDLCALL SDL_IsGameController(int joystick_index);
 
 /**
- * Get the implementation dependent name for the game controller.
+ * Get the implementation dependent name for the engine controller.
  *
  * This function can be called before any controllers are opened.
  *
@@ -278,7 +278,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_IsGameController(int joystick_index);
  *
  * \param joystick_index the device_index of a device, from zero to
  *                       SDL_NumJoysticks()-1
- * \returns the implementation-dependent name for the game controller, or NULL
+ * \returns the implementation-dependent name for the engine controller, or NULL
  *          if there is no name or the index is invalid.
  *
  * \since This function is available since SDL 2.0.0.
@@ -290,7 +290,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_IsGameController(int joystick_index);
 extern DECLSPEC const char *SDLCALL SDL_GameControllerNameForIndex(int joystick_index);
 
 /**
- * Get the type of a game controller.
+ * Get the type of a engine controller.
  *
  * This can be called before any controllers are opened.
  *
@@ -303,7 +303,7 @@ extern DECLSPEC const char *SDLCALL SDL_GameControllerNameForIndex(int joystick_
 extern DECLSPEC SDL_GameControllerType SDLCALL SDL_GameControllerTypeForIndex(int joystick_index);
 
 /**
- * Get the mapping of a game controller.
+ * Get the mapping of a engine controller.
  *
  * This can be called before any controllers are opened.
  *
@@ -317,12 +317,12 @@ extern DECLSPEC SDL_GameControllerType SDLCALL SDL_GameControllerTypeForIndex(in
 extern DECLSPEC char *SDLCALL SDL_GameControllerMappingForDeviceIndex(int joystick_index);
 
 /**
- * Open a game controller for use.
+ * Open a engine controller for use.
  *
  * `joystick_index` is the same as the `device_index` passed to
  * SDL_JoystickOpen().
  *
- * The index passed as an argument refers to the N'th game controller on the
+ * The index passed as an argument refers to the N'th engine controller on the
  * system. This index is not the value which will identify this controller in
  * future controller events. The joystick's instance id (SDL_JoystickID) will
  * be used there instead.
@@ -369,14 +369,14 @@ extern DECLSPEC SDL_GameController *SDLCALL SDL_GameControllerFromInstanceID(SDL
 extern DECLSPEC SDL_GameController *SDLCALL SDL_GameControllerFromPlayerIndex(int player_index);
 
 /**
- * Get the implementation-dependent name for an opened game controller.
+ * Get the implementation-dependent name for an opened engine controller.
  *
  * This is the same name as returned by SDL_GameControllerNameForIndex(), but
  * it takes a controller identifier instead of the (unstable) device index.
  *
- * \param gamecontroller a game controller identifier previously returned by
+ * \param gamecontroller a engine controller identifier previously returned by
  *                       SDL_GameControllerOpen()
- * \returns the implementation dependent name for the game controller, or NULL
+ * \returns the implementation dependent name for the engine controller, or NULL
  *          if there is no name or the identifier passed is invalid.
  *
  * \since This function is available since SDL 2.0.0.
@@ -392,7 +392,7 @@ extern DECLSPEC const char *SDLCALL SDL_GameControllerName(SDL_GameController *g
  * This is the same name as returned by SDL_GameControllerTypeForIndex(), but
  * it takes a controller identifier instead of the (unstable) device index.
  *
- * \param gamecontroller the game controller object to query.
+ * \param gamecontroller the engine controller object to query.
  * \returns the controller type.
  *
  * \since This function is available since SDL 2.0.12.
@@ -400,11 +400,11 @@ extern DECLSPEC const char *SDLCALL SDL_GameControllerName(SDL_GameController *g
 extern DECLSPEC SDL_GameControllerType SDLCALL SDL_GameControllerGetType(SDL_GameController *gamecontroller);
 
 /**
- * Get the player index of an opened game controller.
+ * Get the player index of an opened engine controller.
  *
  * For XInput controllers this returns the XInput user index.
  *
- * \param gamecontroller the game controller object to query.
+ * \param gamecontroller the engine controller object to query.
  * \returns the player index for controller, or -1 if it's not available.
  *
  * \since This function is available since SDL 2.0.9.
@@ -412,9 +412,9 @@ extern DECLSPEC SDL_GameControllerType SDLCALL SDL_GameControllerGetType(SDL_Gam
 extern DECLSPEC int SDLCALL SDL_GameControllerGetPlayerIndex(SDL_GameController *gamecontroller);
 
 /**
- * Set the player index of an opened game controller.
+ * Set the player index of an opened engine controller.
  *
- * \param gamecontroller the game controller object to adjust.
+ * \param gamecontroller the engine controller object to adjust.
  * \param player_index Player index to assign to this controller.
  *
  * \since This function is available since SDL 2.0.12.
@@ -426,7 +426,7 @@ extern DECLSPEC void SDLCALL SDL_GameControllerSetPlayerIndex(SDL_GameController
  *
  * If the vendor ID isn't available this function returns 0.
  *
- * \param gamecontroller the game controller object to query.
+ * \param gamecontroller the engine controller object to query.
  * \return the USB vendor ID, or zero if unavailable.
  *
  * \since This function is available since SDL 2.0.6.
@@ -438,7 +438,7 @@ extern DECLSPEC Uint16 SDLCALL SDL_GameControllerGetVendor(SDL_GameController *g
  *
  * If the product ID isn't available this function returns 0.
  *
- * \param gamecontroller the game controller object to query.
+ * \param gamecontroller the engine controller object to query.
  * \return the USB product ID, or zero if unavailable.
  *
  * \since This function is available since SDL 2.0.6.
@@ -450,7 +450,7 @@ extern DECLSPEC Uint16 SDLCALL SDL_GameControllerGetProduct(SDL_GameController *
  *
  * If the product version isn't available this function returns 0.
  *
- * \param gamecontroller the game controller object to query.
+ * \param gamecontroller the engine controller object to query.
  * \return the USB product version, or zero if unavailable.
  *
  * \since This function is available since SDL 2.0.6.
@@ -463,7 +463,7 @@ extern DECLSPEC Uint16 SDLCALL SDL_GameControllerGetProductVersion(SDL_GameContr
  * Returns the serial number of the controller, or NULL if it is not
  * available.
  *
- * \param gamecontroller the game controller object to query.
+ * \param gamecontroller the engine controller object to query.
  * \return the serial number, or NULL if unavailable.
  *
  * \since This function is available since SDL 2.0.14.
@@ -473,7 +473,7 @@ extern DECLSPEC const char * SDLCALL SDL_GameControllerGetSerial(SDL_GameControl
 /**
  * Check if a controller has been opened and is currently connected.
  *
- * \param gamecontroller a game controller identifier previously returned by
+ * \param gamecontroller a engine controller identifier previously returned by
  *                       SDL_GameControllerOpen()
  * \returns SDL_TRUE if the controller has been opened and is currently
  *          connected, or SDL_FALSE if not.
@@ -486,7 +486,7 @@ extern DECLSPEC const char * SDLCALL SDL_GameControllerGetSerial(SDL_GameControl
 extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerGetAttached(SDL_GameController *gamecontroller);
 
 /**
- * Get the Joystick ID from a Game Controller.
+ * Get the Joystick ID from a Engine Controller.
  *
  * This function will give you a SDL_Joystick object, which allows you to use
  * the SDL_Joystick functions with a SDL_GameController object. This would be
@@ -498,7 +498,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerGetAttached(SDL_GameControlle
  * call SDL_JoystickClose() on it, for example, since doing so will likely
  * cause SDL to crash.
  *
- * \param gamecontroller the game controller object that you want to get a
+ * \param gamecontroller the engine controller object that you want to get a
  *                       joystick from
  * \returns a SDL_Joystick object; call SDL_GetError() for more information.
  *
@@ -507,7 +507,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerGetAttached(SDL_GameControlle
 extern DECLSPEC SDL_Joystick *SDLCALL SDL_GameControllerGetJoystick(SDL_GameController *gamecontroller);
 
 /**
- * Query or change current state of Game Controller events.
+ * Query or change current state of Engine Controller events.
  *
  * If controller events are disabled, you must call SDL_GameControllerUpdate()
  * yourself and check the state of the controller when you want controller
@@ -527,7 +527,7 @@ extern DECLSPEC SDL_Joystick *SDLCALL SDL_GameControllerGetJoystick(SDL_GameCont
 extern DECLSPEC int SDLCALL SDL_GameControllerEventState(int state);
 
 /**
- * Manually pump game controller updates if not using the loop.
+ * Manually pump engine controller updates if not using the loop.
  *
  * This function is called automatically by the event loop if events are
  * enabled. Under such circumstances, it will not be necessary to call this
@@ -600,7 +600,7 @@ extern DECLSPEC const char* SDLCALL SDL_GameControllerGetStringForAxis(SDL_GameC
 /**
  * Get the SDL joystick layer binding for a controller axis mapping.
  *
- * \param gamecontroller a game controller
+ * \param gamecontroller a engine controller
  * \param axis an axis enum value (one of the SDL_GameControllerAxis values)
  * \returns a SDL_GameControllerButtonBind describing the bind. On failure
  *          (like the given Controller axis doesn't exist on the device), its
@@ -615,12 +615,12 @@ SDL_GameControllerGetBindForAxis(SDL_GameController *gamecontroller,
                                  SDL_GameControllerAxis axis);
 
 /**
- * Query whether a game controller has a given axis.
+ * Query whether a engine controller has a given axis.
  *
  * This merely reports whether the controller's mapping defined this axis, as
  * that is all the information SDL has about the physical device.
  *
- * \param gamecontroller a game controller
+ * \param gamecontroller a engine controller
  * \param axis an axis enum value (an SDL_GameControllerAxis value)
  * \returns SDL_TRUE if the controller has this axis, SDL_FALSE otherwise.
  *
@@ -630,14 +630,14 @@ extern DECLSPEC SDL_bool SDLCALL
 SDL_GameControllerHasAxis(SDL_GameController *gamecontroller, SDL_GameControllerAxis axis);
 
 /**
- * Get the current state of an axis control on a game controller.
+ * Get the current state of an axis control on a engine controller.
  *
  * The axis indices start at index 0.
  *
  * The state is a value ranging from -32768 to 32767. Triggers, however, range
  * from 0 to 32767 (they never return a negative value).
  *
- * \param gamecontroller a game controller
+ * \param gamecontroller a engine controller
  * \param axis an axis index (one of the SDL_GameControllerAxis values)
  * \returns axis state (including 0) on success or 0 (also) on failure; call
  *          SDL_GetError() for more information.
@@ -714,7 +714,7 @@ extern DECLSPEC const char* SDLCALL SDL_GameControllerGetStringForButton(SDL_Gam
 /**
  * Get the SDL joystick layer binding for a controller button mapping.
  *
- * \param gamecontroller a game controller
+ * \param gamecontroller a engine controller
  * \param button an button enum value (an SDL_GameControllerButton value)
  * \returns a SDL_GameControllerButtonBind describing the bind. On failure
  *          (like the given Controller button doesn't exist on the device),
@@ -729,12 +729,12 @@ SDL_GameControllerGetBindForButton(SDL_GameController *gamecontroller,
                                    SDL_GameControllerButton button);
 
 /**
- * Query whether a game controller has a given button.
+ * Query whether a engine controller has a given button.
  *
  * This merely reports whether the controller's mapping defined this button,
  * as that is all the information SDL has about the physical device.
  *
- * \param gamecontroller a game controller
+ * \param gamecontroller a engine controller
  * \param button a button enum value (an SDL_GameControllerButton value)
  * \returns SDL_TRUE if the controller has this button, SDL_FALSE otherwise.
  *
@@ -744,9 +744,9 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerHasButton(SDL_GameController 
                                                              SDL_GameControllerButton button);
 
 /**
- * Get the current state of a button on a game controller.
+ * Get the current state of a button on a engine controller.
  *
- * \param gamecontroller a game controller
+ * \param gamecontroller a engine controller
  * \param button a button index (one of the SDL_GameControllerButton values)
  * \returns 1 for pressed state or 0 for not pressed state or error; call
  *          SDL_GetError() for more information.
@@ -759,14 +759,14 @@ extern DECLSPEC Uint8 SDLCALL SDL_GameControllerGetButton(SDL_GameController *ga
                                                           SDL_GameControllerButton button);
 
 /**
- * Get the number of touchpads on a game controller.
+ * Get the number of touchpads on a engine controller.
  *
  * \since This function is available since SDL 2.0.14.
  */
 extern DECLSPEC int SDLCALL SDL_GameControllerGetNumTouchpads(SDL_GameController *gamecontroller);
 
 /**
- * Get the number of supported simultaneous fingers on a touchpad on a game
+ * Get the number of supported simultaneous fingers on a touchpad on a engine
  * controller.
  *
  * \since This function is available since SDL 2.0.14.
@@ -774,14 +774,14 @@ extern DECLSPEC int SDLCALL SDL_GameControllerGetNumTouchpads(SDL_GameController
 extern DECLSPEC int SDLCALL SDL_GameControllerGetNumTouchpadFingers(SDL_GameController *gamecontroller, int touchpad);
 
 /**
- * Get the current state of a finger on a touchpad on a game controller.
+ * Get the current state of a finger on a touchpad on a engine controller.
  *
  * \since This function is available since SDL 2.0.14.
  */
 extern DECLSPEC int SDLCALL SDL_GameControllerGetTouchpadFinger(SDL_GameController *gamecontroller, int touchpad, int finger, Uint8 *state, float *x, float *y, float *pressure);
 
 /**
- * Return whether a game controller has a particular sensor.
+ * Return whether a engine controller has a particular sensor.
  *
  * \param gamecontroller The controller to query
  * \param type The type of sensor to query
@@ -792,7 +792,7 @@ extern DECLSPEC int SDLCALL SDL_GameControllerGetTouchpadFinger(SDL_GameControll
 extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerHasSensor(SDL_GameController *gamecontroller, SDL_SensorType type);
 
 /**
- * Set whether data reporting for a game controller sensor is enabled.
+ * Set whether data reporting for a engine controller sensor is enabled.
  *
  * \param gamecontroller The controller to update
  * \param type The type of sensor to enable/disable
@@ -804,7 +804,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerHasSensor(SDL_GameController 
 extern DECLSPEC int SDLCALL SDL_GameControllerSetSensorEnabled(SDL_GameController *gamecontroller, SDL_SensorType type, SDL_bool enabled);
 
 /**
- * Query whether sensor data reporting is enabled for a game controller.
+ * Query whether sensor data reporting is enabled for a engine controller.
  *
  * \param gamecontroller The controller to query
  * \param type The type of sensor to query
@@ -815,7 +815,7 @@ extern DECLSPEC int SDLCALL SDL_GameControllerSetSensorEnabled(SDL_GameControlle
 extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerIsSensorEnabled(SDL_GameController *gamecontroller, SDL_SensorType type);
 
 /**
- * Get the data rate (number of events per second) of a game controller
+ * Get the data rate (number of events per second) of a engine controller
  * sensor.
  *
  * \param gamecontroller The controller to query
@@ -827,7 +827,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerIsSensorEnabled(SDL_GameContr
 extern DECLSPEC float SDLCALL SDL_GameControllerGetSensorDataRate(SDL_GameController *gamecontroller, SDL_SensorType type);
 
 /**
- * Get the current state of a game controller sensor.
+ * Get the current state of a engine controller sensor.
  *
  * The number of values and interpretation of the data is sensor dependent.
  * See SDL_sensor.h for the details for each type of sensor.
@@ -843,7 +843,7 @@ extern DECLSPEC float SDLCALL SDL_GameControllerGetSensorDataRate(SDL_GameContro
 extern DECLSPEC int SDLCALL SDL_GameControllerGetSensorData(SDL_GameController *gamecontroller, SDL_SensorType type, float *data, int num_values);
 
 /**
- * Start a rumble effect on a game controller.
+ * Start a rumble effect on a engine controller.
  *
  * Each call to this function cancels any previous rumble effect, and calling
  * it with 0 intensity stops any rumbling.
@@ -863,12 +863,12 @@ extern DECLSPEC int SDLCALL SDL_GameControllerGetSensorData(SDL_GameController *
 extern DECLSPEC int SDLCALL SDL_GameControllerRumble(SDL_GameController *gamecontroller, Uint16 low_frequency_rumble, Uint16 high_frequency_rumble, Uint32 duration_ms);
 
 /**
- * Start a rumble effect in the game controller's triggers.
+ * Start a rumble effect in the engine controller's triggers.
  *
  * Each call to this function cancels any previous trigger rumble effect, and
  * calling it with 0 intensity stops any rumbling.
  *
- * Note that this is rumbling of the _triggers_ and not the game controller as
+ * Note that this is rumbling of the _triggers_ and not the engine controller as
  * a whole. The first controller to offer this feature was the PlayStation 5's
  * DualShock 5.
  *
@@ -887,7 +887,7 @@ extern DECLSPEC int SDLCALL SDL_GameControllerRumble(SDL_GameController *gamecon
 extern DECLSPEC int SDLCALL SDL_GameControllerRumbleTriggers(SDL_GameController *gamecontroller, Uint16 left_rumble, Uint16 right_rumble, Uint32 duration_ms);
 
 /**
- * Query whether a game controller has an LED.
+ * Query whether a engine controller has an LED.
  *
  * \param gamecontroller The controller to query
  * \returns SDL_TRUE, or SDL_FALSE if this controller does not have a
@@ -898,7 +898,7 @@ extern DECLSPEC int SDLCALL SDL_GameControllerRumbleTriggers(SDL_GameController 
 extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerHasLED(SDL_GameController *gamecontroller);
 
 /**
- * Query whether a game controller has rumble support.
+ * Query whether a engine controller has rumble support.
  *
  * \param gamecontroller The controller to query
  * \returns SDL_TRUE, or SDL_FALSE if this controller does not have rumble
@@ -911,7 +911,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerHasLED(SDL_GameController *ga
 extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerHasRumble(SDL_GameController *gamecontroller);
 
 /**
- * Query whether a game controller has rumble support on triggers.
+ * Query whether a engine controller has rumble support on triggers.
  *
  * \param gamecontroller The controller to query
  * \returns SDL_TRUE, or SDL_FALSE if this controller does not have trigger
@@ -924,7 +924,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerHasRumble(SDL_GameController 
 extern DECLSPEC SDL_bool SDLCALL SDL_GameControllerHasRumbleTriggers(SDL_GameController *gamecontroller);
 
 /**
- * Update a game controller's LED color.
+ * Update a engine controller's LED color.
  *
  * \param gamecontroller The controller to update
  * \param red The intensity of the red LED
@@ -950,9 +950,9 @@ extern DECLSPEC int SDLCALL SDL_GameControllerSetLED(SDL_GameController *gamecon
 extern DECLSPEC int SDLCALL SDL_GameControllerSendEffect(SDL_GameController *gamecontroller, const void *data, int size);
 
 /**
- * Close a game controller previously opened with SDL_GameControllerOpen().
+ * Close a engine controller previously opened with SDL_GameControllerOpen().
  *
- * \param gamecontroller a game controller identifier previously returned by
+ * \param gamecontroller a engine controller identifier previously returned by
  *                       SDL_GameControllerOpen()
  *
  * \since This function is available since SDL 2.0.0.
@@ -962,11 +962,11 @@ extern DECLSPEC int SDLCALL SDL_GameControllerSendEffect(SDL_GameController *gam
 extern DECLSPEC void SDLCALL SDL_GameControllerClose(SDL_GameController *gamecontroller);
 
 /**
- * Return the sfSymbolsName for a given button on a game controller on Apple
+ * Return the sfSymbolsName for a given button on a engine controller on Apple
  * platforms.
  *
  * \param gamecontroller the controller to query
- * \param button a button on the game controller
+ * \param button a button on the engine controller
  * \returns the sfSymbolsName or NULL if the name can't be found
  *
  * \since This function is available since SDL 2.0.18.
@@ -976,11 +976,11 @@ extern DECLSPEC void SDLCALL SDL_GameControllerClose(SDL_GameController *gamecon
 extern DECLSPEC const char* SDLCALL SDL_GameControllerGetAppleSFSymbolsNameForButton(SDL_GameController *gamecontroller, SDL_GameControllerButton button);
 
 /**
- * Return the sfSymbolsName for a given axis on a game controller on Apple
+ * Return the sfSymbolsName for a given axis on a engine controller on Apple
  * platforms.
  *
  * \param gamecontroller the controller to query
- * \param axis an axis on the game controller
+ * \param axis an axis on the engine controller
  * \returns the sfSymbolsName or NULL if the name can't be found
  *
  * \since This function is available since SDL 2.0.18.

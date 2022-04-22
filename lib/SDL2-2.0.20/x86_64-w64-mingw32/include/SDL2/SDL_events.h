@@ -118,17 +118,17 @@ typedef enum
     SDL_JOYDEVICEADDED,         /**< A new joystick has been inserted into the system */
     SDL_JOYDEVICEREMOVED,       /**< An opened joystick has been removed */
 
-    /* Game controller events */
-    SDL_CONTROLLERAXISMOTION  = 0x650, /**< Game controller axis motion */
-    SDL_CONTROLLERBUTTONDOWN,          /**< Game controller button pressed */
-    SDL_CONTROLLERBUTTONUP,            /**< Game controller button released */
-    SDL_CONTROLLERDEVICEADDED,         /**< A new Game controller has been inserted into the system */
-    SDL_CONTROLLERDEVICEREMOVED,       /**< An opened Game controller has been removed */
+    /* Engine controller events */
+    SDL_CONTROLLERAXISMOTION  = 0x650, /**< Engine controller axis motion */
+    SDL_CONTROLLERBUTTONDOWN,          /**< Engine controller button pressed */
+    SDL_CONTROLLERBUTTONUP,            /**< Engine controller button released */
+    SDL_CONTROLLERDEVICEADDED,         /**< A new Engine controller has been inserted into the system */
+    SDL_CONTROLLERDEVICEREMOVED,       /**< An opened Engine controller has been removed */
     SDL_CONTROLLERDEVICEREMAPPED,      /**< The controller mapping was updated */
-    SDL_CONTROLLERTOUCHPADDOWN,        /**< Game controller touchpad was touched */
-    SDL_CONTROLLERTOUCHPADMOTION,      /**< Game controller touchpad finger was moved */
-    SDL_CONTROLLERTOUCHPADUP,          /**< Game controller touchpad finger was lifted */
-    SDL_CONTROLLERSENSORUPDATE,        /**< Game controller sensor was updated */
+    SDL_CONTROLLERTOUCHPADDOWN,        /**< Engine controller touchpad was touched */
+    SDL_CONTROLLERTOUCHPADMOTION,      /**< Engine controller touchpad finger was moved */
+    SDL_CONTROLLERTOUCHPADUP,          /**< Engine controller touchpad finger was lifted */
+    SDL_CONTROLLERSENSORUPDATE,        /**< Engine controller sensor was updated */
 
     /* Touch events */
     SDL_FINGERDOWN      = 0x700,
@@ -383,7 +383,7 @@ typedef struct SDL_JoyDeviceEvent
 
 
 /**
- *  \brief Game controller axis motion event structure (event.caxis.*)
+ *  \brief Engine controller axis motion event structure (event.caxis.*)
  */
 typedef struct SDL_ControllerAxisEvent
 {
@@ -400,7 +400,7 @@ typedef struct SDL_ControllerAxisEvent
 
 
 /**
- *  \brief Game controller button event structure (event.cbutton.*)
+ *  \brief Engine controller button event structure (event.cbutton.*)
  */
 typedef struct SDL_ControllerButtonEvent
 {
@@ -425,7 +425,7 @@ typedef struct SDL_ControllerDeviceEvent
 } SDL_ControllerDeviceEvent;
 
 /**
- *  \brief Game controller touchpad event structure (event.ctouchpad.*)
+ *  \brief Engine controller touchpad event structure (event.ctouchpad.*)
  */
 typedef struct SDL_ControllerTouchpadEvent
 {
@@ -440,7 +440,7 @@ typedef struct SDL_ControllerTouchpadEvent
 } SDL_ControllerTouchpadEvent;
 
 /**
- *  \brief Game controller sensor event structure (event.csensor.*)
+ *  \brief Engine controller sensor event structure (event.csensor.*)
  */
 typedef struct SDL_ControllerSensorEvent
 {
@@ -610,11 +610,11 @@ typedef union SDL_Event
     SDL_JoyHatEvent jhat;                   /**< Joystick hat event data */
     SDL_JoyButtonEvent jbutton;             /**< Joystick button event data */
     SDL_JoyDeviceEvent jdevice;             /**< Joystick device change event data */
-    SDL_ControllerAxisEvent caxis;          /**< Game Controller axis event data */
-    SDL_ControllerButtonEvent cbutton;      /**< Game Controller button event data */
-    SDL_ControllerDeviceEvent cdevice;      /**< Game Controller device event data */
-    SDL_ControllerTouchpadEvent ctouchpad;  /**< Game Controller touchpad event data */
-    SDL_ControllerSensorEvent csensor;      /**< Game Controller sensor event data */
+    SDL_ControllerAxisEvent caxis;          /**< Engine Controller axis event data */
+    SDL_ControllerButtonEvent cbutton;      /**< Engine Controller button event data */
+    SDL_ControllerDeviceEvent cdevice;      /**< Engine Controller device event data */
+    SDL_ControllerTouchpadEvent ctouchpad;  /**< Engine Controller touchpad event data */
+    SDL_ControllerSensorEvent csensor;      /**< Engine Controller sensor event data */
     SDL_AudioDeviceEvent adevice;           /**< Audio device event data */
     SDL_SensorEvent sensor;                 /**< Sensor event data */
     SDL_QuitEvent quit;                     /**< Quit request event data */
@@ -823,7 +823,7 @@ extern DECLSPEC void SDLCALL SDL_FlushEvents(Uint32 minType, Uint32 maxType);
  * on an event to be posted.
  *
  * The common practice is to fully process the event queue once every frame,
- * usually as a first step before updating the game's state:
+ * usually as a first step before updating the engine's state:
  *
  * ```c
  * while (game_is_still_running) {
@@ -832,7 +832,7 @@ extern DECLSPEC void SDLCALL SDL_FlushEvents(Uint32 minType, Uint32 maxType);
  *         // decide what to do with this event.
  *     }
  *
- *     // update game state, draw the current frame
+ *     // update engine state, draw the current frame
  * }
  * ```
  *

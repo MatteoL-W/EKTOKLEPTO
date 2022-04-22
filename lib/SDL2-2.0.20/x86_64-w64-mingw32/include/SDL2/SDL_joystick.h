@@ -123,7 +123,7 @@ typedef enum
  *
  * In particular, you are guaranteed that the joystick list won't change, so
  * the API functions that take a joystick index will be valid, and joystick
- * and game controller events will not be delivered.
+ * and engine controller events will not be delivered.
  *
  * \since This function is available since SDL 2.0.7.
  */
@@ -138,7 +138,7 @@ extern DECLSPEC void SDLCALL SDL_LockJoysticks(void);
  *
  * In particular, you are guaranteed that the joystick list won't change, so
  * the API functions that take a joystick index will be valid, and joystick
- * and game controller events will not be delivered.
+ * and engine controller events will not be delivered.
  *
  * \since This function is available since SDL 2.0.7.
  */
@@ -581,7 +581,7 @@ extern DECLSPEC SDL_JoystickID SDLCALL SDL_JoystickInstanceID(SDL_Joystick *joys
 /**
  * Get the number of general axis controls on a joystick.
  *
- * Often, the directional pad on a game controller will either look like 4
+ * Often, the directional pad on a engine controller will either look like 4
  * separate buttons or a POV hat, and not axes, but all of this is up to the
  * device and platform.
  *
@@ -687,9 +687,9 @@ extern DECLSPEC int SDLCALL SDL_JoystickEventState(int state);
  * Get the current state of an axis control on a joystick.
  *
  * SDL makes no promises about what part of the joystick any given axis refers
- * to. Your game should have some sort of configuration UI to let users
+ * to. Your engine should have some sort of configuration UI to let users
  * specify what each axis should be bound to. Alternately, SDL's higher-level
- * Game Controller API makes a great effort to apply order to this lower-level
+ * Engine Controller API makes a great effort to apply order to this lower-level
  * interface, so you know that a specific axis is the "left thumb stick," etc.
  *
  * The value returned by SDL_JoystickGetAxis() is a signed integer (-32768 to

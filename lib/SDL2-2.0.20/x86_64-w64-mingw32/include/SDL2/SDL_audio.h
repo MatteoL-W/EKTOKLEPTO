@@ -1286,7 +1286,7 @@ extern DECLSPEC Uint32 SDLCALL SDL_GetQueuedAudioSize(SDL_AudioDeviceID dev);
  * the hardware, as we can not undo that, so expect there to be some fraction
  * of a second of audio that might still be heard. This can be useful if you
  * want to, say, drop any pending music or any unprocessed microphone input
- * during a level change in your game.
+ * during a level change in your engine.
  *
  * You may not queue or dequeue audio on a device that is using an
  * application-supplied callback; calling this function on such a device

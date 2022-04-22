@@ -151,7 +151,7 @@ extern "C" {
  * This hint lets you specify the application name sent to the OS when
  * required. For example, this will often appear in volume control applets for
  * audio streams, and in lists of applications which are inhibiting the
- * screensaver.  You should use a string that describes your program ("My Game
+ * screensaver.  You should use a string that describes your program ("My Engine
  * 2: The Revenge")
  *
  * Setting this to "" or leaving it unset will have SDL use a reasonable
@@ -216,7 +216,7 @@ extern "C" {
  *
  * This hints lets you transmit that information to the OS. The contents of
  * this hint are used while opening an audio device. You should use a string
- * that describes your program ("My Game 2: The Revenge")
+ * that describes your program ("My Engine 2: The Revenge")
  *
  * Setting this to "" or leaving it unset will have SDL use a reasonable
  * default: this will be the name set with SDL_HINT_APP_NAME, if that hint is
@@ -258,11 +258,11 @@ extern "C" {
  *
  * This hints lets you transmit that information to the OS. The contents of
  * this hint are used while opening an audio device. You should use a string
- * that describes your what your program is playing (Game, Music, Movie,
+ * that describes your what your program is playing (Engine, Music, Movie,
  * etc...).
  *
  * Setting this to "" or leaving it unset will have SDL use a reasonable
- * default: "Game" or something similar.
+ * default: "Engine" or something similar.
  *
  * On targets where this is not supported, this hint does nothing.
  */
@@ -381,7 +381,7 @@ extern "C" {
 #define SDL_HINT_EMSCRIPTEN_KEYBOARD_ELEMENT   "SDL_EMSCRIPTEN_KEYBOARD_ELEMENT"
 
 /**
- *  \brief  A variable that controls whether Steam Controllers should be exposed using the SDL joystick and game controller APIs
+ *  \brief  A variable that controls whether Steam Controllers should be exposed using the SDL joystick and engine controller APIs
  *
  *  The variable can be set to the following values:
  *    "0"       - Do not scan for Steam Controllers
@@ -469,7 +469,7 @@ extern "C" {
 #define SDL_HINT_GAMECONTROLLERTYPE "SDL_GAMECONTROLLERTYPE"
 
 /**
- *  \brief  A variable containing a list of devices to skip when scanning for game controllers.
+ *  \brief  A variable containing a list of devices to skip when scanning for engine controllers.
  *
  *  The format of the string is a comma separated list of USB VID/PID pairs
  *  in hexadecimal form, e.g.
@@ -482,7 +482,7 @@ extern "C" {
 #define SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES "SDL_GAMECONTROLLER_IGNORE_DEVICES"
 
 /**
- *  \brief  If set, all devices will be skipped when scanning for game controllers except for the ones listed in this variable.
+ *  \brief  If set, all devices will be skipped when scanning for engine controllers except for the ones listed in this variable.
  *
  *  The format of the string is a comma separated list of USB VID/PID pairs
  *  in hexadecimal form, e.g.
@@ -495,7 +495,7 @@ extern "C" {
 #define SDL_HINT_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT "SDL_GAMECONTROLLER_IGNORE_DEVICES_EXCEPT"
 
 /**
- *  \brief  If set, game controller face buttons report their values according to their labels instead of their positional layout.
+ *  \brief  If set, engine controller face buttons report their values according to their labels instead of their positional layout.
  * 
  *  For example, on Nintendo Switch controllers, normally you'd get:
  *
@@ -1192,10 +1192,10 @@ extern "C" {
  * disabled). The contents of this hint are used when the screensaver is
  * disabled. You should use a string that describes what your program is doing
  * (and, therefore, why the screensaver is disabled).  For example, "Playing a
- * game" or "Watching a video".
+ * engine" or "Watching a video".
  * 
  * Setting this to "" or leaving it unset will have SDL use a reasonable
- * default: "Playing a game" or something similar.
+ * default: "Playing a engine" or something similar.
  *
  * On targets where this is not supported, this hint does nothing.
  */

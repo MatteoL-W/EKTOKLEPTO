@@ -15,7 +15,7 @@ Thanks to everyone who made this possible, including:
 
 * Mike Sartain for incorporating SDL into Team Fortress 2 and cheering me on at Valve.
 
-* Alfred Reynolds for the game controller API and general (in)sanity
+* Alfred Reynolds for the engine controller API and general (in)sanity
 
 * Jørgen Tjernø for numerous magical Mac OS X fixes.
 

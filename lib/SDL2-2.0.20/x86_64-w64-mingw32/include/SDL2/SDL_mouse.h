@@ -284,7 +284,7 @@ extern DECLSPEC SDL_bool SDLCALL SDL_GetRelativeMouseMode(void);
  *
  * If you want to have a color cursor, or create your cursor from an
  * SDL_Surface, you should use SDL_CreateColorCursor(). Alternately, you can
- * hide the cursor and draw your own as part of your game's rendering, but it
+ * hide the cursor and draw your own as part of your engine's rendering, but it
  * will be bound to the framerate.
  *
  * Also, since SDL 2.0.0, SDL_CreateSystemCursor() is available, which

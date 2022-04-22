@@ -35,7 +35,7 @@ How the port works
 The Android Java code implements an "Activity" and can be found in:
 android-project/app/src/main/java/org/libsdl/app/SDLActivity.java
 
-The Java code loads your game code, the SDL shared library, and
+The Java code loads your engine code, the SDL shared library, and
 dispatches to native functions implemented in the SDL library:
 src/core/android/SDL_android.c
 
@@ -126,12 +126,12 @@ To customize your application name, edit AndroidManifest.xml and replace
 Then create a Java class extending SDLActivity and place it in a directory
 under src matching your package, e.g.
 
-    src/com/gamemaker/game/MyGame.java
+    src/com/gamemaker/engine/MyGame.java
 
 Here's an example of a minimal class file:
 
     --- MyGame.java --------------------------
-    package com.gamemaker.game;
+    package com.gamemaker.engine;
     
     import org.libsdl.app.SDLActivity; 
     

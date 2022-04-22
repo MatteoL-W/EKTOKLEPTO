@@ -2,7 +2,7 @@
 #include <SDL2/SDL_ttf.h>
 #include <iostream>
 
-#include "../include/Game.hpp"
+#include "../include/Engine.hpp"
 #include "../include/Text.hpp"
 
 /**
@@ -16,7 +16,7 @@ void Text::create(const std::string text, const SDL_Color color, const std::stri
     Text::color = color;
     Text::font = createFont(this, fontName);
     Text::surface = TTF_RenderText_Solid(Text::font, Text::message.c_str(), Text::color);
-    Text::texture = SDL_CreateTextureFromSurface(Game::renderer, Text::surface);
+    Text::texture = SDL_CreateTextureFromSurface(Engine::renderer, Text::surface);
     Text::destRect = createDestRect(Text::font, Text::message, 0, 0);
 }
 
@@ -24,7 +24,7 @@ void Text::create(const std::string text, const SDL_Color color, const std::stri
  * @brief Draw the text
  */
 void Text::draw() {
-    SDL_RenderCopy(Game::renderer, Text::texture, NULL, &(Text::destRect));
+    SDL_RenderCopy(Engine::renderer, Text::texture, NULL, &(Text::destRect));
 }
 
 /**
@@ -36,7 +36,7 @@ void Text::changeText(const std::string newText) {
     SDL_DestroyTexture(Text::texture);
     Text::message = newText.c_str();
     Text::surface = TTF_RenderText_Solid(Text::font, Text::message.c_str(), Text::color);
-    Text::texture = SDL_CreateTextureFromSurface(Game::renderer, Text::surface);
+    Text::texture = SDL_CreateTextureFromSurface(Engine::renderer, Text::surface);
     Text::destRect = createDestRect(Text::font, Text::message, 0, 0);
 }
 
@@ -49,7 +49,7 @@ void Text::changeColor(const SDL_Color newColor) {
     SDL_DestroyTexture(Text::texture);
     Text::color = newColor;
     Text::surface = TTF_RenderText_Solid(Text::font, Text::message.c_str(), Text::color);
-    Text::texture = SDL_CreateTextureFromSurface(Game::renderer, Text::surface);
+    Text::texture = SDL_CreateTextureFromSurface(Engine::renderer, Text::surface);
     Text::destRect = createDestRect(Text::font, Text::message, 0, 0);
 }
 

@@ -15,14 +15,14 @@ Instructions:
 Using the Simple DirectMedia Layer for iOS
 ==============================================================================
 
-1. Run Xcode and create a new project using the iOS Game template, selecting the Objective C language and Metal game technology.
+1. Run Xcode and create a new project using the iOS Game template, selecting the Objective C language and Metal engine technology.
 2. In the main view, delete all files except for Assets and LaunchScreen
 3. Right click the project in the main view, select "Add Files...", and add the SDL project, Xcode/SDL/SDL.xcodeproj
 4. Select the project in the main view, go to the "Info" tab and under "Custom iOS Target Properties" remove the line "Main storyboard file base name"
 5. Select the project in the main view, go to the "Build Settings" tab, select "All", and edit "Header Search Path" and drag over the SDL "Public Headers" folder from the left
 6. Select the project in the main view, go to the "Build Phases" tab, select "Link Binary With Libraries", and add SDL2.framework from "Framework-iOS"
 7. Select the project in the main view, go to the "General" tab, scroll down to "Frameworks, Libraries, and Embedded Content", and select "Embed & Sign" for the SDL library.
-8. In the main view, expand SDL -> Library Source -> main -> uikit and drag SDL_uikit_main.c into your game files
+8. In the main view, expand SDL -> Library Source -> main -> uikit and drag SDL_uikit_main.c into your engine files
 9. Add the source files that you would normally have for an SDL program, making sure to have #include "SDL.h" at the top of the file containing your main() function.
 10. Add any assets that your application needs.
 11. Enjoy!
@@ -208,7 +208,7 @@ Notes -- CoreBluetooth.framework
 ==============================================================================
 
 SDL_JOYSTICK_HIDAPI is disabled by default. It can give you access to a lot
-more game controller devices, but it requires permission from the user before
+more engine controller devices, but it requires permission from the user before
 your app will be able to talk to the Bluetooth hardware. "Made For iOS"
 branded controllers do not need this as we don't have to speak to them
 directly with raw bluetooth, so many apps can live without this.
@@ -239,13 +239,13 @@ e.g.
     
     int main(int argc, char *argv[])
     {
-        ... initialize game ...
+        ... initialize engine ...
     
     #if __IPHONEOS__
         // Initialize the Game Center for scoring and matchmaking
         InitGameCenter();
     
-        // Set up the game to run in the window animation callback on iOS
+        // Set up the engine to run in the window animation callback on iOS
         // so that Game Center and so forth works correctly.
         SDL_iPhoneSetAnimationCallback(window, 1, ShowFrame, NULL);
     #else

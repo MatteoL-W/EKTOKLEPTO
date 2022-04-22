@@ -37,7 +37,7 @@ General:
 * SDL_WaitEvent() has been redesigned to use less CPU in most cases
 * Added SDL_SetWindowMouseRect() and SDL_GetWindowMouseRect() to confine the mouse cursor to an area of a window
 * You can now read precise mouse wheel motion using 'preciseX' and 'preciseY' event fields
-* Added SDL_GameControllerHasRumble() and SDL_GameControllerHasRumbleTriggers() to query whether a game controller supports rumble
+* Added SDL_GameControllerHasRumble() and SDL_GameControllerHasRumbleTriggers() to query whether a engine controller supports rumble
 * Added SDL_JoystickHasRumble() and SDL_JoystickHasRumbleTriggers() to query whether a joystick supports rumble
 * SDL's hidapi implementation is now available as a public API in SDL_hidapi.h
 
@@ -78,7 +78,7 @@ General:
 * Added SDL_UpdateNVTexture() to update streaming NV12/21 textures
 * Added SDL_GameControllerSendEffect() and SDL_JoystickSendEffect() to allow sending custom trigger effects to the DualSense controller
 * Added SDL_GameControllerGetSensorDataRate() to get the sensor data rate for PlayStation and Nintendo Switch controllers
-* Added support for the Amazon Luna game controller
+* Added support for the Amazon Luna engine controller
 * Added rumble support for the Google Stadia controller using the HIDAPI driver
 * Added SDL_GameControllerType constants for the Amazon Luna and Google Stadia controllers
 * Added analog rumble for Nintendo Switch Pro controllers using the HIDAPI driver
@@ -110,8 +110,8 @@ tvOS:
 ---------------------------------------------------------------------------
 General:
 * Added support for PS5 DualSense and Xbox Series X controllers to the HIDAPI controller driver
-* Added game controller button constants for paddles and new buttons
-* Added game controller functions to get additional information:
+* Added engine controller button constants for paddles and new buttons
+* Added engine controller functions to get additional information:
 	* SDL_GameControllerGetSerial()
 	* SDL_GameControllerHasAxis()
 	* SDL_GameControllerHasButton()
@@ -189,14 +189,14 @@ General:
 * Added new blend mode, SDL_BLENDMODE_MUL, which does a modulate and blend operation
 * Added the hint SDL_HINT_DISPLAY_USABLE_BOUNDS to override the results of SDL_GetDisplayUsableBounds() for display index 0.
 * Added the window underneath the finger to the SDL_TouchFingerEvent
-* Added SDL_GameControllerTypeForIndex(), SDL_GameControllerGetType() to return the type of a game controller (Xbox 360, Xbox One, PS3, PS4, or Nintendo Switch Pro)
-* Added the hint SDL_HINT_GAMECONTROLLERTYPE to override the automatic game controller type detection
+* Added SDL_GameControllerTypeForIndex(), SDL_GameControllerGetType() to return the type of a engine controller (Xbox 360, Xbox One, PS3, PS4, or Nintendo Switch Pro)
+* Added the hint SDL_HINT_GAMECONTROLLERTYPE to override the automatic engine controller type detection
 * Added SDL_JoystickFromPlayerIndex() and SDL_GameControllerFromPlayerIndex() to get the device associated with a player index
 * Added SDL_JoystickSetPlayerIndex() and SDL_GameControllerSetPlayerIndex() to set the player index associated with a device
 * Added the hint SDL_HINT_GAMECONTROLLER_USE_BUTTON_LABELS to specify whether Nintendo Switch Pro controllers should use the buttons as labeled or swapped to match positional layout. The default is to use the buttons as labeled.
 * Added support for Nintendo GameCube controllers to the HIDAPI driver, and a hint SDL_HINT_JOYSTICK_HIDAPI_GAMECUBE to control whether this is used.
 * Improved support for Xbox 360 and Xbox One controllers when using the HIDAPI driver
-* Added support for many game controllers, including:
+* Added support for many engine controllers, including:
 	* 8BitDo FC30 Pro
 	* 8BitDo M30 GamePad
 	* BDA PS4 Fightpad
@@ -213,7 +213,7 @@ General:
 	* SteelSeries Stratus Duo
 	* Victrix Pro Fight Stick for PS4
 	* Xbox One Elite Series 2
-* Fixed blocking game controller rumble calls when using the HIDAPI driver
+* Fixed blocking engine controller rumble calls when using the HIDAPI driver
 * Added SDL_zeroa() macro to zero an array of elements
 * Added SDL_HasARMSIMD() which returns true if the CPU has ARM SIMD (ARMv6+) features
 
@@ -230,7 +230,7 @@ iOS / tvOS / macOS:
 * Added SDL_Metal_CreateView() and SDL_Metal_DestroyView() to create CAMetalLayer-backed NSView/UIView and attach it to the specified window.
 
 iOS/ tvOS:
-* Added support for Bluetooth Steam Controllers as game controllers
+* Added support for Bluetooth Steam Controllers as engine controllers
 
 tvOS:
 * Fixed support for surround sound on Apple TV
@@ -238,7 +238,7 @@ tvOS:
 Android:
 * Added SDL_GetAndroidSDKVersion() to return the API level of the current device
 * Added support for audio capture using OpenSL-ES
-* Added support for Bluetooth Steam Controllers as game controllers
+* Added support for Bluetooth Steam Controllers as engine controllers
 * Fixed rare crashes when the app goes into the background or terminates
 
 
@@ -255,7 +255,7 @@ General:
 * Added SDL_RenderFlush() to force batched render commands to execute, if you're going to mix SDL rendering with native rendering
 * Added the hint SDL_HINT_RENDER_BATCHING to control whether batching should be used for the rendering API. This defaults to "1" if you don't specify what rendering driver to use when creating the renderer.
 * Added the hint SDL_HINT_EVENT_LOGGING to enable logging of SDL events for debugging purposes
-* Added the hint SDL_HINT_GAMECONTROLLERCONFIG_FILE to specify a file that will be loaded at joystick initialization with game controller bindings
+* Added the hint SDL_HINT_GAMECONTROLLERCONFIG_FILE to specify a file that will be loaded at joystick initialization with engine controller bindings
 * Added the hint SDL_HINT_MOUSE_TOUCH_EVENTS to control whether SDL will synthesize touch events from mouse events
 * Improved handling of malformed WAVE and BMP files, fixing potential security exploits
 
@@ -284,7 +284,7 @@ General:
 * Added SDL_GetDisplayOrientation() to return the current display orientation
 * Added an event SDL_DISPLAYEVENT which is sent when the display orientation changes
 * Added HIDAPI joystick drivers for more consistent support for Xbox, PS4 and Nintendo Switch Pro controller support across platforms. (Thanks to Valve for contributing the PS4 and Nintendo Switch Pro controller support)
-* Added support for many other popular game controllers
+* Added support for many other popular engine controllers
 * Added SDL_JoystickGetDevicePlayerIndex(), SDL_JoystickGetPlayerIndex(), and SDL_GameControllerGetPlayerIndex() to get the player index for a controller. For XInput controllers this returns the XInput index for the controller.
 * Added SDL_GameControllerRumble() and SDL_JoystickRumble() which allow simple rumble without using the haptics API
 * Added SDL_GameControllerMappingForDeviceIndex() to get the mapping for a controller before it's opened
@@ -376,7 +376,7 @@ General:
 	SDL_GetMemoryFunctions()
 	SDL_SetMemoryFunctions()
 	SDL_GetNumAllocations()
-* Added locking functions for multi-threaded access to the joystick and game controller APIs:
+* Added locking functions for multi-threaded access to the joystick and engine controller APIs:
 	SDL_LockJoysticks()
 	SDL_UnlockJoysticks()
 * The following functions are now thread-safe:
@@ -402,8 +402,8 @@ General:
   This is all the platform-specific code you need to bring up Vulkan on all SDL platforms. You can look at an example in test/testvulkan.c
 * Added SDL_ComposeCustomBlendMode() to create custom blend modes for 2D rendering
 * Added SDL_HasNEON() which returns whether the CPU has NEON instruction support
-* Added support for many game controllers, including the Nintendo Switch Pro Controller
-* Added support for inverted axes and separate axis directions in game controller mappings
+* Added support for many engine controllers, including the Nintendo Switch Pro Controller
+* Added support for inverted axes and separate axis directions in engine controller mappings
 * Added functions to return information about a joystick before it's opened:
 	SDL_JoystickGetDeviceVendor()
 	SDL_JoystickGetDeviceProduct()
@@ -416,11 +416,11 @@ General:
 	SDL_JoystickGetProductVersion()
 	SDL_JoystickGetType()
 	SDL_JoystickGetAxisInitialState()
-* Added functions to return information about an open game controller:
+* Added functions to return information about an open engine controller:
 	SDL_GameControllerGetVendor()
 	SDL_GameControllerGetProduct()
 	SDL_GameControllerGetProductVersion()
-* Added SDL_GameControllerNumMappings() and SDL_GameControllerMappingForIndex() to be able to enumerate the built-in game controller mappings
+* Added SDL_GameControllerNumMappings() and SDL_GameControllerMappingForIndex() to be able to enumerate the built-in engine controller mappings
 * Added SDL_LoadFile() and SDL_LoadFile_RW() to load a file into memory
 * Added SDL_DuplicateSurface() to make a copy of a surface
 * Added an experimental JACK audio driver
@@ -437,7 +437,7 @@ Windows:
 * The old XAudio2 audio driver is deprecated and will be removed in the next release
 * Added hints SDL_HINT_WINDOWS_INTRESOURCE_ICON and SDL_HINT_WINDOWS_INTRESOURCE_ICON_SMALL to specify a custom icon resource ID for SDL windows
 * The hint SDL_HINT_WINDOWS_DISABLE_THREAD_NAMING is now on by default for compatibility with .NET languages and various Windows debuggers
-* Updated the GUID format for game controller mappings, older mappings will be automatically converted on load
+* Updated the GUID format for engine controller mappings, older mappings will be automatically converted on load
 * Implemented the SDL_WINDOW_ALWAYS_ON_TOP flag on Windows
 
 Linux:
@@ -582,7 +582,7 @@ iOS:
 * The SDL_WINDOW_ALLOW_HIGHDPI window flag now enables high-dpi support, and SDL_GL_GetDrawableSize() or SDL_GetRendererOutputSize() gets the window resolution in pixels
 * SDL_GetWindowSize() and display mode sizes are in the "DPI-independent points" / "screen coordinates" coordinate space rather than pixels (matches OS X behavior)
 * Added native resolution support for the iPhone 6 Plus
-* Added support for MFi game controllers
+* Added support for MFi engine controllers
 * Added support for the hint SDL_HINT_ACCELEROMETER_AS_JOYSTICK
 * Added sRGB OpenGL ES context support on iOS 7+
 * Added support for SDL_DisableScreenSaver(), SDL_EnableScreenSaver() and the hint SDL_HINT_VIDEO_ALLOW_SCREENSAVER
@@ -613,9 +613,9 @@ Mac OS X:
 ---------------------------------------------------------------------------
 General:
 * Added SDL_GL_ResetAttributes() to reset OpenGL attributes to default values
-* Added an API to load a database of game controller mappings from a file:
+* Added an API to load a database of engine controller mappings from a file:
     SDL_GameControllerAddMappingsFromFile(), SDL_GameControllerAddMappingsFromRW()
-* Added game controller mappings for the PS4 and OUYA controllers
+* Added engine controller mappings for the PS4 and OUYA controllers
 * Added SDL_GetDefaultAssertionHandler() and SDL_GetAssertionHandler()
 * Added SDL_DetachThread()
 * Added SDL_HasAVX() to determine if the CPU has AVX features
@@ -627,7 +627,7 @@ General:
 * Added a hint SDL_HINT_MOUSE_RELATIVE_MODE_WARP to specify whether mouse relative mode should be emulated using mouse warping.
 * testgl2 does not need to link with libGL anymore
 * Added testgles2 test program to demonstrate working with OpenGL ES 2.0
-* Added controllermap test program to visually map a game controller
+* Added controllermap test program to visually map a engine controller
 
 Windows:
 * Support for OpenGL ES 2.x contexts using either WGL or EGL (natively via

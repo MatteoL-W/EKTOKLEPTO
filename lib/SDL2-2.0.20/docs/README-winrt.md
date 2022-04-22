@@ -77,9 +77,9 @@ Here is a rough list of what works, and what doesn't:
   * .DLL file loading.  Libraries *MUST* be packaged inside applications.  Loading
     anything outside of the app is not supported.
   * system path retrieval via SDL's filesystem APIs
-  * game controllers.  Support is provided via the SDL_Joystick and
+  * engine controllers.  Support is provided via the SDL_Joystick and
     SDL_GameController APIs, and is backed by Microsoft's XInput API.  Please
-    note, however, that Windows limits game-controller support in UWP apps to,
+    note, however, that Windows limits engine-controller support in UWP apps to,
     "Xbox compatible controllers" (many controllers that work in Win32 apps,
     do not work in UWP, due to restrictions in UWP itself.) 
   * multi-touch input
@@ -109,7 +109,7 @@ Here is a rough list of what works, and what doesn't:
     SDL_CreateSystemCursor() (unsupported on Windows Phone)
   * SDL_WarpMouseInWindow() or SDL_WarpMouseGlobal().  This are not currently
     supported by WinRT itself.
-  * joysticks and game controllers that either are not supported by
+  * joysticks and engine controllers that either are not supported by
     Microsoft's XInput API, or are not supported within UWP apps (many
     controllers that work in Win32, do not work in UWP, due to restrictions in
     UWP itself).
@@ -538,13 +538,13 @@ window, again, seeing what Visual Studio says about it.
 
 #### Game controllers / joysticks aren't working!
 
-Windows only permits certain game controllers and joysticks to work within
-WinRT / UWP apps.  Even if a game controller or joystick works in a Win32
+Windows only permits certain engine controllers and joysticks to work within
+WinRT / UWP apps.  Even if a engine controller or joystick works in a Win32
 app, that device is not guaranteed to work inside a WinRT / UWP app.
 
 According to Microsoft, "Xbox compatible controllers" should work inside
 UWP apps, potentially with more working in the future.  This includes, but
 may not be limited to, Microsoft-made Xbox controllers and USB adapters.
-(Source: https://social.msdn.microsoft.com/Forums/en-US/9064838b-e8c3-4c18-8a83-19bf0dfe150d/xinput-fails-to-detect-game-controllers?forum=wpdevelop)
+(Source: https://social.msdn.microsoft.com/Forums/en-US/9064838b-e8c3-4c18-8a83-19bf0dfe150d/xinput-fails-to-detect-engine-controllers?forum=wpdevelop)
 
 
