@@ -66,6 +66,8 @@ if (WIN32)
 
     # On linux
 else ()
+    list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
+    # Find and link SDL2
     find_package(SDL2 REQUIRED)
     target_include_directories(${PROJECT_NAME} PRIVATE ${SDL2_INCLUDE_DIRS})
     target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES})
@@ -75,10 +77,11 @@ else ()
     target_include_directories(${PROJECT_NAME} PRIVATE ${SDL2_IMAGE_INCLUDE_DIRS})
     target_link_libraries(${PROJECT_NAME} ${SDL2_IMAGE_LIBRARIES})
 
-    # Find and link SDL2_ttf
+    # Find and link SDL2_gfx
     find_package(SDL2_ttf REQUIRED)
     target_include_directories(${PROJECT_NAME} PRIVATE ${SDL2_TTF_INCLUDE_DIRS})
     target_link_libraries(${PROJECT_NAME} ${SDL2_TTF_LIBRARIES})
+
 
     # If doesnt work, try this
     # find_package(SDL2_image REQUIRED)
