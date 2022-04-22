@@ -6,8 +6,8 @@
 
 class MenuInterface : public Interface {
 public:
-    explicit MenuInterface(Engine *game)
-            : engine(game), menu(new Menu()) {
+    explicit MenuInterface(Engine *engine)
+            : engine(engine), menu(new Menu()) {
     }
 
     ~MenuInterface() = default;

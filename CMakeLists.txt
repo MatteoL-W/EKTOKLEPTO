@@ -67,8 +67,19 @@ if (WIN32)
     # On linux
 else ()
     find_package(SDL2 REQUIRED)
-    find_package(SDL_image REQUIRED)
-    find_package(SDL_ttf REQUIRED)
+    target_include_directories(${PROJECT_NAME} PRIVATE ${SDL2_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} ${SDL2_LIBRARIES})
+
+    # Find and link SDL2_image
+    find_package(SDL2_image REQUIRED)
+    target_include_directories(${PROJECT_NAME} PRIVATE ${SDL2_IMAGE_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} ${SDL2_IMAGE_LIBRARIES})
+
+    # Find and link SDL2_ttf
+    find_package(SDL2_ttf REQUIRED)
+    target_include_directories(${PROJECT_NAME} PRIVATE ${SDL2_TTF_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} ${SDL2_TTF_LIBRARIES})
+
     # If doesnt work, try this
     # find_package(SDL2_image REQUIRED)
     # find_package(SDL2_ttf REQUIRED)
