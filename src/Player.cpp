@@ -1,10 +1,10 @@
 #include <GL/gl.h>
-#include "../include/Box.hpp"
+#include "../include/Player.hpp"
 #include "../include/tools/draw.hpp"
 
-Box::~Box() {}
+Player::~Player() {}
 
-void Box::draw() {
-    glColor3f(1., 0, 0);
+void Player::draw() {
+    glColor3f(r, g, b);
     drawRect(xCoord1, yCoord1, xCoord2, yCoord2);
 }

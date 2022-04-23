@@ -1,5 +1,4 @@
 #include <fstream>
-#include <GL/gl.h>
 #include <iostream>
 #include <cstring>
 #include "../include/Map.hpp"
@@ -12,7 +11,6 @@ Map::Map() {
  * @brief Update the map
  */
 void Map::update() {
-
 }
 
 /**
