@@ -1,0 +1,11 @@
+// Création de la map
+[mapWidth] [mapHeight]
+
+// On positionne tous nos joueurs (quel type ? position de départ ? position de fin))
+// [idCarré] [x(positionDepartCarré1)] [y(positionDepartCarré1)] [x(positionFinaleCarré1)] [y(positionFinaleCarré1)]
+// [idCarré] [x(positionDepartCarré2)] [y(positionDepartCarré2)] [x(positionFinaleCarré2)] [y(positionFinaleCarré2)]
+// [idCarré] [x(positionDepartCarréN)] [y(positionDepartCarréN)] [x(positionFinaleCarréN)] [y(positionFinaleCarréN)]
+
+// Faut trouver un moyen pour séparer les trois parties
+[xTopLeft] [yTopLeft] [xBottomRight] [yBottomRight] [maybe mettre un truc vitesse en optionnel]
+

@@ -13,6 +13,7 @@ void GameInterface::handleEvents() {
         engine->setRunning(false);
     }
 
+    int x1 = -5, y1 = -5, x2 = 5, y2 = 5;
 }
 
 /**
@@ -30,3 +31,4 @@ void GameInterface::render() {
 
     SDL_RenderPresent(Engine::renderer);
 }
+
