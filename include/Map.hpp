@@ -1,6 +1,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 #include "Box.hpp"
 #include "Player.hpp"
 
@@ -17,9 +18,9 @@ public:
 
     void draw();
 
-    int boxCount = 0;
+    size_t boxCount = 0;
 
-    int playerCount = 0;
+    size_t playerCount = 0;
 
 private:
     void loadMapInfo(int idMap);
@@ -28,7 +29,7 @@ private:
 
     int mapWidth, mapHeight;
 
-    Box *boxes[MAX_SQUARES];
+    std::vector<Box*> boxes;
 
-    Player *players[MAX_PLAYERS];
+    std::vector<Player*> players;
 };

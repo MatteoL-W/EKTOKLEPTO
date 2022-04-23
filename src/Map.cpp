@@ -17,11 +17,11 @@ void Map::update() {
  * @brief Draw the map
  */
 void Map::draw() {
-    for (int i = 0; i < boxCount; i++) {
+    for (size_t i = 0; i < boxCount; i++) {
         boxes[i]->draw();
     }
 
-    for (int i = 0; i < playerCount; i++) {
+    for (size_t i = 0; i < playerCount; i++) {
         players[i]->draw();
         players[i]->drawEndPlace();
     }
@@ -73,7 +73,7 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
         if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3] ||
             parameter[0] != parameter[4]) {
             //std::cout << "Box n" << i << " : " << parameter[0] << " " << parameter[1] << " " << parameter[2] << " " << parameter[3] << std::endl;
-            players[playerCount] = new Player(parameter[0], parameter[1], parameter[2], parameter[3], parameter[4]);
+            players.push_back(new Player(parameter[0], parameter[1], parameter[2], parameter[3], parameter[4]));
             playerCount++;
         }
     }
@@ -93,7 +93,7 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
 
         if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3]) {
             //std::cout << "Box n" << i << " : " << parameter[0] << " " << parameter[1] << " " << parameter[2] << " " << parameter[3] << std::endl;
-            boxes[boxCount] = new Box(parameter[0], parameter[1], parameter[2], parameter[3]);
+            boxes.push_back(new Box(parameter[0], parameter[1], parameter[2], parameter[3]));
             boxCount++;
         }
     }
