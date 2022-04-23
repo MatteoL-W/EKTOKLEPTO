@@ -1,6 +1,7 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
 #include <GL/gl.h>
+#include <GL/glu.h>
 #include <iostream>
 
 #include "../include/Engine.hpp"
@@ -52,6 +53,8 @@ Engine::Engine() {
         exit(1);
     }
 
+    initiateWindowSize();
+
     /* Define the interfaces */
     menuInterface = new MenuInterface(this);
     gameInterface = new GameInterface(this);
@@ -82,4 +85,21 @@ void Engine::refresh() {
     currentInterface->render();
     SDL_GL_SwapWindow(window);
     currentInterface->handleEvents();
+}
+
+void Engine::initiateWindowSize() {
+    float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
+
+    glViewport(0, 0, Engine::WINDOW_WIDTH, Engine::WINDOW_HEIGHT);
+    glMatrixMode(GL_PROJECTION);
+    glLoadIdentity();
+    if (aspectRatio > 1) {
+        gluOrtho2D(
+                -GL_VIEW_SIZE / 2. * aspectRatio, GL_VIEW_SIZE / 2. * aspectRatio,
+                -GL_VIEW_SIZE / 2., GL_VIEW_SIZE / 2.);
+    } else {
+        gluOrtho2D(
+                -GL_VIEW_SIZE / 2., GL_VIEW_SIZE / 2.,
+                -GL_VIEW_SIZE / 2. / aspectRatio, GL_VIEW_SIZE / 2. / aspectRatio);
+    }
 }

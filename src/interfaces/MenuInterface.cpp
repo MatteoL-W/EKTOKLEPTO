@@ -30,5 +30,5 @@ void MenuInterface::render() {
 
     menu->draw();
 
-    SDL_RenderPresent(Engine::renderer);
+    //SDL_RenderPresent(Engine::renderer);
 }

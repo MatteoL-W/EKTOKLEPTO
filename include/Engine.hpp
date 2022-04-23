@@ -21,11 +21,14 @@ public:
 
     static const int WINDOW_HEIGHT = 750;
 
+    // Donc 20 unités de large
+    constexpr static const float GL_VIEW_SIZE = 20.;
+
     static SDL_Renderer *renderer;
 
     void setRunning(bool newState) { isRunning = newState; }
 
-    bool running() { return isRunning; };
+    bool running() const { return isRunning; };
 
     Interface *getCurrentInterface() { return currentInterface; };
 
@@ -37,4 +40,6 @@ private:
     bool isRunning = false;
 
     Interface *currentInterface;
+
+    static void initiateWindowSize();
 };
