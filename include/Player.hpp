@@ -2,19 +2,32 @@
 
 class Player {
 public:
-    Player(int p_type, int p_xCoord1, int p_yCoord1, int p_xCoord2, int p_yCoord2, float p_r, float p_g, float p_b)
-        : type(p_type), xCoord1(p_xCoord1), yCoord1(p_yCoord1), xCoord2(p_xCoord2), yCoord2(p_yCoord2), r(p_r), g(p_g), b(p_b) {}
+    Player(int p_type, float p_xStart, float p_yStart, float p_xEnd, float p_yEnd)
+            : type(p_type), xStart(p_xStart), yStart(p_yStart), xEnd(p_xEnd), yEnd(p_yEnd) {
+        switch (type) {
+            case 1:
+                width = 1;
+                height = 1;
+                r = 0;
+                g = 1;
+                b = 0;
+        }
+    }
 
     ~Player();
 
     void draw();
 
+    void drawEndPlace();
+
 private:
     int type;
 
-    int xCoord1, yCoord1;
+    float xStart, yStart;
 
-    int xCoord2, yCoord2;
+    float xEnd, yEnd;
+
+    float width, height;
 
     float r, g, b;
 };

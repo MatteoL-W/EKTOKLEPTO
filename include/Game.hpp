@@ -13,5 +13,5 @@ public:
     void draw();
 
 private:
-    Map* currentMap;
+    Map *currentMap;
 };

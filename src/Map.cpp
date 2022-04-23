@@ -20,6 +20,11 @@ void Map::draw() {
     for (int i = 0; i < boxCount; i++) {
         boxes[i]->draw();
     }
+
+    for (int i = 0; i < playerCount; i++) {
+        players[i]->draw();
+        players[i]->drawEndPlace();
+    }
 }
 
 void Map::loadMapInfo(int idMap) {
@@ -29,10 +34,10 @@ void Map::loadMapInfo(int idMap) {
     std::string mapPath = "assets/maps/" + std::to_string(idMap) + ".txt";
 
     mapFile.open(mapPath, std::ios::in); //open a file to perform read operation using file object
-    if (mapFile.is_open()){   //checking whether the file is open
+    if (mapFile.is_open()) {   //checking whether the file is open
         std::string currentLine;
 
-        while(getline(mapFile, currentLine)){  //read data from file object and put it into string.
+        while (getline(mapFile, currentLine)) {  //read data from file object and put it into string.
             if (currentLine.empty()) {
                 partCounting++;
                 counter = 0;
@@ -48,20 +53,38 @@ void Map::loadMapInfo(int idMap) {
 }
 
 void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
-    char* widthAndHeight = mapInformation[0][0].data();
+    char *widthAndHeight = mapInformation[0][0].data();
     mapWidth = atoi(strtok(widthAndHeight, " "));
     mapHeight = atoi(strtok(nullptr, " "));
 
     // créer les players
+    for (int i = 0; i < MAX_PLAYERS; i++) {
+        char *playersInformation = mapInformation[1][i].data();
+        int counter = 0;
+        float parameter[5] = {0, 0, 0, 0, 0};
 
+        char *line = strtok(playersInformation, " ");
+        while (line != NULL) {
+            parameter[counter] = atoi(line);
+            line = strtok(NULL, " ");
+            counter++;
+        }
+
+        if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3] ||
+            parameter[0] != parameter[4]) {
+            //std::cout << "Box n" << i << " : " << parameter[0] << " " << parameter[1] << " " << parameter[2] << " " << parameter[3] << std::endl;
+            players[playerCount] = new Player(parameter[0], parameter[1], parameter[2], parameter[3], parameter[4]);
+            playerCount++;
+        }
+    }
 
     // stocker dans tableaux
     for (int i = 0; i < MAX_SQUARES; i++) {
-        char* rectanglesInformation = mapInformation[2][i].data();
+        char *rectanglesInformation = mapInformation[2][i].data();
         int counter = 0;
-        int parameter[4] = {0, 0, 0, 0};
+        float parameter[4] = {0, 0, 0, 0};
 
-        char* line = strtok(rectanglesInformation, " ");
+        char *line = strtok(rectanglesInformation, " ");
         while (line != NULL) {
             parameter[counter] = atoi(line);
             line = strtok(NULL, " ");
