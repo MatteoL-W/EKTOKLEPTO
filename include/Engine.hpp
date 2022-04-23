@@ -32,6 +32,8 @@ public:
 private:
     SDL_Window *window;
 
+    SDL_GLContext context;
+
     bool isRunning = false;
 
     Interface *currentInterface;

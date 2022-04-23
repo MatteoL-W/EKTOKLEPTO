@@ -1,5 +1,7 @@
 #pragma once
 
+#include "Map.hpp"
+
 class Game {
 public:
     Game();
@@ -11,4 +13,5 @@ public:
     void draw();
 
 private:
+    Map* currentMap;
 };

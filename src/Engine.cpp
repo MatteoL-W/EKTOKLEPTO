@@ -1,5 +1,6 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include <GL/gl.h>
 #include <iostream>
 
 #include "../include/Engine.hpp"
@@ -33,8 +34,23 @@ Engine::Engine() {
 
     /* Create SDL needs */
     window = SDL_CreateWindow("Thomas Was Alone", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH,
-                              WINDOW_HEIGHT, SDL_WINDOW_SHOWN);
+                              WINDOW_HEIGHT, SDL_WINDOW_OPENGL | SDL_WINDOW_SHOWN);
     renderer = SDL_CreateRenderer(window, -1, 0);
+
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MAJOR_VERSION, 2);
+    SDL_GL_SetAttribute(SDL_GL_CONTEXT_MINOR_VERSION, 1);
+    SDL_GL_SetAttribute(SDL_GL_DOUBLEBUFFER, 1);
+
+    context = SDL_GL_CreateContext(window);
+
+    if (context == nullptr) {
+        std::string error = SDL_GetError();
+        std::cout << "Erreur lors de la creation du contexte OpenGL";
+
+        SDL_DestroyWindow(window);
+        SDL_Quit();
+        exit(1);
+    }
 
     /* Define the interfaces */
     menuInterface = new MenuInterface(this);
@@ -52,6 +68,7 @@ Engine::~Engine() = default;
  * @brief Quit the engine properly
  */
 void Engine::clean() {
+    SDL_GL_DeleteContext(context);
     SDL_DestroyWindow(window);
     SDL_DestroyRenderer(renderer);
     SDL_Quit();
@@ -61,7 +78,8 @@ void Engine::clean() {
  * @brief Refresh the engine and chose the right interface
  */
 void Engine::refresh() {
-    currentInterface->handleEvents();
     currentInterface->update();
     currentInterface->render();
+    SDL_GL_SwapWindow(window);
+    currentInterface->handleEvents();
 }

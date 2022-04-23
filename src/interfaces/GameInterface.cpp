@@ -12,14 +12,13 @@ void GameInterface::handleEvents() {
     if (event.type == SDL_QUIT) {
         engine->setRunning(false);
     }
-
-    int x1 = -5, y1 = -5, x2 = 5, y2 = 5;
 }
 
 /**
  * @brief Update the menu
  */
 void GameInterface::update() {
+    game->update();
 }
 
 /**
@@ -28,7 +27,6 @@ void GameInterface::update() {
 void GameInterface::render() {
     SDL_RenderClear(Engine::renderer);
 
-
-    SDL_RenderPresent(Engine::renderer);
+    game->draw();
 }
 
