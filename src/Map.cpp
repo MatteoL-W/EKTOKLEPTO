@@ -7,15 +7,9 @@ Map::Map() {
     loadMapInfo(1);
 }
 
-/**
- * @brief Update the map
- */
 void Map::update() {
 }
 
-/**
- * @brief Draw the map
- */
 void Map::draw() {
     for (size_t i = 0; i < boxCount; i++) {
         boxes[i]->draw();
@@ -27,6 +21,10 @@ void Map::draw() {
     }
 }
 
+/**
+ * @brief Saving the data from .txt into the object properties
+ * @param idMap
+ */
 void Map::loadMapInfo(int idMap) {
     int partCounting = 0, counter = 0;
 
@@ -54,6 +52,7 @@ void Map::loadMapInfo(int idMap) {
 }
 
 void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
+    // Stock width an height in the object data
     char *widthAndHeight = mapInformation[0][0].data();
     mapWidth = atoi(strtok(widthAndHeight, " "));
     mapHeight = atoi(strtok(nullptr, " "));
@@ -62,11 +61,15 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
     stockBoxes(mapInformation[2]);
 }
 
+/**
+ * @brief Load all the boxes from txt file in the boxes vector
+ * @param lineInformation
+ */
 void Map::stockBoxes(std::string lineInformation[32]) {
     for (int i = 0; i < MAX_SQUARES; i++) {
         char *rectanglesInformation = lineInformation[i].data();
-        int counter = 0;
         float parameter[4] = {0, 0, 0, 0};
+        int counter = 0;
 
         char *line = strtok(rectanglesInformation, " ");
         while (line != NULL) {
@@ -82,11 +85,15 @@ void Map::stockBoxes(std::string lineInformation[32]) {
     }
 }
 
+/**
+ * @brief Load all the players from the txt in the players vector
+ * @param lineInformation
+ */
 void Map::stockPlayers(std::string lineInformation[32]) {
     for (int i = 0; i < MAX_PLAYERS; i++) {
         char *playersInformation = lineInformation[i].data();
-        int counter = 0;
         float parameter[5] = {0, 0, 0, 0, 0};
+        int counter = 0;
 
         char *line = strtok(playersInformation, " ");
         while (line != NULL) {

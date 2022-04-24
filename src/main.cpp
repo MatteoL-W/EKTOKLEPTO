@@ -1,16 +1,10 @@
 #include <SDL2/SDL.h>
 
-#include "../include/Main.hpp"
+#include "../include/main.hpp"
 #include "../include/Engine.hpp"
 #include <SDL2/SDL.h>
-#include <SDL2/SDL_image.h>
-#include <GL/gl.h>
-#include <GL/glu.h>
-#include <glm/gtx/intersect.hpp>
 
 Engine *engine = nullptr;
-GLuint idtest;
-glm::vec3 o;
 
 int main(int argc, char *argv[]) {
     engine = new Engine();
@@ -20,7 +14,7 @@ int main(int argc, char *argv[]) {
 
         engine->refresh();
 
-        // FPS Handle (custom in Main.hpp)
+        // Custom the FPS in Main.hpp
         unsigned int frameTime = SDL_GetTicks() - frameStart;
         if (FRAME_DELAY > frameTime) {
             SDL_Delay(FRAME_DELAY - frameTime);

@@ -12,16 +12,10 @@ Menu::Menu() {
     );
 }
 
-/**
- * @brief Update the menu
- */
 void Menu::update() {
 
 }
 
-/**
- * @brief Draw the menu
- */
 void Menu::draw() {
     titleText->draw();
 }

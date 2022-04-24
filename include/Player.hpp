@@ -6,14 +6,9 @@ class Player {
 public:
     Player(int p_type, float p_xStart, float p_yStart, float p_xEnd, float p_yEnd)
             : type(p_type), positionStart(p_xStart, p_yStart), positionEnd(p_xEnd, p_yEnd) {
-        switch (type) {
-            case 1:
-                width = 1;
-                height = 1;
-                r = 0.74;
-                g = 0.3;
-                b = 0.25;
-        }
+        setPropsFromType();
+        positionStartBottomRight = glm::vec2(positionStart.x + width, positionStart.y + height);
+        positionEndBottomRight = glm::vec2(positionEnd.x + width, positionEnd.y + height);
     }
 
     ~Player();
@@ -26,10 +21,14 @@ private:
     int type;
 
     glm::vec2 positionStart;
+    glm::vec2 positionStartBottomRight;
 
     glm::vec2 positionEnd;
+    glm::vec2 positionEndBottomRight;
 
     float width, height;
 
     float r, g, b;
+
+    void setPropsFromType();
 };

@@ -1,3 +1,6 @@
 #pragma once
 
-void drawRect(int x1, int y1, int x2, int y2, bool filled = true);
+#include <GL/gl.h>
+#include "glm/vec2.hpp"
+
+void drawRect(glm::vec2 topLeftCoordinate, glm::vec2 bottomRightCoordinate, bool filled = true);

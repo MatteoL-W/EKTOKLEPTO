@@ -78,20 +78,22 @@ void Engine::clean() {
 }
 
 /**
- * @brief Refresh the engine and chose the right interface
+ * @brief Chose the right interface and refresh execute its method
  */
 void Engine::refresh() {
     currentInterface->update();
 
     // Blue background
     SDL_RenderClear(Engine::renderer);
-    glClearColor(0.18, 0.22, 0.41, 1);
     currentInterface->render();
     SDL_GL_SwapWindow(window);
 
     currentInterface->handleEvents();
 }
 
+/**
+ * @brief Initiate the window size and the orthonormal coordinate system
+ */
 void Engine::initiateWindowSize() {
     glViewport(0, 0, Engine::WINDOW_WIDTH, Engine::WINDOW_HEIGHT);
     glMatrixMode(GL_PROJECTION);
