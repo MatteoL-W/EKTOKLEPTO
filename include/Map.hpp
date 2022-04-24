@@ -25,11 +25,15 @@ public:
 private:
     void loadMapInfo(int idMap);
 
-    void stockMapInfo(std::string pString[3][MAX_SQUARES]);
+    void stockMapInfo(std::string mapInformation[3][MAX_SQUARES]);
 
     int mapWidth, mapHeight;
 
     std::vector<Box*> boxes;
 
     std::vector<Player*> players;
+
+    void stockPlayers(std::string *);
+
+    void stockBoxes(std::string *);
 };

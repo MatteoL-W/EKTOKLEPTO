@@ -29,9 +29,10 @@ void Map::draw() {
 
 void Map::loadMapInfo(int idMap) {
     int partCounting = 0, counter = 0;
-    std::fstream mapFile;
-    std::string mapInformation[3][MAX_SQUARES];
+
     std::string mapPath = "assets/maps/" + std::to_string(idMap) + ".txt";
+    std::string mapInformation[3][MAX_SQUARES];
+    std::fstream mapFile;
 
     mapFile.open(mapPath, std::ios::in); //open a file to perform read operation using file object
     if (mapFile.is_open()) {   //checking whether the file is open
@@ -57,9 +58,33 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
     mapWidth = atoi(strtok(widthAndHeight, " "));
     mapHeight = atoi(strtok(nullptr, " "));
 
-    // créer les players
+    stockPlayers(mapInformation[1]);
+    stockBoxes(mapInformation[2]);
+}
+
+void Map::stockBoxes(std::string lineInformation[32]) {
+    for (int i = 0; i < MAX_SQUARES; i++) {
+        char *rectanglesInformation = lineInformation[i].data();
+        int counter = 0;
+        float parameter[4] = {0, 0, 0, 0};
+
+        char *line = strtok(rectanglesInformation, " ");
+        while (line != NULL) {
+            parameter[counter] = atoi(line);
+            line = strtok(NULL, " ");
+            counter++;
+        }
+
+        if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3]) {
+            boxes.push_back(new Box(parameter[0], parameter[1], parameter[2], parameter[3]));
+            boxCount++;
+        }
+    }
+}
+
+void Map::stockPlayers(std::string lineInformation[32]) {
     for (int i = 0; i < MAX_PLAYERS; i++) {
-        char *playersInformation = mapInformation[1][i].data();
+        char *playersInformation = lineInformation[i].data();
         int counter = 0;
         float parameter[5] = {0, 0, 0, 0, 0};
 
@@ -72,29 +97,8 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
 
         if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3] ||
             parameter[0] != parameter[4]) {
-            //std::cout << "Box n" << i << " : " << parameter[0] << " " << parameter[1] << " " << parameter[2] << " " << parameter[3] << std::endl;
             players.push_back(new Player(parameter[0], parameter[1], parameter[2], parameter[3], parameter[4]));
             playerCount++;
-        }
-    }
-
-    // stocker dans tableaux
-    for (int i = 0; i < MAX_SQUARES; i++) {
-        char *rectanglesInformation = mapInformation[2][i].data();
-        int counter = 0;
-        float parameter[4] = {0, 0, 0, 0};
-
-        char *line = strtok(rectanglesInformation, " ");
-        while (line != NULL) {
-            parameter[counter] = atoi(line);
-            line = strtok(NULL, " ");
-            counter++;
-        }
-
-        if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3]) {
-            //std::cout << "Box n" << i << " : " << parameter[0] << " " << parameter[1] << " " << parameter[2] << " " << parameter[3] << std::endl;
-            boxes.push_back(new Box(parameter[0], parameter[1], parameter[2], parameter[3]));
-            boxCount++;
         }
     }
 }
