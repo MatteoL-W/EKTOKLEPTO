@@ -1,9 +1,11 @@
 #pragma once
 
+#include "glm/vec2.hpp"
+
 class Player {
 public:
     Player(int p_type, float p_xStart, float p_yStart, float p_xEnd, float p_yEnd)
-            : type(p_type), xStart(p_xStart), yStart(p_yStart), xEnd(p_xEnd), yEnd(p_yEnd) {
+            : type(p_type), positionStart(p_xStart, p_yStart), positionEnd(p_xEnd, p_yEnd) {
         switch (type) {
             case 1:
                 width = 1;
@@ -23,9 +25,9 @@ public:
 private:
     int type;
 
-    float xStart, yStart;
+    glm::vec2 positionStart;
 
-    float xEnd, yEnd;
+    glm::vec2 positionEnd;
 
     float width, height;
 

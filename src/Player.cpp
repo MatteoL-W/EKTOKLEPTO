@@ -7,10 +7,10 @@ Player::~Player() {}
 
 void Player::draw() {
     glColor3f(r, g, b);
-    drawRect(xStart, yStart, xStart + width, yStart + height);
+    drawRect(positionStart.x, positionStart.y, positionStart.x + width, positionStart.y + height);
 }
 
 void Player::drawEndPlace() {
     glColor3f(r, g, b);
-    drawRect(xEnd, yEnd, xEnd + width, yEnd + height, false);
+    drawRect(positionEnd.x, positionEnd.y, positionEnd.x + width, positionEnd.y + height, false);
 }
