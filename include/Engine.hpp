@@ -21,7 +21,6 @@ public:
 
     static const int WINDOW_HEIGHT = 750;
 
-    // Donc 20 unités de large
     constexpr static const float GL_VIEW_SIZE = 20.;
 
     static SDL_Renderer *renderer;
