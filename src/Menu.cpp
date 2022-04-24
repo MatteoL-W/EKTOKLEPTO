@@ -1,6 +1,6 @@
 #include "../include/Menu.hpp"
 #include "../include/Engine.hpp"
-#include "../include/Utils.hpp"
+#include "../include/tools/utils.hpp"
 #include "../include/variables/Color.hpp"
 
 Menu::Menu() {

@@ -88,11 +88,14 @@ void Engine::refresh() {
 }
 
 void Engine::initiateWindowSize() {
-    float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
-
     glViewport(0, 0, Engine::WINDOW_WIDTH, Engine::WINDOW_HEIGHT);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
+
+    // On définit plutôt les repère depuis le bas à gauche
+    gluOrtho2D(0, GL_VIEW_SIZE, 0, GL_VIEW_SIZE);
+
+    //float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
 
     /*if (aspectRatio > 1) {
         gluOrtho2D(
@@ -103,7 +106,4 @@ void Engine::initiateWindowSize() {
                 -GL_VIEW_SIZE / 2., GL_VIEW_SIZE / 2.,
                 -GL_VIEW_SIZE / 2. / aspectRatio, GL_VIEW_SIZE / 2. / aspectRatio);
     }*/
-
-    // On définit plutôt les repère depuis le bas à gauche
-    gluOrtho2D(0, GL_VIEW_SIZE, 0, GL_VIEW_SIZE);
 }

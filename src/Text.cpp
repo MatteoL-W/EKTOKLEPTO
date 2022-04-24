@@ -3,7 +3,7 @@
 #include <iostream>
 
 #include "../include/Engine.hpp"
-#include "../include/Text.hpp"
+#include "../include/tools/Text.hpp"
 
 /**
  * @brief Create a text
