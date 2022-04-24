@@ -93,7 +93,8 @@ void Engine::initiateWindowSize() {
     glViewport(0, 0, Engine::WINDOW_WIDTH, Engine::WINDOW_HEIGHT);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
-    if (aspectRatio > 1) {
+
+    /*if (aspectRatio > 1) {
         gluOrtho2D(
                 -GL_VIEW_SIZE / 2. * aspectRatio, GL_VIEW_SIZE / 2. * aspectRatio,
                 -GL_VIEW_SIZE / 2., GL_VIEW_SIZE / 2.);
@@ -101,5 +102,8 @@ void Engine::initiateWindowSize() {
         gluOrtho2D(
                 -GL_VIEW_SIZE / 2., GL_VIEW_SIZE / 2.,
                 -GL_VIEW_SIZE / 2. / aspectRatio, GL_VIEW_SIZE / 2. / aspectRatio);
-    }
+    }*/
+
+    // On définit plutôt les repère depuis le bas à gauche
+    gluOrtho2D(0, GL_VIEW_SIZE, 0, GL_VIEW_SIZE);
 }
