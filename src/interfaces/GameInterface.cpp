@@ -25,8 +25,6 @@ void GameInterface::update() {
  * @brief Render the menu
  */
 void GameInterface::render() {
-    SDL_RenderClear(Engine::renderer);
-
     game->draw();
 }
 

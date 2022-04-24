@@ -26,9 +26,6 @@ void MenuInterface::update() {
  * @brief Render the menu
  */
 void MenuInterface::render() {
-    SDL_RenderClear(Engine::renderer);
-
     menu->draw();
-
     //SDL_RenderPresent(Engine::renderer);
 }

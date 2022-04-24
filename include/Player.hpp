@@ -10,9 +10,9 @@ public:
             case 1:
                 width = 1;
                 height = 1;
-                r = 0;
-                g = 1;
-                b = 0;
+                r = 0.74;
+                g = 0.3;
+                b = 0.25;
         }
     }
 
