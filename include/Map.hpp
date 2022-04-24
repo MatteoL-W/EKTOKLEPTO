@@ -27,13 +27,15 @@ private:
 
     void stockMapInfo(std::string mapInformation[3][MAX_SQUARES]);
 
+    void stockPlayers(std::string *);
+
+    void stockBoxes(std::string *);
+
     int mapWidth, mapHeight;
 
     std::vector<Box*> boxes;
 
     std::vector<Player*> players;
 
-    void stockPlayers(std::string *);
-
-    void stockBoxes(std::string *);
+    Player* currentPlayer;
 };

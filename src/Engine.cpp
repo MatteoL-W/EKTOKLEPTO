@@ -86,9 +86,7 @@ void Engine::refresh() {
     // Blue background
     SDL_RenderClear(Engine::renderer);
     glClearColor(0.18, 0.22, 0.41, 1);
-
     currentInterface->render();
-
     SDL_GL_SwapWindow(window);
 
     currentInterface->handleEvents();

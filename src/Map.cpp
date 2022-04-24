@@ -101,5 +101,9 @@ void Map::stockPlayers(std::string lineInformation[32]) {
             playerCount++;
         }
     }
+
+    if (players[0] != nullptr) {
+        currentPlayer = players[0];
+    }
 }
 
