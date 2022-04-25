@@ -6,12 +6,12 @@ Player::~Player() {}
 
 void Player::draw() {
     glColor3f(r, g, b);
-    drawRect(positionStart, positionStartBottomRight);
+    drawRect(TLPositionStart, BRPositionStart);
 }
 
 void Player::drawEndPlace() {
     glColor3f(r, g, b);
-    drawRect(positionEnd, positionEndBottomRight, false);
+    drawRect(TLPositionEnd, BRPositionEnd, false);
 }
 
 void Player::setPropsFromType() {
