@@ -20,8 +20,14 @@ void GameInterface::handleEvents() {
     if (event.type == SDL_KEYDOWN) {
         for (size_t i = 0; i < currentMap->playerCount; i++) {
             if (event.key.keysym.sym == SDLK_KeysFrom1ToMax[i]) {
-                currentMap->setCurrentPlayer(currentMap->getPlayers()[i]);
+                currentMap->setCurrentPlayer((int)i);
             }
+        }
+
+        switch (event.key.keysym.sym) {
+            case SDLK_TAB:
+                currentMap->setCurrentPlayer(currentMap->currentPlayerId + 1);
+                break;
         }
     }
 }

@@ -22,7 +22,9 @@ public:
 
     size_t playerCount = 0;
 
-    void setCurrentPlayer(Player* player) { currentPlayer = player; };
+    int currentPlayerId = 0;
+
+    void setCurrentPlayer(int i);
 
     std::vector<Player*> getPlayers() { return players; };
 
