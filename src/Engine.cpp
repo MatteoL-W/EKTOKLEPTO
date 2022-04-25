@@ -53,8 +53,6 @@ Engine::Engine() {
         exit(1);
     }
 
-    initiateWindowSize();
-
     /* Define the interfaces */
     menuInterface = new MenuInterface(this);
     gameInterface = new GameInterface(this);
@@ -85,10 +83,13 @@ void Engine::refresh() {
 
     // Blue background
     SDL_RenderClear(Engine::renderer);
+    glClear(GL_COLOR_BUFFER_BIT);
     currentInterface->render();
     SDL_GL_SwapWindow(window);
 
     currentInterface->handleEvents();
+
+    initiateWindowSize();
 }
 
 /**

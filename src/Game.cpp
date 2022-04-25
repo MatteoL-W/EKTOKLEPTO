@@ -1,4 +1,4 @@
-#include <GL/GL.h>
+#include <GL/gl.h>
 #include "../include/Game.hpp"
 
 Game::Game() {
