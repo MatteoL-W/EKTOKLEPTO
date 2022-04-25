@@ -22,6 +22,10 @@ public:
 
     size_t playerCount = 0;
 
+    void setCurrentPlayer(Player* player) { currentPlayer = player; };
+
+    std::vector<Player*> getPlayers() { return players; };
+
 private:
     void loadMapInfo(int idMap);
 

@@ -110,7 +110,7 @@ void Map::stockPlayers(std::string lineInformation[32]) {
     }
 
     if (players[0] != nullptr) {
-        currentPlayer = players[0];
+        setCurrentPlayer(players[0]);
     }
 }
 

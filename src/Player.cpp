@@ -22,5 +22,13 @@ void Player::setPropsFromType() {
             r = 0.74;
             g = 0.3;
             b = 0.25;
+            break;
+        case 2:
+            width = 0.5;
+            height = 0.5;
+            r = 0;
+            g = 1;
+            b = 0;
+            break;
     }
 }

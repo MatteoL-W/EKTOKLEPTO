@@ -4,6 +4,7 @@
 #include <SDL2/SDL.h>
 
 #include "Interface.hpp"
+#include "Map.hpp"
 
 class Engine {
 public:
@@ -28,8 +29,6 @@ public:
     void setRunning(bool newState) { isRunning = newState; }
 
     bool running() const { return isRunning; };
-
-    Interface *getCurrentInterface() { return currentInterface; };
 
 private:
     SDL_Window *window;

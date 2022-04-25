@@ -7,7 +7,7 @@
 class GameInterface : public Interface {
 public:
     explicit GameInterface(Engine *game)
-            : engine(game), game(new Game()) {
+            : engine(game), game(new Game()), currentMap(this->game->getMap()) {
     }
 
     ~GameInterface() = default;
@@ -22,5 +22,7 @@ private:
     Engine *engine;
 
     Game *game;
+
+    Map *currentMap;
 };
 
