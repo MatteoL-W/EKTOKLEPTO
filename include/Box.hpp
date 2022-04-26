@@ -11,6 +11,14 @@ public:
 
     void draw();
 
+    glm::vec2 getTLPosition() { return TLPosition; };
+
+    glm::vec2 getBRPosition() { return BRPosition; };
+
+    glm::vec2 getTRPosition() { return {BRPosition.x, TLPosition.y}; };
+
+    glm::vec2 getBLPosition() { return {TLPosition.x, BRPosition.y}; };
+
 private:
     glm::vec2 TLPosition;
 

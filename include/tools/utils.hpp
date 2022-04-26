@@ -1,11 +1,7 @@
 #pragma once
 
-/**
- * @brief Get the padding to align center a text according to the block
- * @param blockWidth
- * @param textWidth
- * @return
- */
-int getPadding(int blockWidth, int textWidth) {
-    return (blockWidth - textWidth) / 2;
-}
+#include "glm/vec2.hpp"
+
+int getPadding(int blockWidth, int textWidth);
+
+glm::vec2 getPositionCenter(glm::vec2 topLeftCoord, glm::vec2 bottomRightCoord);

@@ -4,6 +4,7 @@
 #include "../include/Map.hpp"
 
 Map::Map() {
+    boxes = new QuadTreeNode();
     loadMapInfo(1);
 }
 
@@ -11,9 +12,7 @@ void Map::update() {
 }
 
 void Map::draw() {
-    for (size_t i = 0; i < boxCount; i++) {
-        boxes[i]->draw();
-    }
+    boxes->drawBoxes(true);
 
     for (size_t i = 0; i < playerCount; i++) {
         players[i]->draw();
@@ -57,6 +56,8 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
     mapWidth = atoi(strtok(widthAndHeight, " "));
     mapHeight = atoi(strtok(nullptr, " "));
 
+    boxes->init(glm::vec2(0, mapHeight), glm::vec2(mapWidth, 0));
+
     stockPlayers(mapInformation[1]);
     stockBoxes(mapInformation[2]);
 }
@@ -79,7 +80,7 @@ void Map::stockBoxes(std::string lineInformation[32]) {
         }
 
         if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3]) {
-            boxes.push_back(new Box(parameter[0], parameter[1], parameter[2], parameter[3]));
+            boxes->insertBox(new Box(parameter[0], parameter[1], parameter[2], parameter[3]));
             boxCount++;
         }
     }
@@ -110,7 +111,12 @@ void Map::stockPlayers(std::string lineInformation[32]) {
     }
 
     if (players[0] != nullptr) {
-        currentPlayer = players[0];
+        setCurrentPlayer(currentPlayerId);
     }
+}
+
+void Map::setCurrentPlayer(int i) {
+    currentPlayer = players[i];
+    currentPlayerId = i;
 }
 
