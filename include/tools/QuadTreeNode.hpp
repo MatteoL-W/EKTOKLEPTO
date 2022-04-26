@@ -70,10 +70,10 @@ struct QuadTreeNode {
         }
 
         // When it's not a leaf, nodes are defined so we assume we have no verification.
-        topLeft->drawBoxes(true);
-        topRight->drawBoxes(true);
-        bottomLeft->drawBoxes(true);
-        bottomRight->drawBoxes(true);
+        topLeft->drawBoxes(drawQuad);
+        topRight->drawBoxes(drawQuad);
+        bottomLeft->drawBoxes(drawQuad);
+        bottomRight->drawBoxes(drawQuad);
     }
 
     void insertBox(Box *box) {

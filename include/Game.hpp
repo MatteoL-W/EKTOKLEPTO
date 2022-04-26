@@ -12,7 +12,7 @@ public:
 
     void draw();
 
-    Map* getMap() { return currentMap; }
+    Map *getMap() { return currentMap; }
 
 private:
     Map *currentMap;

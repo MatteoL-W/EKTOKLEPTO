@@ -27,7 +27,7 @@ public:
 
     void setCurrentPlayer(int i);
 
-    std::vector<Player*> getPlayers() { return players; };
+    std::vector<Player *> getPlayers() { return players; };
 
 private:
     void loadMapInfo(int idMap);
@@ -40,12 +40,9 @@ private:
 
     int mapWidth, mapHeight;
 
-    std::vector<Box*> boxes;
+    QuadTreeNode *boxes;
 
-    std::vector<Player*> players;
+    std::vector<Player *> players;
 
-    Player* currentPlayer;
-
-    // temp
-    QuadTreeNode* root;
+    Player *currentPlayer;
 };

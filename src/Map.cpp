@@ -2,55 +2,22 @@
 #include <iostream>
 #include <cstring>
 #include "../include/Map.hpp"
-#include "../include/Box.hpp"
-#include "../include/tools/QuadTreeNode.hpp"
 
 Map::Map() {
-    //loadMapInfo(1);
-    root = new QuadTreeNode();
-    root->init(glm::vec2(0, 20), glm::vec2(20, 0));
-
-    //topleft
-    root->insertBox(new Box(1, 19, 2, 18));
-    root->insertBox(new Box(1, 17, 2, 16));
-    root->insertBox(new Box(1, 15, 2, 14));
-    root->insertBox(new Box(1, 13, 2, 12));
-    root->insertBox(new Box(1, 11, 2, 10));
-
-    root->insertBox(new Box(3, 19, 4, 18));
-    root->insertBox(new Box(3, 17, 4, 16));
-    root->insertBox(new Box(3, 15, 4, 14));
-    root->insertBox(new Box(3, 13, 4, 12));
-    root->insertBox(new Box(3, 11, 4, 10));
-
-    //bottomleft
-    root->insertBox(new Box(3, 4, 5, 2));
-
-    //top right
-    root->insertBox(new Box(12, 17, 14, 15));
-
-    // bottom right
-    root->insertBox(new Box(12, 2, 14, 0));
-    root->insertBox(new Box(12, 4, 14, 6));
-
-    QuadTreeNode* myArea = root->findCorrespondingQuad(glm::vec2(1,19));
-
+    boxes = new QuadTreeNode();
+    loadMapInfo(1);
 }
 
 void Map::update() {
 }
 
 void Map::draw() {
-    root->drawBoxes(true);
-
-    /*for (size_t i = 0; i < boxCount; i++) {
-        boxes[i]->draw();
-    }
+    boxes->drawBoxes(true);
 
     for (size_t i = 0; i < playerCount; i++) {
         players[i]->draw();
         players[i]->drawEndPlace();
-    }*/
+    }
 }
 
 /**
@@ -89,6 +56,8 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
     mapWidth = atoi(strtok(widthAndHeight, " "));
     mapHeight = atoi(strtok(nullptr, " "));
 
+    boxes->init(glm::vec2(0, mapHeight), glm::vec2(mapWidth, 0));
+
     stockPlayers(mapInformation[1]);
     stockBoxes(mapInformation[2]);
 }
@@ -111,7 +80,7 @@ void Map::stockBoxes(std::string lineInformation[32]) {
         }
 
         if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3]) {
-            boxes.push_back(new Box(parameter[0], parameter[1], parameter[2], parameter[3]));
+            boxes->insertBox(new Box(parameter[0], parameter[1], parameter[2], parameter[3]));
             boxCount++;
         }
     }
