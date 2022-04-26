@@ -66,123 +66,63 @@ struct QuadTreeNode {
     }
 
     void insertBox(Box *box) {
-        if (isLeaf()) {
+        if (isLeaf()) { // si topright; topleft; bottomright et bottomleft sont nullptr
             boxes.push_back(box);
         }
 
         if (isLeaf() && boxes.size() > 3) {
+            // Initialization
             if (!topRight) {
                 topRight = new QuadTreeNode();
                 topRight->init(glm::vec2(centerQuad.x, TLQuad.y), glm::vec2(BRQuad.x, centerQuad.y));
             }
+
             if (!topLeft) {
                 topLeft = new QuadTreeNode();
                 topLeft->init(TLQuad, centerQuad);
             }
+
             if (!bottomLeft) {
                 bottomLeft = new QuadTreeNode();
                 bottomLeft->init(glm::vec2(TLQuad.x, centerQuad.y), glm::vec2(centerQuad.x, BRQuad.y));
             }
+
             if (!bottomRight) {
                 bottomRight = new QuadTreeNode();
                 bottomRight->init(centerQuad, BRQuad);
             }
 
-            for (size_t i = 0; i < boxes.size(); i++) {
-                bool left = false;
-                bool right = false;
-                bool bottom = false;
-                bool top = false;
-
-                // Là j'ai une box : boxes[i]
-                // Je mets la box dans l'enfant(s) qui correspond
-                if (boxes[i]->getTLPosition().x < centerQuad.x) {
-                    // une partie est à gauche
-                    left = true;
-                }
-
-                if (boxes[i]->getTRPosition().x > centerQuad.x) {
-                    // une partie est à droite
-                    right = true;
-                }
-
-                if (boxes[i]->getBRPosition().y < centerQuad.y) {
-                    // une partie est en dessous
-                    bottom = true;
-                }
-
-                if (boxes[i]->getTLPosition().y > centerQuad.y) {
-                    // une partie est au dessus
-                    top = true;
-                }
-
-                // Vérification et insert
-                if (top && left) {
-                    std::cout << "topleft " << i << std::endl;
-                    topLeft->insertBox(boxes[i]);
-                }
-
-                if (top && right) {
-                    std::cout << "topright " << i << std::endl;
-                    topRight->insertBox(boxes[i]);
-                }
-
-                if (bottom && right) {
-                    std::cout << "bottomright " << i << std::endl;
-                    bottomRight->insertBox(boxes[i]);
-                }
-
-                if (bottom && left) {
-                    std::cout << "bottomleft " << i << std::endl;
-                    bottomLeft->insertBox(boxes[i]);
-                }
+            // Loop on all the boxes already here
+            for (auto & currentBox : boxes) {
+                insertAtTheRightPlace(currentBox);
             }
             boxes.clear();
+            return;
         }
 
         if (!isLeaf()) {
-            bool left = false;
-            bool right = false;
-            bool bottom = false;
-            bool top = false;
+            insertAtTheRightPlace(box);
+        }
+    }
 
-            // Là j'ai une box : boxes[i]
-            // Je mets la box dans l'enfant(s) qui correspond
-            if (box->getTLPosition().x < centerQuad.x) {
-                // une partie est à gauche
-                left = true;
-            }
+    void insertAtTheRightPlace(Box* box) const {
+        bool left = box->getTLPosition().x < centerQuad.x;
+        bool right = box->getTRPosition().x > centerQuad.x;
+        bool bottom = box->getBRPosition().y < centerQuad.y;
+        bool top = box->getTLPosition().y > centerQuad.y;
 
-            if (box->getTRPosition().x > centerQuad.x) {
-                // une partie est à droite
-                right = true;
-            }
-
-            if (box->getBRPosition().y < centerQuad.y) {
-                // une partie est en dessous
-                bottom = true;
-            }
-
-            if (box->getTLPosition().y > centerQuad.y) {
-                // une partie est au dessus
-                top = true;
-            }
-
-            if (top && left) {
+        if (top) {
+            if (left)
                 topLeft->insertBox(box);
-            }
-
-            if (top && right) {
+            if (right)
                 topRight->insertBox(box);
-            }
+        }
 
-            if (bottom && left) {
+        if (bottom) {
+            if (left)
                 bottomLeft->insertBox(box);
-            }
-
-            if (bottom && right) {
+            if (right)
                 bottomRight->insertBox(box);
-            }
         }
     }
 };

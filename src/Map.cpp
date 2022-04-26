@@ -15,7 +15,7 @@ Map::Map() {
     root->insertBox(new Box(3, 14, 4, 13));
     root->insertBox(new Box(2, 16, 3, 13.5));
     root->insertBox(new Box(6, 14, 7, 13));
-    // infinite recursion : root->insertBox(new Box(6, 16, 7, 13));
+    root->insertBox(new Box(6, 16, 7, 13));
     root->insertBox(new Box(4, 17, 7, 16));
 
     //bottomleft
