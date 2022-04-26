@@ -5,6 +5,6 @@
 Box::~Box() {}
 
 void Box::draw() {
-    glColor3f(0, 0, 0);
+    glColor3f(1, 1, 1);
     drawRect(TLPosition, BRPosition);
 }

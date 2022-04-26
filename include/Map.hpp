@@ -4,6 +4,7 @@
 #include <vector>
 #include "Box.hpp"
 #include "Player.hpp"
+#include "tools/QuadTreeNode.hpp"
 
 const int MAX_SQUARES = 32;
 const int MAX_PLAYERS = 5;
@@ -44,4 +45,7 @@ private:
     std::vector<Player*> players;
 
     Player* currentPlayer;
+
+    // temp
+    QuadTreeNode* root;
 };
