@@ -30,39 +30,50 @@ struct QuadTreeNode {
         centerQuad = getPositionCenter(TLPosition, BRPosition);
     }
 
-    void drawBoxes() {
-        if (isLeaf()) {
-            // red square
-            glColor3f(1, 0, 0);
-            drawRect(TLQuad, BRQuad, false);
+    bool isLeaf() const {
+        return (!topLeft && !topRight && !bottomRight && !bottomLeft);
+    }
 
-            for (auto & box : boxes) {
+    QuadTreeNode *findCorrespondingQuad(glm::vec2 playerPosition) {
+        if (isLeaf())
+            return this;
+
+        if (!isLeaf()) {
+            bool top = playerPosition.y > centerQuad.y;
+            bool right = playerPosition.x > centerQuad.x;
+
+            if (top) {
+                if (right)
+                    topRight->findCorrespondingQuad(playerPosition);
+                else
+                    topLeft->findCorrespondingQuad(playerPosition);
+            } else {
+                if (right)
+                    bottomRight->findCorrespondingQuad(playerPosition);
+                else
+                    bottomLeft->findCorrespondingQuad(playerPosition);
+            }
+        }
+    }
+
+    void drawBoxes(bool drawQuad = false) {
+        if (isLeaf()) {
+            if (drawQuad) {
+                glColor3f(1, 0, 0);
+                drawRect(TLQuad, BRQuad, false);
+            }
+
+            for (auto &box: boxes) {
                 box->draw();
             }
             return;
         }
 
-        if (topLeft) {
-            topLeft->drawBoxes();
-        }
-
-        if (topRight) {
-            topRight->drawBoxes();
-        }
-
-        if (bottomLeft) {
-            bottomLeft->drawBoxes();
-        }
-
-        if (bottomRight) {
-            bottomRight->drawBoxes();
-        }
-
-        return;
-    }
-
-    bool isLeaf() const {
-        return (!topLeft && !topRight && !bottomRight && !bottomLeft);
+        // When it's not a leaf, nodes are defined so we assume we have no verification.
+        topLeft->drawBoxes(true);
+        topRight->drawBoxes(true);
+        bottomLeft->drawBoxes(true);
+        bottomRight->drawBoxes(true);
     }
 
     void insertBox(Box *box) {
@@ -72,28 +83,10 @@ struct QuadTreeNode {
 
         if (isLeaf() && boxes.size() > 3) {
             // Initialization
-            if (!topRight) {
-                topRight = new QuadTreeNode();
-                topRight->init(glm::vec2(centerQuad.x, TLQuad.y), glm::vec2(BRQuad.x, centerQuad.y));
-            }
-
-            if (!topLeft) {
-                topLeft = new QuadTreeNode();
-                topLeft->init(TLQuad, centerQuad);
-            }
-
-            if (!bottomLeft) {
-                bottomLeft = new QuadTreeNode();
-                bottomLeft->init(glm::vec2(TLQuad.x, centerQuad.y), glm::vec2(centerQuad.x, BRQuad.y));
-            }
-
-            if (!bottomRight) {
-                bottomRight = new QuadTreeNode();
-                bottomRight->init(centerQuad, BRQuad);
-            }
+            initNodes();
 
             // Loop on all the boxes already here
-            for (auto & currentBox : boxes) {
+            for (auto &currentBox: boxes) {
                 insertAtTheRightPlace(currentBox);
             }
             boxes.clear();
@@ -105,7 +98,29 @@ struct QuadTreeNode {
         }
     }
 
-    void insertAtTheRightPlace(Box* box) const {
+    void initNodes() {
+        if (!topRight) {
+            topRight = new QuadTreeNode();
+            topRight->init(glm::vec2(centerQuad.x, TLQuad.y), glm::vec2(BRQuad.x, centerQuad.y));
+        }
+
+        if (!topLeft) {
+            topLeft = new QuadTreeNode();
+            topLeft->init(TLQuad, centerQuad);
+        }
+
+        if (!bottomLeft) {
+            bottomLeft = new QuadTreeNode();
+            bottomLeft->init(glm::vec2(TLQuad.x, centerQuad.y), glm::vec2(centerQuad.x, BRQuad.y));
+        }
+
+        if (!bottomRight) {
+            bottomRight = new QuadTreeNode();
+            bottomRight->init(centerQuad, BRQuad);
+        }
+    }
+
+    void insertAtTheRightPlace(Box *box) const {
         bool left = box->getTLPosition().x < centerQuad.x;
         bool right = box->getTRPosition().x > centerQuad.x;
         bool bottom = box->getBRPosition().y < centerQuad.y;

@@ -11,12 +11,17 @@ Map::Map() {
     root->init(glm::vec2(0, 20), glm::vec2(20, 0));
 
     //topleft
+    root->insertBox(new Box(1, 19, 2, 18));
+    root->insertBox(new Box(1, 17, 2, 16));
+    root->insertBox(new Box(1, 15, 2, 14));
+    root->insertBox(new Box(1, 13, 2, 12));
+    root->insertBox(new Box(1, 11, 2, 10));
+
+    root->insertBox(new Box(3, 19, 4, 18));
     root->insertBox(new Box(3, 17, 4, 16));
-    root->insertBox(new Box(3, 14, 4, 13));
-    root->insertBox(new Box(2, 16, 3, 13.5));
-    root->insertBox(new Box(6, 14, 7, 13));
-    root->insertBox(new Box(6, 16, 7, 13));
-    root->insertBox(new Box(4, 17, 7, 16));
+    root->insertBox(new Box(3, 15, 4, 14));
+    root->insertBox(new Box(3, 13, 4, 12));
+    root->insertBox(new Box(3, 11, 4, 10));
 
     //bottomleft
     root->insertBox(new Box(3, 4, 5, 2));
@@ -28,14 +33,15 @@ Map::Map() {
     root->insertBox(new Box(12, 2, 14, 0));
     root->insertBox(new Box(12, 4, 14, 6));
 
-    std::cout << std::endl;
+    QuadTreeNode* myArea = root->findCorrespondingQuad(glm::vec2(1,19));
+
 }
 
 void Map::update() {
 }
 
 void Map::draw() {
-    root->drawBoxes();
+    root->drawBoxes(true);
 
     /*for (size_t i = 0; i < boxCount; i++) {
         boxes[i]->draw();
