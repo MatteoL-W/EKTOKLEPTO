@@ -9,16 +9,21 @@ Map::Map() {
     //loadMapInfo(1);
     root = new QuadTreeNode();
     root->init(glm::vec2(0, 20), glm::vec2(20, 0));
+
     //topleft
     root->insertBox(new Box(3, 17, 4, 16));
     root->insertBox(new Box(3, 14, 4, 13));
+    root->insertBox(new Box(2, 16, 3, 13.5));
     root->insertBox(new Box(6, 14, 7, 13));
-    root->insertBox(new Box(6, 17, 7, 16));
-    //root->insertBox(new Box(6, 13, 7, 14));
+    // infinite recursion : root->insertBox(new Box(6, 16, 7, 13));
+    root->insertBox(new Box(4, 17, 7, 16));
+
     //bottomleft
     root->insertBox(new Box(3, 4, 5, 2));
+
     //top right
     root->insertBox(new Box(12, 17, 14, 15));
+
     // bottom right
     root->insertBox(new Box(12, 2, 14, 0));
     root->insertBox(new Box(12, 4, 14, 6));
@@ -30,15 +35,7 @@ void Map::update() {
 }
 
 void Map::draw() {
-    //root->draw();
-
-    root->topLeft->topLeft->draw();
-    root->topLeft->topRight->draw();
-    root->topLeft->bottomLeft->draw();
-    root->topLeft->bottomRight->draw();
-    root->bottomLeft->draw();
-    root->bottomRight->draw();
-    root->topRight->draw();
+    root->drawBoxes();
 
     /*for (size_t i = 0; i < boxCount; i++) {
         boxes[i]->draw();

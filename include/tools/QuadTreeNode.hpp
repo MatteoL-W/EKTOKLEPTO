@@ -30,13 +30,35 @@ struct QuadTreeNode {
         centerQuad = getPositionCenter(TLPosition, BRPosition);
     }
 
-    void draw() const {
-        glColor3f(1, 0, 0);
-        drawRect(TLQuad, BRQuad, false);
+    void drawBoxes() {
+        if (isLeaf()) {
+            // red square
+            glColor3f(1, 0, 0);
+            drawRect(TLQuad, BRQuad, false);
 
-        for (size_t i = 0; i < boxes.size(); i++) {
-            boxes[i]->draw();
+            for (auto & box : boxes) {
+                box->draw();
+            }
+            return;
         }
+
+        if (topLeft) {
+            topLeft->drawBoxes();
+        }
+
+        if (topRight) {
+            topRight->drawBoxes();
+        }
+
+        if (bottomLeft) {
+            bottomLeft->drawBoxes();
+        }
+
+        if (bottomRight) {
+            bottomRight->drawBoxes();
+        }
+
+        return;
     }
 
     bool isLeaf() const {
@@ -44,15 +66,10 @@ struct QuadTreeNode {
     }
 
     void insertBox(Box *box) {
-        // Si c'est une leaf
-        // On ajoute la box dans le vecteur de box associé
         if (isLeaf()) {
             boxes.push_back(box);
         }
 
-        // Si c'est pas une leaf
-        // On boucle sur les coins et on check ils sont dans quels zones
-        // On envoie la box dans les zones touchées
         if (isLeaf() && boxes.size() > 3) {
             if (!topRight) {
                 topRight = new QuadTreeNode();
@@ -70,6 +87,7 @@ struct QuadTreeNode {
                 bottomRight = new QuadTreeNode();
                 bottomRight->init(centerQuad, BRQuad);
             }
+
             for (size_t i = 0; i < boxes.size(); i++) {
                 bool left = false;
                 bool right = false;
@@ -100,19 +118,23 @@ struct QuadTreeNode {
 
                 // Vérification et insert
                 if (top && left) {
+                    std::cout << "topleft " << i << std::endl;
                     topLeft->insertBox(boxes[i]);
                 }
 
                 if (top && right) {
+                    std::cout << "topright " << i << std::endl;
                     topRight->insertBox(boxes[i]);
                 }
 
-                if (bottom && left) {
-                    bottomLeft->insertBox(boxes[i]);
+                if (bottom && right) {
+                    std::cout << "bottomright " << i << std::endl;
+                    bottomRight->insertBox(boxes[i]);
                 }
 
-                if (bottom && right) {
-                    bottomRight->insertBox(boxes[i]);
+                if (bottom && left) {
+                    std::cout << "bottomleft " << i << std::endl;
+                    bottomLeft->insertBox(boxes[i]);
                 }
             }
             boxes.clear();
