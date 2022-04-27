@@ -1,5 +1,7 @@
 #pragma once
 
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include "SDL2/SDL_ttf.h"
 #include <iostream>
 
@@ -28,6 +30,8 @@ public:
     std::string getText() { return message; };
 
 private:
+    void createOpenGL(const std::string& text, const SDL_Color color, const std::string& fontName);
+
     std::string message;
 
     TTF_Font *font;
@@ -46,5 +50,8 @@ private:
 TTF_Font *createFont(Text *text, std::string fontName);
 
 SDL_Rect createDestRect(TTF_Font *font, std::string text, int x, int y);
+
+void RenderText(const TTF_Font *Font, const GLubyte &R, const GLubyte &G, const GLubyte &B, const GLubyte &A,
+                const double &X, const double &Y, const std::string &Text);
 
 
