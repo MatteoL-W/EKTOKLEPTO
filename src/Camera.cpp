@@ -5,7 +5,7 @@ void Camera::update() {
 }
 
 void Camera::draw() {
-    glViewport(0, 0, Engine::WINDOW_WIDTH, Engine::WINDOW_HEIGHT);
+    glViewport(-Engine::WINDOW_WIDTH / 2, -Engine::WINDOW_HEIGHT / 1.3, Engine::WINDOW_WIDTH * 2, Engine::WINDOW_HEIGHT * 2);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
