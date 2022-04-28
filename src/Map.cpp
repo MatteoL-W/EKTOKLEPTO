@@ -120,3 +120,8 @@ void Map::setCurrentPlayer(int i) {
     currentPlayerId = i;
 }
 
+void Map::chooseNextPlayer() {
+    int idNextPlayer = (currentPlayerId + 1 < playerCount) ? currentPlayerId + 1 : 0;
+    setCurrentPlayer(idNextPlayer);
+}
+

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "glm/vec2.hpp"
+#include "tools/utils.hpp"
 
 class Player {
 public:
@@ -16,6 +17,8 @@ public:
     void draw();
 
     void drawEndPlace();
+
+    glm::vec2 getCenteredPosition() { return getPositionCenter(TLPositionStart, BRPositionStart); };
 
 private:
     int type;

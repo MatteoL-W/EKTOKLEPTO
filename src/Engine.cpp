@@ -61,6 +61,8 @@ Engine::Engine() {
     currentInterface = gameInterface;
 
     isRunning = true;
+
+    initiateWindowSize();
 }
 
 Engine::~Engine() = default;
@@ -88,8 +90,6 @@ void Engine::refresh() {
     SDL_GL_SwapWindow(window);
 
     currentInterface->handleEvents();
-
-    initiateWindowSize();
 }
 
 /**
@@ -102,16 +102,4 @@ void Engine::initiateWindowSize() {
 
     // On définit plutôt les repère depuis le bas à gauche
     gluOrtho2D(0, GL_VIEW_SIZE, 0, GL_VIEW_SIZE);
-
-    //float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
-
-    /*if (aspectRatio > 1) {
-        gluOrtho2D(
-                -GL_VIEW_SIZE / 2. * aspectRatio, GL_VIEW_SIZE / 2. * aspectRatio,
-                -GL_VIEW_SIZE / 2., GL_VIEW_SIZE / 2.);
-    } else {
-        gluOrtho2D(
-                -GL_VIEW_SIZE / 2., GL_VIEW_SIZE / 2.,
-                -GL_VIEW_SIZE / 2. / aspectRatio, GL_VIEW_SIZE / 2. / aspectRatio);
-    }*/
 }

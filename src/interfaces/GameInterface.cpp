@@ -28,7 +28,7 @@ void GameInterface::handleEvents() {
         // Changement de joueurs avec Tab
         switch (event.key.keysym.sym) {
             case SDLK_TAB:
-                currentMap->setCurrentPlayer(currentMap->currentPlayerId + 1);
+                currentMap->chooseNextPlayer();
                 break;
         }
     }
