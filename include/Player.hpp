@@ -19,6 +19,8 @@ public:
 
     void drawEndPlace();
 
+    void moveRight();
+
     glm::vec2 getCenteredPosition() const { return {BLPosition.x + width / 2, BLPosition.y + height / 2}; };
 
 private:

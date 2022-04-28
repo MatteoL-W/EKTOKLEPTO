@@ -18,6 +18,10 @@ void Player::drawEndPlace() {
     drawRect(TLPositionEnd, BRPositionEnd, false);
 }
 
+void Player::moveRight() {
+    BLPosition.x += 0.01;
+}
+
 void Player::setPropsFromType() {
     switch (type) {
         case 1:

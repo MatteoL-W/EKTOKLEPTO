@@ -9,6 +9,7 @@ Map::Map() {
 }
 
 void Map::update() {
+    //currentPlayer->moveRight();
 }
 
 void Map::draw() {
