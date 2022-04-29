@@ -3,17 +3,30 @@
 
 void Camera::update() {
     glm::vec2 destination = map->getCurrentPlayer()->getCenteredPosition();
-    float newDistance = glm::distance(center, destination);
+    direction = glm::normalize(destination - center);
+    distance = glm::distance(center, destination);
 
     if (center != destination) {
-        if (newDistance > 0.01) {
+        if (speed == 0) {
+            center = destination;
+            return;
+        }
+
+        if (distance > 0.1) {
             center = center + direction * speed;
             speed *= 0.9;
+            if (speed < 0.01)
+                speed = 0.05;
         } else {
-            center = destination;
+            speed = 0;
         }
     }
+
+    else {
+        center = direction;
+    }
 }
+
 
 void Camera::draw() {
     glViewport(-Engine::WINDOW_WIDTH / 2, -Engine::WINDOW_HEIGHT / 1.4, Engine::WINDOW_WIDTH * 2,
