@@ -1,6 +1,7 @@
 #include <SDL2/SDL.h>
 
 #include "../../include/interfaces/GameInterface.hpp"
+#include <glm/gtx/norm.hpp>
 
 int SDLK_KeysFrom1ToMax[MAX_PLAYERS] = {
         SDLK_1, SDLK_2, SDLK_3, SDLK_4, SDLK_5
@@ -21,14 +22,27 @@ void GameInterface::handleEvents() {
         /* Changement de joueur avec 0, 1, 2 ... */
         for (size_t i = 0; i < currentMap->playerCount; i++) {
             if (event.key.keysym.sym == SDLK_KeysFrom1ToMax[i]) {
+                glm::vec2 initial = currentMap->getCurrentPlayer()->getCenteredPosition();
+                glm::vec2 final = currentMap->getPlayers()[i]->getCenteredPosition();
+
                 currentMap->setCurrentPlayer((int) i);
+                camera->setDirection(glm::normalize(final - initial));
+                float distance = glm::distance(initial, final);
+                camera->setDistance(distance);
+                camera->setSpeed(distance / 10);
             }
         }
 
         // Changement de joueurs avec Tab
         switch (event.key.keysym.sym) {
             case SDLK_TAB:
+                glm::vec2 initial = currentMap->getCurrentPlayer()->getCenteredPosition();
                 currentMap->chooseNextPlayer();
+                glm::vec2 final = currentMap->getCurrentPlayer()->getCenteredPosition();
+                camera->setDirection(glm::normalize(final - initial));
+                float distance = glm::distance(initial, final);
+                camera->setDistance(distance);
+                camera->setSpeed(distance / (float)10);
                 break;
         }
     }

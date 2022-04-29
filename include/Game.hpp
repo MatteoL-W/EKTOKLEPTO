@@ -15,6 +15,8 @@ public:
 
     Map *getMap() { return currentMap; }
 
+    Camera* getCamera() { return camera; }
+
 private:
     Map *currentMap;
 

@@ -3,7 +3,7 @@
 
 Game::Game() {
     this->currentMap = new Map();
-    this->camera = new Camera(currentMap);
+    this->camera = new Camera(currentMap, 10);
 }
 
 void Game::update() {
