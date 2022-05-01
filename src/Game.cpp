@@ -2,7 +2,7 @@
 #include "../include/Game.hpp"
 
 Game::Game() {
-    this->currentMap = new Map();
+    this->currentMap = new Map(1);
     this->camera = new Camera(currentMap, 10);
 }
 

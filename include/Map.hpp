@@ -11,7 +11,7 @@ const int MAX_PLAYERS = 5;
 
 class Map {
 public:
-    Map();
+    explicit Map(int idMap);
 
     ~Map() = default;
 

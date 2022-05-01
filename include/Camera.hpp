@@ -35,5 +35,5 @@ private:
     float distance;
 
     int zoom;
-    float playerYAxis = 0.3333;
+    float playerYAxis = 0.25;
 };

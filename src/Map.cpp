@@ -3,9 +3,9 @@
 #include <cstring>
 #include "../include/Map.hpp"
 
-Map::Map() {
+Map::Map(int idMap) {
     boxes = new QuadTreeNode();
-    loadMapInfo(1);
+    loadMapInfo(idMap);
 }
 
 void Map::update() {

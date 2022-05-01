@@ -23,8 +23,6 @@ bool QuadTreeNode::isLeaf() const {
 void QuadTreeNode::drawCorrespondingQuadForScreen(glm::vec2 TLPosition, glm::vec2 BRPosition) {
     if (isLeaf()) {
         for (auto &box: boxes) {
-            glColor3f(1, 0, 0);
-            drawRect(TLQuad, BRQuad, false);
             box->draw();
         }
     }

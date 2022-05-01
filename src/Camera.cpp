@@ -39,6 +39,15 @@ void Camera::draw() {
     drawCameraContent();
 }
 
+void Camera::centerOrthogonalSystem() {
+    float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
+
+    gluOrtho2D(
+            center.x + (-zoom * aspectRatio), center.x + (zoom * aspectRatio),
+            center.y + (-zoom), center.y + (zoom)
+    );
+}
+
 void Camera::drawCameraContent() {
     glm::vec2 TLScreen = glm::vec2(
             1 + center.x + (-zoom),
@@ -53,14 +62,5 @@ void Camera::drawCameraContent() {
     map->getBoxes()->drawCorrespondingQuadForScreen(
             TLScreen,
             BRScreen
-    );
-}
-
-void Camera::centerOrthogonalSystem() {
-    float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
-
-    gluOrtho2D(
-            center.x + (-zoom * aspectRatio), center.x + (zoom * aspectRatio),
-            center.y + (-zoom), center.y + (zoom)
     );
 }
