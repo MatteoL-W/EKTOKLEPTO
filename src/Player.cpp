@@ -6,12 +6,20 @@ Player::~Player() {}
 
 void Player::draw() {
     glColor3f(r, g, b);
-    drawRect(TLPositionStart, BRPositionStart);
+    // Voir si on définit TL et BR ou pas
+    drawRect(
+            glm::vec2(BLPosition.x, BLPosition.y + height),
+            glm::vec2(BLPosition.x + width, BLPosition.y)
+    );
 }
 
 void Player::drawEndPlace() {
     glColor3f(r, g, b);
     drawRect(TLPositionEnd, BRPositionEnd, false);
+}
+
+void Player::moveRight() {
+    BLPosition.x += 0.01;
 }
 
 void Player::setPropsFromType() {

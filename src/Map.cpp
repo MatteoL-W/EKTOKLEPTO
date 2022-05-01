@@ -9,11 +9,10 @@ Map::Map() {
 }
 
 void Map::update() {
+    //currentPlayer->moveRight();
 }
 
 void Map::draw() {
-    boxes->drawBoxes(true);
-
     for (size_t i = 0; i < playerCount; i++) {
         players[i]->draw();
         players[i]->drawEndPlace();
@@ -118,5 +117,10 @@ void Map::stockPlayers(std::string lineInformation[32]) {
 void Map::setCurrentPlayer(int i) {
     currentPlayer = players[i];
     currentPlayerId = i;
+}
+
+void Map::chooseNextPlayer() {
+    int idNextPlayer = (currentPlayerId + 1 < playerCount) ? currentPlayerId + 1 : 0;
+    setCurrentPlayer(idNextPlayer);
 }
 

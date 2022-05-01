@@ -1,6 +1,7 @@
 #pragma once
 
 #include "Map.hpp"
+#include "Camera.hpp"
 
 class Game {
 public:
@@ -14,6 +15,10 @@ public:
 
     Map *getMap() { return currentMap; }
 
+    Camera* getCamera() { return camera; }
+
 private:
     Map *currentMap;
+
+    Camera *camera;
 };

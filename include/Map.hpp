@@ -27,7 +27,16 @@ public:
 
     void setCurrentPlayer(int i);
 
+    int getMapWidth() const { return mapWidth; };
+    int getMapHeight() const { return mapHeight; };
+
     std::vector<Player *> getPlayers() { return players; };
+
+    Player* getCurrentPlayer() { return currentPlayer; };
+
+    QuadTreeNode* getBoxes() { return boxes; };
+
+    void chooseNextPlayer();
 
 private:
     void loadMapInfo(int idMap);

@@ -18,7 +18,7 @@ public:
 
     SDL_Event event;
 
-    static const int WINDOW_WIDTH = 750;
+    static const int WINDOW_WIDTH = 1200;
 
     static const int WINDOW_HEIGHT = 750;
 
