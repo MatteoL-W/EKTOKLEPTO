@@ -15,11 +15,7 @@ public:
 
     void draw();
 
-    void setSpeed(float p_speed) { speed = p_speed; };
-
-    void setDirection(glm::vec2 p_direction) { direction = p_direction; };
-
-    void setDistance(float p_distance) { distance = p_distance; };
+    void setTrajectory(glm::vec2 initial, glm::vec2 final);
 
 private:
     void drawCameraContent();

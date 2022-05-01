@@ -64,3 +64,9 @@ void Camera::drawCameraContent() {
             BRScreen
     );
 }
+
+void Camera::setTrajectory(glm::vec2 initial, glm::vec2 final) {
+    distance = glm::distance(initial, final);
+    direction = glm::normalize(final - initial);
+    speed = distance / (float)10;
+}
