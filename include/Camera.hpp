@@ -22,6 +22,10 @@ public:
     void setDistance(float p_distance) { distance = p_distance; };
 
 private:
+    void drawCameraContent();
+
+    void centerOrthogonalSystem();
+
     Map *map;
 
     glm::vec2 center;

@@ -1,6 +1,9 @@
 #include "../include/Camera.hpp"
 #include <glm/gtx/norm.hpp>
 
+/**
+ * @brief Set the center of the camera according to the current player
+ */
 void Camera::update() {
     glm::vec2 destination = map->getCurrentPlayer()->getCenteredPosition();
     direction = glm::normalize(destination - center);
@@ -25,33 +28,39 @@ void Camera::update() {
     }
 }
 
-
 void Camera::draw() {
+    // Set viewport
     glViewport(-Engine::WINDOW_WIDTH * 0.5, -Engine::WINDOW_HEIGHT * (1 - playerYAxis), Engine::WINDOW_WIDTH * 2,
                Engine::WINDOW_HEIGHT * 2);
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
+    centerOrthogonalSystem();
+    drawCameraContent();
+}
 
-    // We are on an horizontal game
-    gluOrtho2D(
-            center.x + (-zoom / 2 * aspectRatio), center.x + (zoom / 2 * aspectRatio),
-            center.y + (-zoom / 2), center.y + (zoom / 2)
-    );
-
+void Camera::drawCameraContent() {
     glm::vec2 TLScreen = glm::vec2(
-            1 + center.x + (-zoom / 2),
-            center.y + (zoom / 2) * (1 - playerYAxis)
+            1 + center.x + (-zoom),
+            center.y + (zoom) * (1 - playerYAxis)
     );
 
     glm::vec2 BRScreen = glm::vec2(
-            center.x + (zoom / 2) - 1,
-            center.y + (-zoom / 2) * playerYAxis
+            center.x + (zoom) - 1,
+            center.y + (-zoom) * playerYAxis
     );
 
     map->getBoxes()->drawCorrespondingQuadForScreen(
             TLScreen,
             BRScreen
+    );
+}
+
+void Camera::centerOrthogonalSystem() {
+    float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
+
+    gluOrtho2D(
+            center.x + (-zoom * aspectRatio), center.x + (zoom * aspectRatio),
+            center.y + (-zoom), center.y + (zoom)
     );
 }

@@ -15,6 +15,11 @@ bool QuadTreeNode::isLeaf() const {
     return (!topLeft && !topRight && !bottomRight && !bottomLeft);
 }
 
+/**
+ * @brief Draw the content of the screen (optimize render)
+ * @param TLPosition
+ * @param BRPosition
+ */
 void QuadTreeNode::drawCorrespondingQuadForScreen(glm::vec2 TLPosition, glm::vec2 BRPosition) {
     if (isLeaf()) {
         for (auto &box: boxes) {
@@ -44,6 +49,11 @@ void QuadTreeNode::drawCorrespondingQuadForScreen(glm::vec2 TLPosition, glm::vec
     }
 }
 
+/**
+ * @brief Find the quad containing a vec2 position (used to find collisions around the player)
+ * @param playerPosition
+ * @return
+ */
 QuadTreeNode *QuadTreeNode::findCorrespondingQuad(glm::vec2 playerPosition) {
     if (isLeaf())
         return this;
@@ -64,8 +74,14 @@ QuadTreeNode *QuadTreeNode::findCorrespondingQuad(glm::vec2 playerPosition) {
                 bottomLeft->findCorrespondingQuad(playerPosition);
         }
     }
+
+    return (new QuadTreeNode());
 }
 
+/**
+ * @brief [DEPRECATED] Draw a box and its content
+ * @param drawQuad
+ */
 void QuadTreeNode::drawBoxes(bool drawQuad) {
     if (isLeaf()) {
         if (drawQuad) {
@@ -86,6 +102,10 @@ void QuadTreeNode::drawBoxes(bool drawQuad) {
     bottomRight->drawBoxes(drawQuad);
 }
 
+/**
+ * @brief Insert a box into a quadtree
+ * @param box
+ */
 void QuadTreeNode::insertBox(Box *box) {
     if (isLeaf()) {
         boxes.push_back(box);
@@ -130,6 +150,10 @@ void QuadTreeNode::initNodes() {
     }
 }
 
+/**
+ * @brief Function used to locate in which quad should be a box located
+ * @param box
+ */
 void QuadTreeNode::insertAtTheRightPlace(Box *box) const {
     bool left = box->getTLPosition().x < centerQuad.x;
     bool right = box->getTRPosition().x > centerQuad.x;
