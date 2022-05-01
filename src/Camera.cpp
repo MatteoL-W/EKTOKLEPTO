@@ -6,8 +6,7 @@
  */
 void Camera::update() {
     glm::vec2 destination = map->getCurrentPlayer()->getCenteredPosition();
-    direction = glm::normalize(destination - center);
-    distance = glm::distance(center, destination);
+    setTrajectory(center, destination);
 
     if (center != destination) {
         if (speed == 0) {
@@ -25,6 +24,7 @@ void Camera::update() {
         }
     } else {
         center = destination;
+        unsetTrajectory();
     }
 }
 
@@ -69,4 +69,10 @@ void Camera::setTrajectory(glm::vec2 initial, glm::vec2 final) {
     distance = glm::distance(initial, final);
     direction = glm::normalize(final - initial);
     speed = distance / (float)10;
+}
+
+void Camera::unsetTrajectory() {
+    distance = 0;
+    direction = glm::vec2(0,0);
+    speed = 0;
 }

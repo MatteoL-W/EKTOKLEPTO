@@ -23,22 +23,25 @@ public:
 
     size_t playerCount = 0;
 
-    int currentPlayerId = 0;
+    size_t currentPlayerId = 0;
 
-    void setCurrentPlayer(int i);
+    void setCurrentPlayer(size_t i);
 
     int getMapWidth() const { return mapWidth; };
+
     int getMapHeight() const { return mapHeight; };
 
     std::vector<Player *> getPlayers() { return players; };
 
-    Player* getCurrentPlayer() { return currentPlayer; };
+    Player *getCurrentPlayer() { return currentPlayer; };
 
-    QuadTreeNode* getBoxes() { return boxes; };
+    QuadTreeNode *getBoxes() { return boxes; };
 
     void chooseNextPlayer();
 
 private:
+    static bool isNear(Player *const &player);
+
     void loadMapInfo(int idMap);
 
     void stockMapInfo(std::string mapInformation[3][MAX_SQUARES]);

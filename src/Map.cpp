@@ -9,13 +9,23 @@ Map::Map(int idMap) {
 }
 
 void Map::update() {
-    currentPlayer->moveRight();
+    if (!isNear(currentPlayer)){}
+        //currentPlayer->moveRight();
 
-    for (auto & player : players) {
-        if (player->getBLPositionEnd() == player->getBLPosition()) {
-            std::cout << "yesy";
-        }
+    if (isNear(currentPlayer)) {
+        currentPlayer->setStatus(true);
+        chooseNextPlayer();
     }
+}
+
+bool Map::isNear(Player *const &player) {
+    float margin = 0.2;
+
+    if ((player->getCenteredPositionEnd().x - margin < player->getCenteredPosition().x && player->getCenteredPosition().x < player->getCenteredPositionEnd().x + margin)
+        && (player->getCenteredPositionEnd().y - margin < player->getCenteredPosition().y && player->getCenteredPosition().y < player->getCenteredPositionEnd().y + margin)) {
+        return true;
+    }
+    return false;
 }
 
 void Map::draw() {
@@ -120,13 +130,13 @@ void Map::stockPlayers(std::string lineInformation[32]) {
     }
 }
 
-void Map::setCurrentPlayer(int i) {
+void Map::setCurrentPlayer(size_t i) {
     currentPlayer = players[i];
     currentPlayerId = i;
 }
 
 void Map::chooseNextPlayer() {
-    int idNextPlayer = (currentPlayerId + 1 < playerCount) ? currentPlayerId + 1 : 0;
+    size_t idNextPlayer = (currentPlayerId + 1 < playerCount) ? currentPlayerId + 1 : 0;
     setCurrentPlayer(idNextPlayer);
 }
 

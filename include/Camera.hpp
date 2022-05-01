@@ -17,6 +17,8 @@ public:
 
     void setTrajectory(glm::vec2 initial, glm::vec2 final);
 
+    void unsetTrajectory();
+
 private:
     void drawCameraContent();
 

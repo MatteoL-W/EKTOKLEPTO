@@ -5,8 +5,12 @@
 Player::~Player() {}
 
 void Player::draw() {
-    glColor3f(r, g, b);
-    // Voir si on définit TL et BR ou pas
+    if (!hasFinished) {
+        glColor3f(r, g, b);
+    } else {
+        glColor3f(255, 255, 255);
+    }
+
     drawRect(
             glm::vec2(BLPosition.x, BLPosition.y + height),
             glm::vec2(BLPosition.x + width, BLPosition.y)
