@@ -34,6 +34,8 @@ public:
 
     Player* getCurrentPlayer() { return currentPlayer; };
 
+    QuadTreeNode* getBoxes() { return boxes; };
+
     void chooseNextPlayer();
 
 private:

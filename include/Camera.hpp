@@ -7,7 +7,7 @@
 class Camera {
 public:
     explicit Camera(Map *p_map, int p_zoom)
-    : map(p_map), center(map->getPlayers()[0]->getCenteredPosition()), zoom(p_zoom){};
+            : map(p_map), center(map->getPlayers()[0]->getCenteredPosition()), zoom(p_zoom) {};
 
     ~Camera() = default;
 
@@ -29,7 +29,7 @@ private:
     glm::vec2 direction;
     float speed;
     float distance;
-    float friction = 0.5;
 
     int zoom;
+    float playerYAxis = 0.3333;
 };

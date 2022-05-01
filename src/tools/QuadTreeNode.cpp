@@ -15,6 +15,35 @@ bool QuadTreeNode::isLeaf() const {
     return (!topLeft && !topRight && !bottomRight && !bottomLeft);
 }
 
+void QuadTreeNode::drawCorrespondingQuadForScreen(glm::vec2 TLPosition, glm::vec2 BRPosition) {
+    if (isLeaf()) {
+        for (auto &box: boxes) {
+            glColor3f(1, 0, 0);
+            drawRect(TLQuad, BRQuad, false);
+            box->draw();
+        }
+    }
+
+    if (!isLeaf()) {
+        bool left = TLPosition.x < centerQuad.x;
+        bool right = BRPosition.x > centerQuad.x;
+        bool bottom = BRPosition.y < centerQuad.y;
+        bool top = TLPosition.y > centerQuad.y;
+
+        if (left && top)
+            topLeft->drawCorrespondingQuadForScreen(TLPosition, BRPosition);
+
+        if (right && top)
+            topRight->drawCorrespondingQuadForScreen(TLPosition, BRPosition);
+
+        if (left && bottom)
+            bottomLeft->drawCorrespondingQuadForScreen(TLPosition, BRPosition);
+
+        if (right && bottom)
+            bottomRight->drawCorrespondingQuadForScreen(TLPosition, BRPosition);
+    }
+}
+
 QuadTreeNode *QuadTreeNode::findCorrespondingQuad(glm::vec2 playerPosition) {
     if (isLeaf())
         return this;
@@ -50,7 +79,7 @@ void QuadTreeNode::drawBoxes(bool drawQuad) {
         return;
     }
 
-    // When it's not a leaf, nodes are defined so we assume we have no verification.
+    // When it's not a leaf, nodes are defined, so we assume we have no verification.
     topLeft->drawBoxes(drawQuad);
     topRight->drawBoxes(drawQuad);
     bottomLeft->drawBoxes(drawQuad);
@@ -58,7 +87,7 @@ void QuadTreeNode::drawBoxes(bool drawQuad) {
 }
 
 void QuadTreeNode::insertBox(Box *box) {
-    if (isLeaf()) { // si topright; topleft; bottomright et bottomleft sont nullptr
+    if (isLeaf()) {
         boxes.push_back(box);
     }
 

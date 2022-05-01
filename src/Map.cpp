@@ -9,12 +9,10 @@ Map::Map() {
 }
 
 void Map::update() {
-    currentPlayer->moveRight();
+    //currentPlayer->moveRight();
 }
 
 void Map::draw() {
-    boxes->drawBoxes(true);
-
     for (size_t i = 0; i < playerCount; i++) {
         players[i]->draw();
         players[i]->drawEndPlace();
