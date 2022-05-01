@@ -15,7 +15,11 @@ void Player::draw() {
 
 void Player::drawEndPlace() {
     glColor3f(r, g, b);
-    drawRect(TLPositionEnd, BRPositionEnd, false);
+    drawRect(
+            glm::vec2(BLPositionEnd.x, BLPositionEnd.y + height),
+            glm::vec2(BLPositionEnd.x + width, BLPositionEnd.y),
+            false
+    );
 }
 
 void Player::moveRight() {

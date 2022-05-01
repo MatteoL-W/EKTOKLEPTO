@@ -9,7 +9,13 @@ Map::Map(int idMap) {
 }
 
 void Map::update() {
-    //currentPlayer->moveRight();
+    currentPlayer->moveRight();
+
+    for (auto & player : players) {
+        if (player->getBLPositionEnd() == player->getBLPosition()) {
+            std::cout << "yesy";
+        }
+    }
 }
 
 void Map::draw() {
