@@ -106,37 +106,30 @@ SDL_Rect createDestRect(TTF_Font *font, const std::string text, const int x, con
     return destMessage;
 }
 
-void RenderText(const TTF_Font *Font, const GLubyte &R, const GLubyte &G, const GLubyte &B, const GLubyte &A,
-                const double &X, const double &Y, const std::string &Text) {
+void renderText(const TTF_Font *font, SDL_Color color, const float x, const float y, const std::string &text) {
     glEnable(GL_TEXTURE_2D);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    /*Create some variables.*/
-    SDL_Color Color = {R, G, B, A};
-    SDL_Surface *Message = TTF_RenderText_Blended(const_cast<TTF_Font *>(Font), Text.c_str(), Color);
-    GLuint Texture = 0;
 
-    /*Generate an OpenGL 2D texture from the SDL_Surface*.*/
-    glGenTextures(1, &Texture);
-    glBindTexture(GL_TEXTURE_2D, Texture);
+    SDL_Surface *renderedText = TTF_RenderText_Blended(const_cast<TTF_Font *>(font), text.c_str(), color);
+    GLuint texture = 0;
 
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameterf(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glGenTextures(1, &texture);
+    glBindTexture(GL_TEXTURE_2D, texture);
 
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, Message->w, Message->h, 0, GL_RGBA, GL_UNSIGNED_BYTE, Message->pixels);
-    /*Draw this texture on a quad with the given xyz coordinates.*/
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, renderedText->w, renderedText->h, 0,
+                 GL_RGBA, GL_UNSIGNED_BYTE,renderedText->pixels);
+
     glBegin(GL_QUADS);
-    glTexCoord2d(0, 0);
-    glVertex2d(X, Y);
-    glTexCoord2d(1, 0);
-    glVertex2d(X + Message->w, Y);
-    glTexCoord2d(1, 1);
-    glVertex2d(X + Message->w, Y + Message->h);
-    glTexCoord2d(0, 1);
-    glVertex2d(X, Y + Message->h);
+        glTexCoord2d(0, 0); glVertex2f(x, y);
+        glTexCoord2d(20, 0); glVertex2f(x + (float)renderedText->w, y);
+        glTexCoord2d(20, 20); glVertex2f(x + (float)renderedText->w, y + (float)renderedText->h);
+        glTexCoord2d(0, 20); glVertex2f(x, y + (float)renderedText->h);
     glEnd();
 
-    /*Clean up.*/
-    glDeleteTextures(1, &Texture);
-    SDL_FreeSurface(Message);
+    glDeleteTextures(1, &texture);
+    SDL_FreeSurface(renderedText);
 }

@@ -51,7 +51,6 @@ TTF_Font *createFont(Text *text, std::string fontName);
 
 SDL_Rect createDestRect(TTF_Font *font, std::string text, int x, int y);
 
-void RenderText(const TTF_Font *Font, const GLubyte &R, const GLubyte &G, const GLubyte &B, const GLubyte &A,
-                const double &X, const double &Y, const std::string &Text);
+void renderText(const TTF_Font *font, SDL_Color color, const float x, const float y, const std::string &text);
 
 
