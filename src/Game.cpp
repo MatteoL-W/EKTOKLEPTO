@@ -12,6 +12,7 @@ void Game::update() {
     if (currentMap->isFinished() && level < MAX_LEVELS) {
         level++;
         currentMap = new Map(level);
+
         camera->setMap(currentMap);
         camera->setZoom(currentMap->getMapZoom());
     }
