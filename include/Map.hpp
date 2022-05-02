@@ -31,6 +31,8 @@ public:
 
     int getMapHeight() const { return mapHeight; };
 
+    int getMapZoom() const { return mapZoom; };
+
     std::vector<Player *> getPlayers() { return players; };
 
     Player *getCurrentPlayer() { return currentPlayer; };
@@ -39,8 +41,12 @@ public:
 
     void chooseNextPlayer();
 
+    bool isFinished() const { return done; };
+
 private:
     static bool isNear(Player *const &player);
+
+    bool isMapDone();
 
     void loadMapInfo(int idMap);
 
@@ -50,11 +56,13 @@ private:
 
     void stockBoxes(std::string *);
 
-    int mapWidth, mapHeight;
+    int mapWidth, mapHeight, mapZoom;
 
     QuadTreeNode *boxes;
 
     std::vector<Player *> players;
 
     Player *currentPlayer;
+
+    bool done = false;
 };

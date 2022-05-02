@@ -10,11 +10,15 @@ Map::Map(int idMap) {
 
 void Map::update() {
     if (!isNear(currentPlayer)){}
-        //currentPlayer->moveRight();
+        currentPlayer->moveRight();
 
     if (isNear(currentPlayer)) {
         currentPlayer->setStatus(true);
-        chooseNextPlayer();
+        if (!isMapDone()) {
+            chooseNextPlayer();
+        } else {
+            done = true;
+        }
     }
 }
 
@@ -70,6 +74,7 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
     char *widthAndHeight = mapInformation[0][0].data();
     mapWidth = atoi(strtok(widthAndHeight, " "));
     mapHeight = atoi(strtok(nullptr, " "));
+    mapZoom = atoi(strtok(nullptr, " "));
 
     boxes->init(glm::vec2(0, mapHeight), glm::vec2(mapWidth, 0));
 
@@ -140,3 +145,12 @@ void Map::chooseNextPlayer() {
     setCurrentPlayer(idNextPlayer);
 }
 
+bool Map::isMapDone() {
+    bool finished = true;
+    for (auto & player : players) {
+        if (!isNear(player)){
+            finished = false;
+        }
+    }
+    return finished;
+}

@@ -2,12 +2,20 @@
 #include "../include/Game.hpp"
 
 Game::Game() {
-    this->currentMap = new Map(1);
-    this->camera = new Camera(currentMap, 10);
+    currentMap = new Map(level);
+    camera = new Camera(currentMap, currentMap->getMapZoom());
 }
 
 void Game::update() {
     currentMap->update();
+
+    if (currentMap->isFinished() && level < MAX_LEVELS) {
+        level++;
+        currentMap = new Map(level);
+        camera->setMap(currentMap);
+        camera->setZoom(currentMap->getMapZoom());
+    }
+
     camera->update();
 }
 

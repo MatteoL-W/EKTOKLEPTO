@@ -1,5 +1,5 @@
 // Création de la map
-[mapWidth] [mapHeight]
+[mapWidth] [mapHeight] [mapZoom]
 
 // On positionne tous nos joueurs (quel type ? position de départ ? position de fin))
 // [idCarré] [x(positionDepartCarré1)] [y(positionDepartCarré1)] [x(positionFinaleCarré1)] [y(positionFinaleCarré1)]

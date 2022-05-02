@@ -3,6 +3,8 @@
 #include "Map.hpp"
 #include "Camera.hpp"
 
+const int MAX_LEVELS = 2;
+
 class Game {
 public:
     Game();
@@ -21,4 +23,6 @@ private:
     Map *currentMap;
 
     Camera *camera;
+
+    int level = 1;
 };
