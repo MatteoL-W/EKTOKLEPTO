@@ -117,17 +117,17 @@ void renderText(const TTF_Font *font, SDL_Color color, const float x, const floa
     glGenTextures(1, &texture);
     glBindTexture(GL_TEXTURE_2D, texture);
 
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, renderedText->w, renderedText->h, 0,
                  GL_RGBA, GL_UNSIGNED_BYTE,renderedText->pixels);
 
+    float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
     glBegin(GL_QUADS);
-        glTexCoord2d(0, 0); glVertex2f(x, y);
-        glTexCoord2d(20, 0); glVertex2f(x + (float)renderedText->w, y);
-        glTexCoord2d(20, 20); glVertex2f(x + (float)renderedText->w, y + (float)renderedText->h);
-        glTexCoord2d(0, 20); glVertex2f(x, y + (float)renderedText->h);
+        glTexCoord2d(0, 1); glVertex2f(x, y);
+        glTexCoord2d(1, 1); glVertex2f(x + (float)renderedText->w / (Engine::WINDOW_WIDTH), y);
+        glTexCoord2d(1, 0); glVertex2f(x + (float)renderedText->w / (Engine::WINDOW_WIDTH), y + (float)renderedText->h / (Engine::WINDOW_HEIGHT));
+        glTexCoord2d(0, 0); glVertex2f(x, y + (float)renderedText->h / (Engine::WINDOW_HEIGHT));
     glEnd();
 
     glDeleteTextures(1, &texture);
