@@ -52,9 +52,9 @@ void QuadTreeNode::drawCorrespondingQuadForScreen(glm::vec2 TLPosition, glm::vec
  * @param playerPosition
  * @return
  */
-QuadTreeNode *QuadTreeNode::findCorrespondingQuad(glm::vec2 playerPosition) {
+std::vector<Box*> QuadTreeNode::findCorrespondingBoxes(glm::vec2 playerPosition) {
     if (isLeaf())
-        return this;
+        return this->boxes;
 
     if (!isLeaf()) {
         bool top = playerPosition.y > centerQuad.y;
@@ -62,18 +62,18 @@ QuadTreeNode *QuadTreeNode::findCorrespondingQuad(glm::vec2 playerPosition) {
 
         if (top) {
             if (right)
-                return topRight->findCorrespondingQuad(playerPosition);
+               return topRight->findCorrespondingBoxes(playerPosition);
             else
-                return topLeft->findCorrespondingQuad(playerPosition);
+                return topLeft->findCorrespondingBoxes(playerPosition);
         } else {
             if (right)
-                return bottomRight->findCorrespondingQuad(playerPosition);
+                return bottomRight->findCorrespondingBoxes(playerPosition);
             else
-                return bottomLeft->findCorrespondingQuad(playerPosition);
+                return bottomLeft->findCorrespondingBoxes(playerPosition);
         }
     }
 
-    return (new QuadTreeNode());
+    return (new QuadTreeNode())->boxes;
 }
 
 /**
