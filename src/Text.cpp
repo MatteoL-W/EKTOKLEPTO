@@ -16,14 +16,14 @@ void Text::generateSurface() {
 void Text::bindTexture() {
     glGenTextures(1, &textureBind);
     glBindTexture(GL_TEXTURE_2D, textureBind);
-
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, renderedText->w, renderedText->h, 0,
-                 GL_RGBA, GL_UNSIGNED_BYTE,renderedText->pixels);
 }
 
 void Text::draw() {
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, renderedText->w, renderedText->h, 0,
+                 GL_RGBA, GL_UNSIGNED_BYTE,renderedText->pixels);
+
     glBegin(GL_QUADS);
         glTexCoord2d(0, 1); glVertex2f(x, y);
         glTexCoord2d(1, 1); glVertex2f(x + (float)renderedText->w / (Engine::WINDOW_WIDTH), y);
