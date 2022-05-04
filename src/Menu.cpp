@@ -4,13 +4,10 @@
 #include "../include/tools/Text.hpp"
 #include "../include/variables/Color.hpp"
 
+Text *textTest;
+
 Menu::Menu() {
-    //titleText = new Text();
-    //titleText->create("Welcome in the menu", WhiteColor, "Press");
-    /*titleText->changeDestRect(
-            getPadding(Engine::WINDOW_WIDTH, titleText->getDestRect().w),
-            getPadding(Engine::WINDOW_HEIGHT, titleText->getDestRect().h)
-    );*/
+    textTest = new Text("ok sa march", TTF_OpenFont("./assets/fonts/Press.ttf", 500), WhiteColor, 1, 1);
 }
 
 void Menu::update() {
@@ -18,6 +15,5 @@ void Menu::update() {
 }
 
 void Menu::draw() {
-    //titleText->draw();
-    renderText(TTF_OpenFont("./assets/fonts/Press.ttf", 500), WhiteColor, 1, 1, "C'est casse la");
+    textTest->draw();
 }
