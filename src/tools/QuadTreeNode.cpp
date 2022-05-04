@@ -62,14 +62,14 @@ QuadTreeNode *QuadTreeNode::findCorrespondingQuad(glm::vec2 playerPosition) {
 
         if (top) {
             if (right)
-                topRight->findCorrespondingQuad(playerPosition);
+                return topRight->findCorrespondingQuad(playerPosition);
             else
-                topLeft->findCorrespondingQuad(playerPosition);
+                return topLeft->findCorrespondingQuad(playerPosition);
         } else {
             if (right)
-                bottomRight->findCorrespondingQuad(playerPosition);
+                return bottomRight->findCorrespondingQuad(playerPosition);
             else
-                bottomLeft->findCorrespondingQuad(playerPosition);
+                return bottomLeft->findCorrespondingQuad(playerPosition);
         }
     }
 
