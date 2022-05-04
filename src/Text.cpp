@@ -122,7 +122,7 @@ void renderText(const TTF_Font *font, SDL_Color color, const float x, const floa
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, renderedText->w, renderedText->h, 0,
                  GL_RGBA, GL_UNSIGNED_BYTE,renderedText->pixels);
 
-    float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
+    float aspectRatio = (float) Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
     glBegin(GL_QUADS);
         glTexCoord2d(0, 1); glVertex2f(x, y);
         glTexCoord2d(1, 1); glVertex2f(x + (float)renderedText->w / (Engine::WINDOW_WIDTH), y);

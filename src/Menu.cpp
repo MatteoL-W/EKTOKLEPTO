@@ -19,5 +19,5 @@ void Menu::update() {
 
 void Menu::draw() {
     //titleText->draw();
-    renderText(TTF_OpenFont("./assets/fonts/Press.ttf", 500), WhiteColor, 1, 1, "Test");
+    renderText(TTF_OpenFont("./assets/fonts/Press.ttf", 500), WhiteColor, 1, 1, "C'est casse la");
 }
