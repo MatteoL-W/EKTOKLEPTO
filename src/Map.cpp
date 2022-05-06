@@ -9,8 +9,8 @@ Map::Map(int idMap) {
 }
 
 void Map::update() {
-    if (!isNear(currentPlayer)){}
-        currentPlayer->moveRight();
+    if (!isNear(currentPlayer)) {}
+    //currentPlayer->moveRight();
 
     if (isNear(currentPlayer)) {
         currentPlayer->setStatus(true);
@@ -25,8 +25,10 @@ void Map::update() {
 bool Map::isNear(Player *const &player) {
     float margin = 0.2;
 
-    if ((player->getCenteredPositionEnd().x - margin < player->getCenteredPosition().x && player->getCenteredPosition().x < player->getCenteredPositionEnd().x + margin)
-        && (player->getCenteredPositionEnd().y - margin < player->getCenteredPosition().y && player->getCenteredPosition().y < player->getCenteredPositionEnd().y + margin)) {
+    if ((player->getCenteredPositionEnd().x - margin < player->getCenteredPosition().x &&
+         player->getCenteredPosition().x < player->getCenteredPositionEnd().x + margin)
+        && (player->getCenteredPositionEnd().y - margin < player->getCenteredPosition().y &&
+            player->getCenteredPosition().y < player->getCenteredPositionEnd().y + margin)) {
         return true;
     }
     return false;
@@ -89,7 +91,7 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
 void Map::stockBoxes(std::string lineInformation[32]) {
     for (int i = 0; i < MAX_SQUARES; i++) {
         char *rectanglesInformation = lineInformation[i].data();
-        float parameter[4] = {0, 0, 0, 0};
+        float parameter[8] = {0, 0, 0, 0, 0, 0, 0, 0};
         int counter = 0;
 
         char *line = strtok(rectanglesInformation, " ");
@@ -100,7 +102,8 @@ void Map::stockBoxes(std::string lineInformation[32]) {
         }
 
         if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3]) {
-            boxes->insertBox(new Box(parameter[0], parameter[1], parameter[2], parameter[3]));
+            boxes->insertBox(new Box(parameter[0], parameter[1], parameter[2], parameter[3], parameter[4], parameter[5],
+                                     parameter[6], parameter[7]));
             boxCount++;
         }
     }
@@ -147,8 +150,8 @@ void Map::chooseNextPlayer() {
 
 bool Map::isMapDone() {
     bool finished = true;
-    for (auto & player : players) {
-        if (!isNear(player)){
+    for (auto &player: players) {
+        if (!isNear(player)) {
             finished = false;
         }
     }
@@ -156,7 +159,7 @@ bool Map::isMapDone() {
 }
 
 void Map::restart() {
-    for (auto & player : players) {
+    for (auto &player: players) {
         player->reset();
     }
 }
