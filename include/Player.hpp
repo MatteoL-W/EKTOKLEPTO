@@ -19,27 +19,30 @@ public:
 
     void moveRight();
 
+    void reset() { BLPosition = BLPositionStart; };
+
     void setStatus(bool p_hasFinished) { hasFinished = p_hasFinished; };
 
     glm::vec2 getCenteredPosition() const { return {BLPosition.x + width / 2, BLPosition.y + height / 2}; };
+
     glm::vec2 getCenteredPositionEnd() const { return {BLPositionEnd.x + width / 2, BLPositionEnd.y + height / 2}; };
 
     glm::vec2 getBLPosition() const { return BLPosition; };
+
     glm::vec2 getBLPositionStart() const { return BLPositionStart; };
+
     glm::vec2 getBLPositionEnd() const { return BLPositionEnd; };
 
 private:
-    int type;
-
     glm::vec2 BLPositionStart;
     glm::vec2 BLPosition;
     glm::vec2 BLPositionEnd;
 
-    bool hasFinished = false;
-
+    int type;
     float width, height;
-
     float r, g, b;
+
+    bool hasFinished = false;
 
     void setPropsFromType();
 };

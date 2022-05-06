@@ -154,3 +154,9 @@ bool Map::isMapDone() {
     }
     return finished;
 }
+
+void Map::restart() {
+    for (auto & player : players) {
+        player->reset();
+    }
+}
