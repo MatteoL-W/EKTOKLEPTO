@@ -1,15 +1,19 @@
 #pragma once
 
 #include "glm/vec2.hpp"
+#include <glm/gtx/norm.hpp>
 
 class Box {
 public:
-    Box(float p_xCoord1, float p_yCoord1, float p_xCoord2, float p_yCoord2, float p_xMin = 0, float p_xMax = 0,
-        float p_yMin = 0, float p_yMax = 0)
-            : TLPosition(p_xCoord1, p_yCoord1), BRPosition(p_xCoord2, p_yCoord2), xMin(p_xMin), xMax(p_xMax),
-              yMin(p_yMin), yMax(p_yMax) {}
+    Box(float p_xCoord1, float p_yCoord1, float p_xCoord2, float p_yCoord2, float p_xMax = 0, float p_yMax = 0)
+            : TLPosition(p_xCoord1, p_yCoord1), BRPosition(p_xCoord2, p_yCoord2),
+              TLInitialPosition(p_xCoord1, p_yCoord1), BRInitialPosition(p_xCoord2, p_yCoord2),
+              TLMaxPosition(p_xCoord1 + p_xMax, p_yCoord1 + p_yMax), BRMaxPosition(p_xCoord2 + p_xMax, p_yCoord2 + p_yMax),
+              TLDestination(TLMaxPosition) {}
 
     ~Box();
+
+    void update();
 
     void draw();
 
@@ -23,10 +27,16 @@ public:
 
 private:
     glm::vec2 TLPosition;
-
     glm::vec2 BRPosition;
 
-    float xMin, xMax;
-    float yMin, yMax;
-    float speed;
+    glm::vec2 TLInitialPosition;
+    glm::vec2 BRInitialPosition;
+
+    glm::vec2 TLMaxPosition;
+    glm::vec2 BRMaxPosition;
+
+    glm::vec2 TLDestination;
+
+    glm::vec2 direction;
+    float speed = 0.01;
 };

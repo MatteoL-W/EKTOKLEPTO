@@ -9,8 +9,10 @@ Map::Map(int idMap) {
 }
 
 void Map::update() {
-    if (!isNear(currentPlayer)) {}
+    //if (!isNear(currentPlayer)) {}
     //currentPlayer->moveRight();
+    boxes->bottomLeft->bottomLeft->boxes[2]->update();
+
 
     if (isNear(currentPlayer)) {
         currentPlayer->setStatus(true);
@@ -91,7 +93,7 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
 void Map::stockBoxes(std::string lineInformation[32]) {
     for (int i = 0; i < MAX_SQUARES; i++) {
         char *rectanglesInformation = lineInformation[i].data();
-        float parameter[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+        float parameter[6] = {0, 0, 0, 0, 0, 0};
         int counter = 0;
 
         char *line = strtok(rectanglesInformation, " ");
@@ -102,8 +104,7 @@ void Map::stockBoxes(std::string lineInformation[32]) {
         }
 
         if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3]) {
-            boxes->insertBox(new Box(parameter[0], parameter[1], parameter[2], parameter[3], parameter[4], parameter[5],
-                                     parameter[6], parameter[7]));
+            boxes->insertBox(new Box(parameter[0], parameter[1], parameter[2], parameter[3], parameter[4], parameter[5]));
             boxCount++;
         }
     }
