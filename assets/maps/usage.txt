@@ -6,6 +6,6 @@
 // [idCarré] [x(positionDepartCarré2)] [y(positionDepartCarré2)] [x(positionFinaleCarré2)] [y(positionFinaleCarré2)]
 // [idCarré] [x(positionDepartCarréN)] [y(positionDepartCarréN)] [x(positionFinaleCarréN)] [y(positionFinaleCarréN)]
 
-// Faut trouver un moyen pour séparer les trois parties
-[xTopLeft] [yTopLeft] [xBottomRight] [yBottomRight] [maybe mettre un truc vitesse en optionnel]
+// Boxes ; xMax; yMax and speed are optional
+[xTopLeft] [yTopLeft] [xBottomRight] [yBottomRight] ([xMax] [yMax] [speed])
 

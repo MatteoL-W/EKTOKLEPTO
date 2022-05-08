@@ -16,7 +16,6 @@ void Camera::update() {
 
         if (distance > 0.1) {
             center = center + direction * speed;
-            speed *= 0.9;
             if (speed < 0.1)
                 speed = 0.15;
         } else {

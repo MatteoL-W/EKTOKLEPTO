@@ -1,4 +1,5 @@
 #include <GL/gl.h>
+#include <iostream>
 #include "../include/Box.hpp"
 #include "../include/tools/draw.hpp"
 
@@ -10,14 +11,12 @@ void Box::draw() {
 }
 
 void Box::update() {
-    if (glm::distance(TLPosition, TLDestination) < 0.01) {
+    if (glm::distance(TLPosition, TLDestination) < 0.01)
         TLPosition = TLDestination;
-    }
 
-    if (TLDestination != TLPosition) {
-        direction = glm::normalize(TLDestination - TLPosition);
-    } else {
+    if (TLDestination == TLPosition) {
         TLDestination = (TLDestination == TLInitialPosition) ? TLMaxPosition : TLInitialPosition;
+        direction = glm::normalize(TLDestination - TLPosition);
     }
 
     TLPosition = TLPosition + direction * speed;

@@ -77,9 +77,9 @@ void Map::loadMapInfo(int idMap) {
 void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
     // Stock width an height in the object data
     char *widthAndHeight = mapInformation[0][0].data();
-    mapWidth = atoi(strtok(widthAndHeight, " "));
-    mapHeight = atoi(strtok(nullptr, " "));
-    mapZoom = atoi(strtok(nullptr, " "));
+    mapWidth = atof(strtok(widthAndHeight, " "));
+    mapHeight = atof(strtok(nullptr, " "));
+    mapZoom = atof(strtok(nullptr, " "));
 
     boxes->init(glm::vec2(0, mapHeight), glm::vec2(mapWidth, 0));
 
@@ -94,18 +94,18 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
 void Map::stockBoxes(std::string lineInformation[32]) {
     for (int i = 0; i < MAX_SQUARES; i++) {
         char *rectanglesInformation = lineInformation[i].data();
-        float parameter[6] = {0, 0, 0, 0, 0, 0};
+        float parameter[7] = {0, 0, 0, 0, 0, 0, 0};
         int counter = 0;
 
         char *line = strtok(rectanglesInformation, " ");
         while (line != NULL) {
-            parameter[counter] = atoi(line);
+            parameter[counter] = atof(line);
             line = strtok(NULL, " ");
             counter++;
         }
 
         if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3]) {
-            boxes->insertBox(new Box(parameter[0], parameter[1], parameter[2], parameter[3], parameter[4], parameter[5]));
+            boxes->insertBox(new Box(parameter[0], parameter[1], parameter[2], parameter[3], parameter[4], parameter[5], parameter[6]));
             boxCount++;
         }
     }
