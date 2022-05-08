@@ -33,12 +33,14 @@ public:
 
     glm::vec2 getBLPositionEnd() const { return BLPositionEnd; };
 
+
 private:
+    int type;
+
     glm::vec2 BLPositionStart;
     glm::vec2 BLPosition;
     glm::vec2 BLPositionEnd;
 
-    int type;
     float width, height;
     float r, g, b;
 

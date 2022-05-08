@@ -173,3 +173,18 @@ void QuadTreeNode::insertAtTheRightPlace(Box *box) const {
     }
 }
 
+void QuadTreeNode::updateBoxes() {
+    if (isLeaf()) {
+        for (auto &box: boxes) {
+            if (box->isMovable())
+                box->update();
+        }
+        return;
+    }
+
+    // When it's not a leaf, nodes are defined, so we assume we have no verification.
+    topLeft->updateBoxes();
+    topRight->updateBoxes();
+    bottomLeft->updateBoxes();
+    bottomRight->updateBoxes();
+}
