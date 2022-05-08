@@ -25,6 +25,8 @@ public:
 
     glm::vec2 getBLPosition() const { return {TLPosition.x, BRPosition.y}; };
 
+    bool isMovable() { return (TLInitialPosition != TLMaxPosition); };
+
 private:
     glm::vec2 TLPosition;
     glm::vec2 BRPosition;

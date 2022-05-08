@@ -11,7 +11,8 @@ Map::Map(int idMap) {
 void Map::update() {
     //if (!isNear(currentPlayer)) {}
     //currentPlayer->moveRight();
-    boxes->bottomLeft->bottomLeft->boxes[2]->update();
+
+    boxes->updateBoxes();
 
 
     if (isNear(currentPlayer)) {
