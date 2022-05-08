@@ -6,24 +6,20 @@
  */
 void Camera::update() {
     glm::vec2 destination = map->getCurrentPlayer()->getCenteredPosition();
-    setTrajectory(center, destination);
+
+    if (center == destination) {
+        unsetTrajectory();
+    }
 
     if (center != destination) {
-        if (speed == 0) {
-            center = destination;
-            return;
-        }
+        setTrajectory(center, destination);
 
         if (distance > 0.1) {
             center = center + direction * speed;
-            if (speed < 0.1)
-                speed = 0.15;
+            speed = (speed < 0.1) ? 0.15 : speed;
         } else {
             speed = 0;
         }
-    } else {
-        center = destination;
-        unsetTrajectory();
     }
 }
 

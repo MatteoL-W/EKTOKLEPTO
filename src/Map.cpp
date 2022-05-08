@@ -10,7 +10,7 @@ Map::Map(int idMap) {
 
 void Map::update() {
     //if (!isNear(currentPlayer)) {}
-    //currentPlayer->moveRight();
+    currentPlayer->moveRight();
 
     boxes->updateBoxes();
 
