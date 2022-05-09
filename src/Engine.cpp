@@ -58,7 +58,7 @@ Engine::Engine() {
     gameInterface = new GameInterface(this);
 
     /* Define the default interface*/
-    currentInterface = menuInterface;
+    currentInterface = gameInterface;
 
     isRunning = true;
 
