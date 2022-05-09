@@ -3,17 +3,41 @@
 #include <cstring>
 #include "../include/Map.hpp"
 
-Map::Map() {
+Map::Map(int idMap) {
     boxes = new QuadTreeNode();
-    loadMapInfo(1);
+    loadMapInfo(idMap);
 }
 
 void Map::update() {
+    //if (!isNear(currentPlayer)) {}
+    currentPlayer->moveRight();
+
+    boxes->updateBoxes();
+
+
+    if (isNear(currentPlayer)) {
+        currentPlayer->setStatus(true);
+        if (!isMapDone()) {
+            chooseNextPlayer();
+        } else {
+            done = true;
+        }
+    }
+}
+
+bool Map::isNear(Player *const &player) {
+    float margin = 0.2;
+
+    if ((player->getCenteredPositionEnd().x - margin < player->getCenteredPosition().x &&
+         player->getCenteredPosition().x < player->getCenteredPositionEnd().x + margin)
+        && (player->getCenteredPositionEnd().y - margin < player->getCenteredPosition().y &&
+            player->getCenteredPosition().y < player->getCenteredPositionEnd().y + margin)) {
+        return true;
+    }
+    return false;
 }
 
 void Map::draw() {
-    boxes->drawBoxes(true);
-
     for (size_t i = 0; i < playerCount; i++) {
         players[i]->draw();
         players[i]->drawEndPlace();
@@ -53,8 +77,9 @@ void Map::loadMapInfo(int idMap) {
 void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
     // Stock width an height in the object data
     char *widthAndHeight = mapInformation[0][0].data();
-    mapWidth = atoi(strtok(widthAndHeight, " "));
-    mapHeight = atoi(strtok(nullptr, " "));
+    mapWidth = atof(strtok(widthAndHeight, " "));
+    mapHeight = atof(strtok(nullptr, " "));
+    mapZoom = atof(strtok(nullptr, " "));
 
     boxes->init(glm::vec2(0, mapHeight), glm::vec2(mapWidth, 0));
 
@@ -69,18 +94,18 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
 void Map::stockBoxes(std::string lineInformation[32]) {
     for (int i = 0; i < MAX_SQUARES; i++) {
         char *rectanglesInformation = lineInformation[i].data();
-        float parameter[4] = {0, 0, 0, 0};
+        float parameter[7] = {0, 0, 0, 0, 0, 0, 0};
         int counter = 0;
 
         char *line = strtok(rectanglesInformation, " ");
         while (line != NULL) {
-            parameter[counter] = atoi(line);
+            parameter[counter] = atof(line);
             line = strtok(NULL, " ");
             counter++;
         }
 
         if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3]) {
-            boxes->insertBox(new Box(parameter[0], parameter[1], parameter[2], parameter[3]));
+            boxes->insertBox(new Box(parameter[0], parameter[1], parameter[2], parameter[3], parameter[4], parameter[5], parameter[6]));
             boxCount++;
         }
     }
@@ -115,8 +140,28 @@ void Map::stockPlayers(std::string lineInformation[32]) {
     }
 }
 
-void Map::setCurrentPlayer(int i) {
+void Map::setCurrentPlayer(size_t i) {
     currentPlayer = players[i];
     currentPlayerId = i;
 }
 
+void Map::chooseNextPlayer() {
+    size_t idNextPlayer = (currentPlayerId + 1 < playerCount) ? currentPlayerId + 1 : 0;
+    setCurrentPlayer(idNextPlayer);
+}
+
+bool Map::isMapDone() {
+    bool finished = true;
+    for (auto &player: players) {
+        if (!isNear(player)) {
+            finished = false;
+        }
+    }
+    return finished;
+}
+
+void Map::restart() {
+    for (auto &player: players) {
+        player->reset();
+    }
+}

@@ -11,7 +11,7 @@ const int MAX_PLAYERS = 5;
 
 class Map {
 public:
-    Map();
+    explicit Map(int idMap);
 
     ~Map() = default;
 
@@ -19,17 +19,37 @@ public:
 
     void draw();
 
+    void chooseNextPlayer();
+
+    void restart();
+
     size_t boxCount = 0;
 
     size_t playerCount = 0;
 
-    int currentPlayerId = 0;
+    size_t currentPlayerId = 0;
 
-    void setCurrentPlayer(int i);
+    void setCurrentPlayer(size_t i);
+
+    int getMapWidth() const { return mapWidth; };
+
+    int getMapHeight() const { return mapHeight; };
+
+    int getMapZoom() const { return mapZoom; };
 
     std::vector<Player *> getPlayers() { return players; };
 
+    Player *getCurrentPlayer() { return currentPlayer; };
+
+    QuadTreeNode *getBoxes() { return boxes; };
+
+    bool isFinished() const { return done; };
+
 private:
+    static bool isNear(Player *const &player);
+
+    bool isMapDone();
+
     void loadMapInfo(int idMap);
 
     void stockMapInfo(std::string mapInformation[3][MAX_SQUARES]);
@@ -38,11 +58,13 @@ private:
 
     void stockBoxes(std::string *);
 
-    int mapWidth, mapHeight;
+    int mapWidth, mapHeight, mapZoom;
 
     QuadTreeNode *boxes;
 
     std::vector<Player *> players;
 
     Player *currentPlayer;
+
+    bool done = false;
 };

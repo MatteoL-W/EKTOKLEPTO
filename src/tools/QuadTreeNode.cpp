@@ -15,9 +15,46 @@ bool QuadTreeNode::isLeaf() const {
     return (!topLeft && !topRight && !bottomRight && !bottomLeft);
 }
 
-QuadTreeNode *QuadTreeNode::findCorrespondingQuad(glm::vec2 playerPosition) {
+/**
+ * @brief Draw the content of the screen (optimize render)
+ * @param TLPosition
+ * @param BRPosition
+ */
+void QuadTreeNode::drawCorrespondingQuadForScreen(glm::vec2 TLPosition, glm::vec2 BRPosition) {
+    if (isLeaf()) {
+        for (auto &box: boxes) {
+            box->draw();
+        }
+    }
+
+    if (!isLeaf()) {
+        bool left = TLPosition.x < centerQuad.x;
+        bool right = BRPosition.x > centerQuad.x;
+        bool bottom = BRPosition.y < centerQuad.y;
+        bool top = TLPosition.y > centerQuad.y;
+
+        if (left && top)
+            topLeft->drawCorrespondingQuadForScreen(TLPosition, BRPosition);
+
+        if (right && top)
+            topRight->drawCorrespondingQuadForScreen(TLPosition, BRPosition);
+
+        if (left && bottom)
+            bottomLeft->drawCorrespondingQuadForScreen(TLPosition, BRPosition);
+
+        if (right && bottom)
+            bottomRight->drawCorrespondingQuadForScreen(TLPosition, BRPosition);
+    }
+}
+
+/**
+ * @brief Find the quad containing a vec2 position (used to find collisions around the player)
+ * @param playerPosition
+ * @return
+ */
+std::vector<Box*> QuadTreeNode::findCorrespondingBoxes(glm::vec2 playerPosition) {
     if (isLeaf())
-        return this;
+        return this->boxes;
 
     if (!isLeaf()) {
         bool top = playerPosition.y > centerQuad.y;
@@ -25,18 +62,24 @@ QuadTreeNode *QuadTreeNode::findCorrespondingQuad(glm::vec2 playerPosition) {
 
         if (top) {
             if (right)
-                topRight->findCorrespondingQuad(playerPosition);
+               return topRight->findCorrespondingBoxes(playerPosition);
             else
-                topLeft->findCorrespondingQuad(playerPosition);
+                return topLeft->findCorrespondingBoxes(playerPosition);
         } else {
             if (right)
-                bottomRight->findCorrespondingQuad(playerPosition);
+                return bottomRight->findCorrespondingBoxes(playerPosition);
             else
-                bottomLeft->findCorrespondingQuad(playerPosition);
+                return bottomLeft->findCorrespondingBoxes(playerPosition);
         }
     }
+
+    return (new QuadTreeNode())->boxes;
 }
 
+/**
+ * @brief [DEPRECATED] Draw a box and its content
+ * @param drawQuad
+ */
 void QuadTreeNode::drawBoxes(bool drawQuad) {
     if (isLeaf()) {
         if (drawQuad) {
@@ -50,15 +93,19 @@ void QuadTreeNode::drawBoxes(bool drawQuad) {
         return;
     }
 
-    // When it's not a leaf, nodes are defined so we assume we have no verification.
+    // When it's not a leaf, nodes are defined, so we assume we have no verification.
     topLeft->drawBoxes(drawQuad);
     topRight->drawBoxes(drawQuad);
     bottomLeft->drawBoxes(drawQuad);
     bottomRight->drawBoxes(drawQuad);
 }
 
+/**
+ * @brief Insert a box into a quadtree
+ * @param box
+ */
 void QuadTreeNode::insertBox(Box *box) {
-    if (isLeaf()) { // si topright; topleft; bottomright et bottomleft sont nullptr
+    if (isLeaf()) {
         boxes.push_back(box);
     }
 
@@ -101,6 +148,10 @@ void QuadTreeNode::initNodes() {
     }
 }
 
+/**
+ * @brief Function used to locate in which quad should be a box located
+ * @param box
+ */
 void QuadTreeNode::insertAtTheRightPlace(Box *box) const {
     bool left = box->getTLPosition().x < centerQuad.x;
     bool right = box->getTRPosition().x > centerQuad.x;
@@ -122,3 +173,18 @@ void QuadTreeNode::insertAtTheRightPlace(Box *box) const {
     }
 }
 
+void QuadTreeNode::updateBoxes() {
+    if (isLeaf()) {
+        for (auto &box: boxes) {
+            if (box->isMovable())
+                box->update();
+        }
+        return;
+    }
+
+    // When it's not a leaf, nodes are defined, so we assume we have no verification.
+    topLeft->updateBoxes();
+    topRight->updateBoxes();
+    bottomLeft->updateBoxes();
+    bottomRight->updateBoxes();
+}

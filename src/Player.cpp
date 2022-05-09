@@ -5,13 +5,29 @@
 Player::~Player() {}
 
 void Player::draw() {
-    glColor3f(r, g, b);
-    drawRect(TLPositionStart, BRPositionStart);
+    if (!hasFinished) {
+        glColor3f(r, g, b);
+    } else {
+        glColor3f(255, 255, 255);
+    }
+
+    drawRect(
+            glm::vec2(BLPosition.x, BLPosition.y + height),
+            glm::vec2(BLPosition.x + width, BLPosition.y)
+    );
 }
 
 void Player::drawEndPlace() {
     glColor3f(r, g, b);
-    drawRect(TLPositionEnd, BRPositionEnd, false);
+    drawRect(
+            glm::vec2(BLPositionEnd.x, BLPositionEnd.y + height),
+            glm::vec2(BLPositionEnd.x + width, BLPositionEnd.y),
+            false
+    );
+}
+
+void Player::moveRight() {
+    BLPosition.x += 0.01;
 }
 
 void Player::setPropsFromType() {

@@ -23,7 +23,9 @@ struct QuadTreeNode {
 
     bool isLeaf() const;
 
-    QuadTreeNode *findCorrespondingQuad(glm::vec2 playerPosition);
+    void drawCorrespondingQuadForScreen(glm::vec2 TLPosition, glm::vec2 BRPosition);
+
+    std::vector<Box*> findCorrespondingBoxes(glm::vec2 playerPosition);
 
     void drawBoxes(bool drawQuad = false);
 
@@ -32,5 +34,7 @@ struct QuadTreeNode {
     void initNodes();
 
     void insertAtTheRightPlace(Box *box) const;
+
+    void updateBoxes();
 };
 
