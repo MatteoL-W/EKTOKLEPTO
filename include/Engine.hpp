@@ -22,7 +22,7 @@ public:
 
     static const int WINDOW_HEIGHT = 750;
 
-    constexpr static const float GL_VIEW_SIZE = 20.;
+    constexpr static const float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
 
     static SDL_Renderer *renderer;
 

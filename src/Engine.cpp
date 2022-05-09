@@ -58,7 +58,7 @@ Engine::Engine() {
     gameInterface = new GameInterface(this);
 
     /* Define the default interface*/
-    currentInterface = gameInterface;
+    currentInterface = menuInterface;
 
     isRunning = true;
 
@@ -83,7 +83,6 @@ void Engine::clean() {
 void Engine::refresh() {
     currentInterface->update();
 
-    // Blue background
     SDL_RenderClear(Engine::renderer);
     glClear(GL_COLOR_BUFFER_BIT);
     currentInterface->render();
@@ -100,6 +99,8 @@ void Engine::initiateWindowSize() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    // On définit plutôt les repère depuis le bas à gauche
-    gluOrtho2D(0, GL_VIEW_SIZE, 0, GL_VIEW_SIZE);
+    gluOrtho2D(
+            (-10 * aspectRatio), (10 * aspectRatio),
+            (-10), (10)
+    );
 }
