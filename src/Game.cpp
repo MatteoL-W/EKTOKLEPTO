@@ -14,7 +14,8 @@ void Game::update() {
         currentMap = new Map(level);
 
         camera->setMap(currentMap);
-        camera->setZoom(currentMap->getMapZoom());
+        camera->newLevel(level);
+        //camera->setZoom(currentMap->getMapZoom());
     }
 
     camera->update();
