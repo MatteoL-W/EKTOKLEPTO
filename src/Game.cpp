@@ -4,6 +4,7 @@
 Game::Game() {
     currentMap = new Map(level);
     camera = new Camera(currentMap, currentMap->getMapZoom());
+    camera->newLevel(level);
 }
 
 void Game::update() {
@@ -15,7 +16,6 @@ void Game::update() {
 
         camera->setMap(currentMap);
         camera->newLevel(level);
-        //camera->setZoom(currentMap->getMapZoom());
     }
 
     camera->update();
