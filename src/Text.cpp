@@ -6,9 +6,7 @@
 
 void Text::generateSurface() {
     glEnable(GL_TEXTURE_2D);
-    glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-
     renderedText = TTF_RenderText_Blended(const_cast<TTF_Font *>(font), content.c_str(), color);
 }
 
@@ -20,6 +18,7 @@ void Text::bindTexture() {
 }
 
 void Text::draw() {
+    glEnable(GL_BLEND);
     glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, renderedText->w, renderedText->h, 0,
                  GL_RGBA, GL_UNSIGNED_BYTE,renderedText->pixels);
 

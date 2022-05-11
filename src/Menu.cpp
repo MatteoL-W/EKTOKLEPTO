@@ -30,7 +30,8 @@ void Menu::draw() {
 }
 
 void Menu::drawCurrent(int choice) {
-    float x = -12, y;
+    glDisable(GL_BLEND);
+    float x = -11, y;
     switch (choice) {
         case 1:
             y = 2;
@@ -47,14 +48,14 @@ void Menu::drawCurrent(int choice) {
 
     glPushMatrix();
         glColor3f(1,1,1);
-        glTranslatef(x, y, 0);
+        glTranslatef(x, y + 0.35, 0);
         glRotatef(45,0,0,1);
 
         glBegin(GL_QUADS);
-            glVertex2f(0.5, 0.5);
-            glVertex2f(-0.5, 0.5);
-            glVertex2f(-0.5, -0.5);
-            glVertex2f(0.5, -0.5);
+            glVertex2f(0.25, 0.25);
+            glVertex2f(-0.25, 0.25);
+            glVertex2f(-0.25, -0.25);
+            glVertex2f(0.25, -0.25);
         glEnd();
     glPopMatrix();
 }
