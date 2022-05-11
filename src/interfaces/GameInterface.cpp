@@ -11,7 +11,9 @@ int SDLK_KeysFrom1ToMax[MAX_PLAYERS] = {
  */
 void GameInterface::handleEvents() {
     SDL_Event event = engine->event;
+    const Uint8 *keyState = SDL_GetKeyboardState(NULL);
     SDL_PollEvent(&event);
+    Player* currentPlayer = currentMap->getCurrentPlayer();
 
     if (event.type == SDL_QUIT) {
         engine->setRunning(false);
@@ -26,12 +28,32 @@ void GameInterface::handleEvents() {
             }
         }
 
-        // Changement de joueurs avec Tab
         switch (event.key.keysym.sym) {
+            // Changement de joueurs avec Tab
             case SDLK_TAB:
                 currentMap->chooseNextPlayer();
                 break;
         }
+    }
+
+    if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP) {
+
+        if (keyState[SDL_SCANCODE_RIGHT]){
+            currentPlayer->movingRight = true;
+        } else {
+            currentPlayer->movingRight = false;
+        }
+
+        if (keyState[SDL_SCANCODE_LEFT]){
+            currentPlayer->movingLeft = true;
+        } else {
+            currentPlayer->movingLeft = false;
+        }
+
+        if (keyState[SDL_SCANCODE_SPACE]){
+            currentPlayer->jump();
+        }
+
     }
 }
 

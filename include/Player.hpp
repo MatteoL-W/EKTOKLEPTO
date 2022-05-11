@@ -17,7 +17,15 @@ public:
 
     void drawEndPlace();
 
-    void moveRight();
+    float xSpeed = 0.05;
+    float ySpeedUp = 0.18;
+    float gravity = 0.05;
+    float xAccRight = 0.00;
+    float xAccLeft = 0.00;
+    float yAccUp = 0.00;
+    bool movingRight, movingLeft, doubleJump = false;
+    void jump();
+    void posUpdate();
 
     void setStatus(bool p_hasFinished) { hasFinished = p_hasFinished; };
 

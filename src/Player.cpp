@@ -26,8 +26,37 @@ void Player::drawEndPlace() {
     );
 }
 
-void Player::moveRight() {
-    BLPosition.x += 0.01;
+void Player::jump() {
+    if (yAccUp > 0.0 && !doubleJump){
+        yAccUp = 1.00;
+        doubleJump = true;
+    } else if (yAccUp == 0.0){
+        yAccUp = 1.00;
+    }
+}
+
+void Player::posUpdate() {
+    BLPosition.x = BLPosition.x + xSpeed * xAccRight - xSpeed * xAccLeft;
+    BLPosition.y = BLPosition.y + ySpeedUp * yAccUp - gravity;
+
+    if (movingRight){
+        xAccRight = 1.00;
+    } else {
+        xAccRight = xAccRight * 0.93;
+    }
+
+    if (movingLeft){
+        xAccLeft = 1.00;
+    } else {
+        xAccLeft = xAccLeft * 0.93;
+    }
+
+    yAccUp = yAccUp * 0.9;
+
+    if (yAccUp <= 0.05){
+        yAccUp = 0;
+        doubleJump = false;
+    }
 }
 
 void Player::setPropsFromType() {
