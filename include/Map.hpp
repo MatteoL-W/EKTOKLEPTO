@@ -19,6 +19,10 @@ public:
 
     void draw();
 
+    void chooseNextPlayer();
+
+    void restart();
+
     size_t boxCount = 0;
 
     size_t playerCount = 0;
@@ -38,8 +42,6 @@ public:
     Player *getCurrentPlayer() { return currentPlayer; };
 
     QuadTreeNode *getBoxes() { return boxes; };
-
-    void chooseNextPlayer();
 
     bool isFinished() const { return done; };
 

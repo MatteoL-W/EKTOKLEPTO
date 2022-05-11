@@ -33,6 +33,9 @@ void GameInterface::handleEvents() {
             case SDLK_TAB:
                 currentMap->chooseNextPlayer();
                 break;
+            case SDLK_r:
+                currentMap->restart();
+                break;
         }
     }
 

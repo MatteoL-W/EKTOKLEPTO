@@ -34,5 +34,7 @@ struct QuadTreeNode {
     void initNodes();
 
     void insertAtTheRightPlace(Box *box) const;
+
+    void updateBoxes();
 };
 
