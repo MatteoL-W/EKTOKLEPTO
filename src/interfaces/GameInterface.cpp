@@ -42,15 +42,15 @@ void GameInterface::handleEvents() {
     if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP) {
 
         if (keyState[SDL_SCANCODE_RIGHT]){
-            currentPlayer->movingRight = true;
+            currentPlayer->setMovingRight(true);
         } else {
-            currentPlayer->movingRight = false;
+            currentPlayer->setMovingRight(false);
         }
 
         if (keyState[SDL_SCANCODE_LEFT]){
-            currentPlayer->movingLeft = true;
+            currentPlayer->setMovingLeft(true);
         } else {
-            currentPlayer->movingLeft = false;
+            currentPlayer->setMovingLeft(false);
         }
 
         if (keyState[SDL_SCANCODE_SPACE]){

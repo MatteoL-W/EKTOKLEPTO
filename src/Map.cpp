@@ -12,7 +12,6 @@ void Map::update() {
 
     boxes->updateBoxes();
 
-
     if (isNear(currentPlayer)) {
         currentPlayer->setStatus(true);
         if (!isMapDone()) {
@@ -21,7 +20,7 @@ void Map::update() {
             done = true;
         }
     }
-
+    currentPlayer->setBoxes(boxes->findCorrespondingBoxes(currentPlayer->getCenteredPosition()));
     currentPlayer->posUpdate();
 }
 
