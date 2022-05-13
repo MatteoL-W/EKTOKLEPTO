@@ -14,7 +14,6 @@ void Map::update() {
 
     boxes->updateBoxes();
 
-
     if (isNear(currentPlayer)) {
         currentPlayer->setStatus(true);
         if (!isMapDone()) {
@@ -42,6 +41,10 @@ void Map::draw() {
         players[i]->draw();
         players[i]->drawEndPlace();
     }
+
+    for (size_t i = 0; i < switches.size(); i++) {
+        switches[i]->draw();
+    }
 }
 
 /**
@@ -52,7 +55,7 @@ void Map::loadMapInfo(int idMap) {
     int partCounting = 0, counter = 0;
 
     std::string mapPath = "assets/maps/" + std::to_string(idMap) + ".txt";
-    std::string mapInformation[3][MAX_SQUARES];
+    std::string mapInformation[4][MAX_SQUARES];
     std::fstream mapFile;
 
     mapFile.open(mapPath, std::ios::in); //open a file to perform read operation using file object
@@ -85,6 +88,7 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
 
     stockPlayers(mapInformation[1]);
     stockBoxes(mapInformation[2]);
+    stockSwitches(mapInformation[3]);
 }
 
 /**
@@ -137,6 +141,33 @@ void Map::stockPlayers(std::string lineInformation[32]) {
 
     if (players[0] != nullptr) {
         setCurrentPlayer(currentPlayerId);
+    }
+}
+
+void Map::stockSwitches(std::string lineInformation[32]) {
+    for (int i = 0; i < MAX_SWITCHES; i++) {
+        char *switchesInformation = lineInformation[i].data();
+        float parameter[7] = {0, 0, 0, 0, 0, 0, 0};
+        int counter = 0;
+
+        char *line = strtok(switchesInformation, " ");
+        while (line != NULL) {
+            parameter[counter] = atoi(line);
+            line = strtok(NULL, " ");
+            counter++;
+        }
+
+        if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3] ||
+            parameter[0] != parameter[4] || parameter[0] != parameter[5] || parameter[0] != parameter[6]) {
+            auto* newSwitch = new Switch((int)parameter[0], parameter[5], parameter[6]);
+
+            newSwitch->insertZone(
+                    glm::vec2(parameter[1], parameter[2]),
+                    glm::vec2(parameter[3], parameter[4])
+            );
+            switches.push_back(newSwitch);
+
+        }
     }
 }
 

@@ -6,6 +6,9 @@
 // [idCarré] [x(positionDepartCarré2)] [y(positionDepartCarré2)] [x(positionFinaleCarré2)] [y(positionFinaleCarré2)]
 // [idCarré] [x(positionDepartCarréN)] [y(positionDepartCarréN)] [x(positionFinaleCarréN)] [y(positionFinaleCarréN)]
 
-// Boxes ; xMax; yMax and speed are optional
+// Boxes ; xMax; yMax and speed sont optionnels
 [xTopLeft] [yTopLeft] [xBottomRight] [yBottomRight] ([xMax] [yMax] [speed])
+
+// Interrupteur
+[idChangement] [xZoneTopLeft] [yZoneTopLeft] [xZoneBottomRight] [yZoneBottomRight] [xInterrupteur] [yInterrupteur]
 

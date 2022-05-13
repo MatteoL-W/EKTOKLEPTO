@@ -4,10 +4,13 @@
 #include <vector>
 #include "Box.hpp"
 #include "Player.hpp"
+#include "Switch.hpp"
+#include "Zone.hpp"
 #include "tools/QuadTreeNode.hpp"
 
 const int MAX_SQUARES = 32;
 const int MAX_PLAYERS = 5;
+const int MAX_SWITCHES = 5;
 
 class Map {
 public:
@@ -58,11 +61,15 @@ private:
 
     void stockBoxes(std::string *);
 
+    void stockSwitches(std::string *);
+
     int mapWidth, mapHeight, mapZoom;
 
     QuadTreeNode *boxes;
 
     std::vector<Player *> players;
+
+    std::vector<Switch *> switches;
 
     Player *currentPlayer;
 
