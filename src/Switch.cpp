@@ -8,10 +8,11 @@ void Switch::draw() {
 
 void Switch::linksToZones(std::vector<Zone *> zones) {
     for (size_t i = 0; i < zones.size(); i++) {
-        std::cout << zones[i]->getIdSwitch() << " " << id << std::endl;
         if (zones[i]->getIdSwitch() == id) {
             zonesLinked.push_back(zones[i]);
         }
+        zones.erase(zones.begin() + i);
+
     }
 
 }
