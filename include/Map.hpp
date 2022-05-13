@@ -63,6 +63,8 @@ private:
 
     void stockSwitches(std::string *);
 
+    void stockZones(std::string *);
+
     int mapWidth, mapHeight, mapZoom;
 
     QuadTreeNode *boxes;
@@ -70,6 +72,8 @@ private:
     std::vector<Player *> players;
 
     std::vector<Switch *> switches;
+
+    std::vector<Zone *> zones;
 
     Player *currentPlayer;
 

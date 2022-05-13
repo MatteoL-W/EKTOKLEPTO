@@ -14,11 +14,9 @@ void Map::update() {
 
     boxes->updateBoxes();
 
-    if (switches.size() != 0 && switches[0]->isActive()) { // ici vérification que l'interrupteur est activé
-        for (auto & zone : switches[0]->getZones()) {
-            if (zone->contains(currentPlayer->getCenteredPosition())) {
-                std::cout << "in !!" << std::endl;
-            }
+    for (auto &zone: zones) {
+        if (zone->contains(currentPlayer->getCenteredPosition())) {
+            std::cout << "in !!" << std::endl;
         }
     }
 
@@ -53,6 +51,10 @@ void Map::draw() {
     for (size_t i = 0; i < switches.size(); i++) {
         switches[i]->draw();
     }
+
+    for (size_t i = 0; i < zones.size(); i++) {
+        zones[i]->draw();
+    }
 }
 
 /**
@@ -63,7 +65,7 @@ void Map::loadMapInfo(int idMap) {
     int partCounting = 0, counter = 0;
 
     std::string mapPath = "assets/maps/" + std::to_string(idMap) + ".txt";
-    std::string mapInformation[4][MAX_SQUARES];
+    std::string mapInformation[5][MAX_SQUARES];
     std::fstream mapFile;
 
     mapFile.open(mapPath, std::ios::in); //open a file to perform read operation using file object
@@ -97,6 +99,7 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
     stockPlayers(mapInformation[1]);
     stockBoxes(mapInformation[2]);
     stockSwitches(mapInformation[3]);
+    stockZones(mapInformation[4]);
 
 }
 
@@ -118,7 +121,8 @@ void Map::stockBoxes(std::string lineInformation[32]) {
         }
 
         if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3]) {
-            boxes->insertBox(new Box(parameter[0], parameter[1], parameter[2], parameter[3], parameter[4], parameter[5], parameter[6]));
+            boxes->insertBox(new Box(parameter[0], parameter[1], parameter[2], parameter[3], parameter[4], parameter[5],
+                                     parameter[6]));
             boxCount++;
         }
     }
@@ -153,14 +157,10 @@ void Map::stockPlayers(std::string lineInformation[32]) {
     }
 }
 
-/**
- * @brief Load all the switches from the txt in the switches vector
- * @param lineInformation
- */
 void Map::stockSwitches(std::string lineInformation[32]) {
     for (int i = 0; i < MAX_SWITCHES; i++) {
         char *switchesInformation = lineInformation[i].data();
-        float parameter[11] = {0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0};
+        float parameter[4] = {0, 0, 0, 0};
         int counter = 0;
 
         char *line = strtok(switchesInformation, " ");
@@ -170,26 +170,35 @@ void Map::stockSwitches(std::string lineInformation[32]) {
             counter++;
         }
 
-        if (parameter[0] != parameter[1] || parameter[0] != parameter[2]) {
-            auto* newSwitch = new Switch((int)parameter[0], parameter[1], parameter[2]);
-
-            // Zone 1
-            if (parameter[0] != parameter[3] || parameter[0] != parameter[4] || parameter[0] != parameter[5] || parameter[0] != parameter[6]) {
-                newSwitch->insertZone(
-                        glm::vec2(parameter[3], parameter[4]),
-                        glm::vec2(parameter[5], parameter[6])
-                );
-            }
-
-            // Zone 2
-            if (parameter[0] != parameter[7] || parameter[0] != parameter[8] || parameter[0] != parameter[9] || parameter[0] != parameter[10]) {
-                newSwitch->insertZone(
-                        glm::vec2(parameter[7], parameter[8]),
-                        glm::vec2(parameter[9], parameter[10])
-                );
-            }
-
+        if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3]) {
+            auto *newSwitch = new Switch((int) parameter[0], (int) parameter[1], parameter[2], parameter[3]);
             switches.push_back(newSwitch);
+        }
+    }
+}
+
+/**
+ * @brief Load all the zones from the txt in the zones vector
+ * @param lineInformation
+ */
+void Map::stockZones(std::string lineInformation[32]) {
+    for (int i = 0; i < MAX_SWITCHES; i++) {
+        char *zonesInformation = lineInformation[i].data();
+        float parameter[6] = {0, 0, 0, 0, 0, -1};
+        int counter = 0;
+
+        char *line = strtok(zonesInformation, " ");
+        while (line != NULL) {
+            parameter[counter] = atoi(line);
+            line = strtok(NULL, " ");
+            counter++;
+        }
+
+        if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3] ||
+            parameter[0] != parameter[4]) {
+            auto *newZone = new Zone((int) parameter[0], parameter[1], parameter[2], parameter[3], parameter[4],
+                                     (int) parameter[5]);
+            zones.push_back(newZone);
         }
     }
 }

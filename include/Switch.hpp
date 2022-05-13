@@ -6,7 +6,7 @@
 
 class Switch {
 public:
-    Switch(int p_type, float p_x, float p_y):type(p_type), x(p_x), y(p_y) {};
+    Switch(int p_idSwitch, int p_type, float p_x, float p_y):idSwitch(p_idSwitch), type(p_type), x(p_x), y(p_y) {};
 
     ~Switch() = default;
 
@@ -18,15 +18,12 @@ public:
 
     void setActivity(bool newState) { active = newState; };
 
-    void insertZone(glm::vec2 BL, glm::vec2 TR);
-
-    std::vector<Zone*> getZones() { return zones; };
+    //std::vector<Zone*> getZones() { return zones; };
 
 private:
-    int type;
+    int idSwitch, type;
+
     float x, y;
 
     bool active = true;
-
-    std::vector<Zone*> zones;
 };
