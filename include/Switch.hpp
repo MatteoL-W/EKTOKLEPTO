@@ -14,11 +14,19 @@ public:
 
     void draw();
 
+    bool isActive() const { return active; };
+
+    void setActivity(bool newState) { active = newState; };
+
     void insertZone(glm::vec2 BL, glm::vec2 TR);
+
+    std::vector<Zone*> getZones() { return zones; };
 
 private:
     int type;
     float x, y;
+
+    bool active = true;
 
     std::vector<Zone*> zones;
 };

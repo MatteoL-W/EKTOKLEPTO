@@ -14,6 +14,14 @@ void Map::update() {
 
     boxes->updateBoxes();
 
+    if (switches.size() != 0 && switches[0]->isActive()) { // ici vérification que l'interrupteur est activé
+        for (auto & zone : switches[0]->getZones()) {
+            if (zone->contains(currentPlayer->getCenteredPosition())) {
+                std::cout << "in !!" << std::endl;
+            }
+        }
+    }
+
     if (isNear(currentPlayer)) {
         currentPlayer->setStatus(true);
         if (!isMapDone()) {
@@ -89,6 +97,7 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
     stockPlayers(mapInformation[1]);
     stockBoxes(mapInformation[2]);
     stockSwitches(mapInformation[3]);
+
 }
 
 /**
@@ -170,8 +179,6 @@ void Map::stockSwitches(std::string lineInformation[32]) {
                         glm::vec2(parameter[3], parameter[4]),
                         glm::vec2(parameter[5], parameter[6])
                 );
-
-                switches.push_back(newSwitch);
             }
 
             // Zone 2
@@ -180,9 +187,9 @@ void Map::stockSwitches(std::string lineInformation[32]) {
                         glm::vec2(parameter[7], parameter[8]),
                         glm::vec2(parameter[9], parameter[10])
                 );
-
-                switches.push_back(newSwitch);
             }
+
+            switches.push_back(newSwitch);
         }
     }
 }

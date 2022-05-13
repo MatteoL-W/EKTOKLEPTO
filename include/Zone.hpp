@@ -10,6 +10,8 @@ public:
 
     void draw();
 
+    bool contains(glm::vec2 center);
+
 private:
     glm::vec2 TL;
     glm::vec2 BR;
