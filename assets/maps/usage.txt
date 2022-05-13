@@ -9,6 +9,6 @@
 // Boxes ; xMax; yMax and speed sont optionnels
 [xTopLeft] [yTopLeft] [xBottomRight] [yBottomRight] ([xMax] [yMax] [speed])
 
-// Interrupteur
-[idChangement] [xZoneTopLeft] [yZoneTopLeft] [xZoneBottomRight] [yZoneBottomRight] [xInterrupteur] [yInterrupteur]
+// Interrupteur (zones sont optionnelles)
+[idChangement] [xInterrupteur] [yInterrupteur] [xZoneTopLeft] [yZoneTopLeft] [xZoneBottomRight] [yZoneBottomRight] [xZone2TopLeft] [yZone2TopLeft] [xZone2BottomRight] [yZone2BottomRight]
 
