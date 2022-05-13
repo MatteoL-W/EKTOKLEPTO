@@ -10,8 +10,6 @@
 [xTopLeft] [yTopLeft] [xBottomRight] [yBottomRight] ([xMax] [yMax] [speed])
 
 // Interrupteur
-// idType = 0 -> besoin de rester dessus
-// idType = 1 -> pas besoin de rester dessus
 [idSwitch] [idType] [xInterrupteur] [yInterrupteur]
 
 // Zones (avec lien interrupteur optionnel)

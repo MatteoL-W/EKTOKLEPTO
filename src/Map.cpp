@@ -98,8 +98,8 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
 
     stockPlayers(mapInformation[1]);
     stockBoxes(mapInformation[2]);
-    stockSwitches(mapInformation[3]);
     stockZones(mapInformation[4]);
+    stockSwitches(mapInformation[3]);
 
 }
 
@@ -172,6 +172,7 @@ void Map::stockSwitches(std::string lineInformation[32]) {
 
         if (parameter[0] != parameter[1] || parameter[0] != parameter[2] || parameter[0] != parameter[3]) {
             auto *newSwitch = new Switch((int) parameter[0], (int) parameter[1], parameter[2], parameter[3]);
+            newSwitch->linksToZones(zones);
             switches.push_back(newSwitch);
         }
     }
@@ -184,7 +185,7 @@ void Map::stockSwitches(std::string lineInformation[32]) {
 void Map::stockZones(std::string lineInformation[32]) {
     for (int i = 0; i < MAX_SWITCHES; i++) {
         char *zonesInformation = lineInformation[i].data();
-        float parameter[6] = {0, 0, 0, 0, 0, -1};
+        float parameter[6] = {0, 0, 0, 0, 0, 0};
         int counter = 0;
 
         char *line = strtok(zonesInformation, " ");

@@ -11,3 +11,5 @@ bool Zone::contains(glm::vec2 center) {
     }
     return false;
 }
+
+

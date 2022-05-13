@@ -13,6 +13,8 @@ public:
 
     bool contains(glm::vec2 center);
 
+    bool getIdSwitch() const { return idSwitch; };
+
 private:
     int idChange;
 
