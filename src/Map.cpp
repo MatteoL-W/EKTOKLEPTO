@@ -15,8 +15,10 @@ void Map::update() {
     boxes->updateBoxes();
 
     for (auto &zone: zones) {
-        if (zone->contains(currentPlayer->getCenteredPosition())) {
-            std::cout << "in !!" << std::endl;
+        if (zone->contains(currentPlayer->getBLPosition())) {
+            zone->applyChanges(currentPlayer);
+        } else {
+            currentPlayer->unsetMiniMode();
         }
     }
 
@@ -43,6 +45,10 @@ bool Map::isNear(Player *const &player) {
 }
 
 void Map::draw() {
+    for (size_t i = 0; i < zones.size(); i++) {
+        zones[i]->draw();
+    }
+
     for (size_t i = 0; i < playerCount; i++) {
         players[i]->draw();
         players[i]->drawEndPlace();
@@ -50,10 +56,6 @@ void Map::draw() {
 
     for (size_t i = 0; i < switches.size(); i++) {
         switches[i]->draw();
-    }
-
-    for (size_t i = 0; i < zones.size(); i++) {
-        zones[i]->draw();
     }
 }
 

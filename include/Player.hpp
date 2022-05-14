@@ -33,6 +33,9 @@ public:
 
     glm::vec2 getBLPositionEnd() const { return BLPositionEnd; };
 
+    void setMiniMode();
+
+    void unsetMiniMode();
 
 private:
     int type;
@@ -41,6 +44,7 @@ private:
     glm::vec2 BLPosition;
     glm::vec2 BLPositionEnd;
 
+    float fixWidth, fixHeight;
     float width, height;
     float r, g, b;
 

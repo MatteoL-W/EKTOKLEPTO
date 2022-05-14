@@ -1,6 +1,7 @@
 #pragma once
 
 #include "glm/vec2.hpp"
+#include "Player.hpp"
 
 class Zone {
 public:
@@ -14,6 +15,8 @@ public:
     bool contains(glm::vec2 center);
 
     bool getIdSwitch() const { return idSwitch; };
+
+    void applyChanges(Player* currentPlayer);
 
 private:
     int idChange;
