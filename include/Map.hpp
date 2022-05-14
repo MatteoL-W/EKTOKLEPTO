@@ -65,6 +65,8 @@ private:
 
     void stockZones(std::string *);
 
+    void updateZone();
+
     int mapWidth, mapHeight, mapZoom;
 
     QuadTreeNode *boxes;

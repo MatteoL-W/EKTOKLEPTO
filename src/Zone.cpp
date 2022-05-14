@@ -13,10 +13,10 @@ bool Zone::contains(glm::vec2 center) {
 }
 
 void Zone::applyChanges(Player *currentPlayer) {
-    enum Changes { Gravity = 1, Mini };
+    enum Changes { ReverseGravity = 1, Mini };
 
     switch (idChange) {
-        case Gravity:
+        case ReverseGravity:
             break;
         case Mini:
             currentPlayer->setMiniMode();

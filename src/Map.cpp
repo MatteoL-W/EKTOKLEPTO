@@ -13,14 +13,7 @@ void Map::update() {
     currentPlayer->moveRight();
 
     boxes->updateBoxes();
-
-    for (auto &zone: zones) {
-        if (zone->contains(currentPlayer->getBLPosition())) {
-            zone->applyChanges(currentPlayer);
-        } else {
-            currentPlayer->unsetMiniMode();
-        }
-    }
+    updateZone();
 
     if (isNear(currentPlayer)) {
         currentPlayer->setStatus(true);
@@ -230,4 +223,19 @@ void Map::restart() {
     for (auto &player: players) {
         player->reset();
     }
+}
+
+void Map::updateZone() {
+    Zone* currentZone = nullptr;
+    for (auto &zone: zones) {
+        if (zone->contains(currentPlayer->getBLPosition())) {
+            currentZone = zone;
+            break;
+        }
+    }
+
+    if (currentZone)
+        currentZone->applyChanges(currentPlayer);
+    else if (currentPlayer->getWidth() != currentPlayer->getFixWidth() || currentPlayer->getHeight() != currentPlayer->getFixHeight())
+        currentPlayer->unsetMiniMode();
 }

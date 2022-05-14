@@ -1,4 +1,5 @@
 #include <GL/gl.h>
+#include <iostream>
 #include "../include/Player.hpp"
 #include "../include/tools/draw.hpp"
 
@@ -31,15 +32,18 @@ void Player::moveRight() {
 }
 
 void Player::setPropsFromType() {
+    enum Players { Orange = 1, Green };
+
     switch (type) {
-        case 1:
+        case Orange:
             width = 1;
             height = 1;
             r = 0.74;
             g = 0.3;
             b = 0.25;
             break;
-        case 2:
+
+        case Green:
             width = 0.5;
             height = 0.5;
             r = 0;
@@ -47,6 +51,7 @@ void Player::setPropsFromType() {
             b = 0;
             break;
     }
+
     fixWidth = width;
     fixHeight = height;
 }

@@ -24,14 +24,16 @@ public:
     void setStatus(bool p_hasFinished) { hasFinished = p_hasFinished; };
 
     glm::vec2 getCenteredPosition() const { return {BLPosition.x + width / 2, BLPosition.y + height / 2}; };
-
     glm::vec2 getCenteredPositionEnd() const { return {BLPositionEnd.x + width / 2, BLPositionEnd.y + height / 2}; };
 
     glm::vec2 getBLPosition() const { return BLPosition; };
-
     glm::vec2 getBLPositionStart() const { return BLPositionStart; };
-
     glm::vec2 getBLPositionEnd() const { return BLPositionEnd; };
+
+    float getWidth() const { return width; };
+    float getHeight() const { return height; };
+    float getFixWidth() const { return fixWidth; };
+    float getFixHeight() const { return fixHeight; };
 
     void setMiniMode();
 

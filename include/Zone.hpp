@@ -18,6 +18,8 @@ public:
 
     void applyChanges(Player* currentPlayer);
 
+    int getId() { return idChange; };
+
 private:
     int idChange;
 

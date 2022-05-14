@@ -18,9 +18,9 @@ public:
 
     void setActivity(bool newState) { active = newState; };
 
-    void linksToZones(std::vector<Zone*> zones);
+    void linksToZones(std::vector<Zone*> &zones);
 
-    //std::vector<Zone*> getZones() { return zones; };
+    std::vector<Zone*> getZones() { return zonesLinked; };
 
 private:
     int id, type;
