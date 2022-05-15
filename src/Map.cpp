@@ -87,8 +87,9 @@ void Map::restart() {
 
 Zone* Map::getCurrentZone(std::vector<Zone*> givenZones) {
     Zone* currentZone = nullptr;
+
     for (auto &zone: givenZones) {
-        if (zone->contains(currentPlayer->getBLPosition())) {
+        if (zone->contains(currentPlayer->getBLPosition(), currentPlayer->getBRPosition())) {
             currentZone = zone;
             break;
         }

@@ -3,16 +3,22 @@
 #include "glm/vec2.hpp"
 #include "Player.hpp"
 
+enum Changes { ReverseGravity = 1, Mini };
+
 class Zone {
 public:
     Zone(int p_idChange, float xTL, float yTL, float xBR, float yBR, int p_idSwitch = -1)
-            : idChange(p_idChange), TL(glm::vec2(xTL, yTL)), BR(glm::vec2(xBR, yBR)), idSwitch(p_idSwitch) {};
+            : idChange(p_idChange), TL(glm::vec2(xTL, yTL)), BR(glm::vec2(xBR, yBR)), idSwitch(p_idSwitch) {
+        initValues();
+    };
 
     ~Zone() = default;
 
     void draw();
 
-    bool contains(glm::vec2 center);
+    void initValues();
+
+    bool contains(glm::vec2 playerBL, glm::vec2 playerBR);
 
     bool getIdSwitch() const { return idSwitch; };
 
@@ -28,4 +34,6 @@ private:
     glm::vec2 BR;
 
     int idSwitch;
+
+    float r, g, b;
 };
