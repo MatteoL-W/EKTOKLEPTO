@@ -1,6 +1,5 @@
 #include <SDL2/SDL.h>
 #include <SDL2/SDL_ttf.h>
-#include <iostream>
 
 #include "../include/Engine.hpp"
 #include "../include/tools/Text.hpp"
