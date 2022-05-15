@@ -26,5 +26,5 @@ private:
 
     int level = 1;
 
-    void handleMusicVolume() const;
+    static void handleMusicVolume() ;
 };

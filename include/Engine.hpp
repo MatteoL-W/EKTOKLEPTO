@@ -5,6 +5,7 @@
 
 #include "Interface.hpp"
 #include "Map.hpp"
+#include "tools/Music.hpp"
 
 class Engine {
 public:
@@ -26,6 +27,8 @@ public:
 
     static SDL_Renderer *renderer;
 
+    static Music *ambianceMusic;
+
     void setRunning(bool newState) { isRunning = newState; }
 
     bool running() const { return isRunning; };
@@ -42,4 +45,6 @@ private:
     static void initiateWindowSize();
 
     static void initiateSDLLibs() ;
+
+    static void startMusic();
 };

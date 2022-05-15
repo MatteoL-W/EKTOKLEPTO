@@ -10,6 +10,7 @@
 #include "../include/interfaces/GameInterface.hpp"
 
 SDL_Renderer *Engine::renderer = nullptr;
+Music *Engine::ambianceMusic = nullptr;
 
 MenuInterface *menuInterface = nullptr;
 GameInterface *gameInterface = nullptr;
@@ -50,6 +51,7 @@ Engine::Engine() {
     isRunning = true;
 
     initiateWindowSize();
+    startMusic();
 }
 
 void Engine::initiateSDLLibs() {
@@ -111,4 +113,9 @@ void Engine::initiateWindowSize() {
 
     // On définit plutôt les repère depuis le bas à gauche
     gluOrtho2D(0, GL_VIEW_SIZE, 0, GL_VIEW_SIZE);
+}
+
+void Engine::startMusic() {
+    ambianceMusic = new Music("./assets/sounds/ambiance.wav");
+    ambianceMusic->play(-1);
 }
