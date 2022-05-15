@@ -4,12 +4,12 @@
 
 class Sound {
 public:
-    Sound(const char *path)
+    explicit Sound(const char *path)
             : soundChunk(Mix_LoadWAV(path)) {};
 
     ~Sound() = default;
 
-    void play();
+    void play() { Mix_PlayChannel(-1, soundChunk, false); };
 
 private:
     Mix_Chunk *soundChunk;

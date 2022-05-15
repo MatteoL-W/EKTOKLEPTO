@@ -25,4 +25,6 @@ private:
     Camera *camera;
 
     int level = 1;
+
+    void handleMusicVolume() const;
 };
