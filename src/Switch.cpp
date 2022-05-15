@@ -2,6 +2,11 @@
 #include "../include/Switch.hpp"
 #include "../include/tools/draw.hpp"
 
+
+void Switch::update() {
+    // get if the switch is active
+}
+
 void Switch::draw() {
     drawRect(glm::vec2(x - 0.2, y + 0.2), glm::vec2(x + 0.2, y));
 }
@@ -21,4 +26,12 @@ void Switch::linksToZones(std::vector<Zone *> &zones) {
             ),
             zones.end()
     );
+}
+
+void Switch::drawZones() {
+    if (isActive()) {
+        for (auto zone: zonesLinked) {
+            zone->draw();
+        }
+    }
 }

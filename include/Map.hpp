@@ -65,7 +65,11 @@ private:
 
     void stockZones(std::string *);
 
-    void updateZone();
+    Zone* getCurrentZone(std::vector<Zone*>);
+
+    Zone* getCurrentZoneFromSwitches();
+
+    void handleZones();
 
     int mapWidth, mapHeight, mapZoom;
 

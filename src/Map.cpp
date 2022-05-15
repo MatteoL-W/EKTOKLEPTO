@@ -13,7 +13,8 @@ void Map::update() {
     currentPlayer->moveRight();
 
     boxes->updateBoxes();
-    updateZone();
+
+    this->handleZones();
 
     if (isNear(currentPlayer)) {
         currentPlayer->setStatus(true);
@@ -25,6 +26,11 @@ void Map::update() {
     }
 }
 
+/**
+ * @brief Get if a player is near to his end position
+ * @param player
+ * @return
+ */
 bool Map::isNear(Player *const &player) {
     float margin = 0.2;
 
@@ -38,17 +44,81 @@ bool Map::isNear(Player *const &player) {
 }
 
 void Map::draw() {
-    for (size_t i = 0; i < zones.size(); i++) {
-        zones[i]->draw();
+    for (auto zone: zones) {
+        zone->draw();
     }
 
-    for (size_t i = 0; i < playerCount; i++) {
-        players[i]->draw();
-        players[i]->drawEndPlace();
+    for (auto &sw1tch: switches) {
+        sw1tch->draw();
+        sw1tch->drawZones();
     }
 
-    for (size_t i = 0; i < switches.size(); i++) {
-        switches[i]->draw();
+    for (auto &player: players) {
+        player->draw();
+        player->drawEndPlace();
+    }
+}
+
+void Map::setCurrentPlayer(size_t i) {
+    currentPlayer = players[i];
+    currentPlayerId = i;
+}
+
+void Map::chooseNextPlayer() {
+    size_t idNextPlayer = (currentPlayerId + 1 < playerCount) ? currentPlayerId + 1 : 0;
+    setCurrentPlayer(idNextPlayer);
+}
+
+bool Map::isMapDone() {
+    bool finished = true;
+    for (auto &player: players) {
+        if (!isNear(player)) {
+            finished = false;
+        }
+    }
+    return finished;
+}
+
+void Map::restart() {
+    for (auto &player: players) {
+        player->reset();
+    }
+}
+
+Zone* Map::getCurrentZone(std::vector<Zone*> givenZones) {
+    Zone* currentZone = nullptr;
+    for (auto &zone: givenZones) {
+        if (zone->contains(currentPlayer->getBLPosition())) {
+            currentZone = zone;
+            break;
+        }
+    }
+    return currentZone;
+}
+
+Zone* Map::getCurrentZoneFromSwitches() {
+    Zone* currentZone = nullptr;
+    for (auto &sw1tch: switches) {
+        if (sw1tch->isActive() && getCurrentZone(sw1tch->getZones()) != nullptr) {
+            currentZone = getCurrentZone(sw1tch->getZones());
+        }
+    }
+    return currentZone;
+}
+
+/**
+ * @brief Handle the players changes if he's in a zone (switch or basic zone)
+ */
+void Map::handleZones() {
+    Zone* currentZone = getCurrentZone(zones);
+    if (getCurrentZoneFromSwitches()) {
+        currentZone = getCurrentZoneFromSwitches();
+    }
+
+    if (currentZone)
+        currentZone->applyChanges(currentPlayer);
+    else {
+        currentPlayer->unsetMiniMode();
     }
 }
 
@@ -197,45 +267,4 @@ void Map::stockZones(std::string lineInformation[32]) {
             zones.push_back(newZone);
         }
     }
-}
-
-void Map::setCurrentPlayer(size_t i) {
-    currentPlayer = players[i];
-    currentPlayerId = i;
-}
-
-void Map::chooseNextPlayer() {
-    size_t idNextPlayer = (currentPlayerId + 1 < playerCount) ? currentPlayerId + 1 : 0;
-    setCurrentPlayer(idNextPlayer);
-}
-
-bool Map::isMapDone() {
-    bool finished = true;
-    for (auto &player: players) {
-        if (!isNear(player)) {
-            finished = false;
-        }
-    }
-    return finished;
-}
-
-void Map::restart() {
-    for (auto &player: players) {
-        player->reset();
-    }
-}
-
-void Map::updateZone() {
-    Zone* currentZone = nullptr;
-    for (auto &zone: zones) {
-        if (zone->contains(currentPlayer->getBLPosition())) {
-            currentZone = zone;
-            break;
-        }
-    }
-
-    if (currentZone)
-        currentZone->applyChanges(currentPlayer);
-    else if (currentPlayer->getWidth() != currentPlayer->getFixWidth() || currentPlayer->getHeight() != currentPlayer->getFixHeight())
-        currentPlayer->unsetMiniMode();
 }

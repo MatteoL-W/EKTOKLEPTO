@@ -14,6 +14,8 @@ public:
 
     void draw();
 
+    void drawZones();
+
     bool isActive() const { return active; };
 
     void setActivity(bool newState) { active = newState; };
