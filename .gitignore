@@ -2,3 +2,8 @@ build
 bin
 .vscode/
 .idea/
+
+!lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin
+!lib/SDL2_mixer-2.0.4/i686-w64-mingw32/bin
+!lib/SDL2_image-2.0.5/x86_64-w64-mingw32/bin
+!lib/SDL2_image-2.0.5/i686-w64-mingw32/bin

@@ -64,6 +64,9 @@ if (WIN32)
     set(SDL2TTF_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/lib/SDL2_ttf-2.0.18/x86_64-w64-mingw32/include)
     set(SDL2TTF_LIBRARIES ${CMAKE_SOURCE_DIR}/lib/SDL2_ttf-2.0.18/x86_64-w64-mingw32/lib/libSDL2_ttf.a)
 
+    set(SDL2MIXER_INCLUDE_DIRS ${CMAKE_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/include)
+    set(SDL2MIXER_LIBRARIES ${CMAKE_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/lib/libSDL2_mixer.a)
+
     # On linux
 else ()
     list(APPEND CMAKE_MODULE_PATH ${CMAKE_CURRENT_SOURCE_DIR}/cmake/sdl2)
@@ -82,34 +85,50 @@ else ()
     find_package(SDL2_ttf REQUIRED)
     target_include_directories(${PROJECT_NAME} PRIVATE ${SDL2_TTF_INCLUDE_DIRS})
     target_link_libraries(${PROJECT_NAME} ${SDL2_TTF_LIBRARIES})
+
+    # Find and link SDL2_mixer / à vérifier
+    find_package(SDL2_mixer REQUIRED)
+    target_include_directories(${PROJECT_NAME} PRIVATE ${SDL2_MIXER_INCLUDE_DIRS})
+    target_link_libraries(${PROJECT_NAME} ${SDL2_MIXER_LIBRARIES})
 endif ()
 
 # /////////////////////////////////////////////////////////////////////////////
 # /////////////////////////////////// BUILD ///////////////////////////////////
 # /////////////////////////////////////////////////////////////////////////////
 
-target_include_directories(${TARGET_NAME} PUBLIC ${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${SDL2TTF_INCLUDE_DIRS})
-target_link_libraries(${TARGET_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES})
+target_include_directories(${TARGET_NAME} PUBLIC ${SDL2_INCLUDE_DIRS} ${SDL2IMAGE_INCLUDE_DIRS} ${SDL2TTF_INCLUDE_DIRS} ${SDL2MIXER_INCLUDE_DIRS})
+target_link_libraries(${TARGET_NAME} ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES} ${SDL2MIXER_LIBRARIES})
 
 if (UNIX)
-    target_link_libraries(${TARGET_NAME} -ldl -lSDL2 -lSDL2_image -lSDL2_ttf)
+    target_link_libraries(${TARGET_NAME} -ldl -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer)
 endif ()
 
 if (WIN32) # Copy .dll to build folder
     # SET SDL2 flags
-    target_link_libraries(${TARGET_NAME} -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lglu32 -lopengl32 ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES})
+    target_link_libraries(${TARGET_NAME} -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lglu32 -lopengl32 ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES} ${SDL2MIXER_LIBRARIES})
 
     # Duplicate librarys in bin/
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${PROJECT_SOURCE_DIR}/lib/SDL2-2.0.20/x86_64-w64-mingw32/lib/libSDL2.dll.a"
             "${PROJECT_SOURCE_DIR}/lib/SDL2-2.0.20/x86_64-w64-mingw32/lib/libSDL2main.a"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/bin/SDL2_image.dll"
+            "${PROJECT_SOURCE_DIR}/lib/SDL2_ttf-2.0.18/x86_64-w64-mingw32/lib/libSDL2_ttf.a"
+            "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/lib/libSDL2_image.a"
+            "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin/SDL2_mixer.dll"
+            "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/lib/libSDL2_mixer.a"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/bin/libpng16-16.dll"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/bin/libjpeg-9.dll"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/bin/zlib1.dll"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/bin/libtiff-5.dll"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/bin/libwebp-7.dll"
-            "${PROJECT_SOURCE_DIR}/lib/SDL2_ttf-2.0.18/x86_64-w64-mingw32/lib/libSDL2_ttf.a"
+            "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin/libFLAC-8.dll"
+            "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin/libmodplug-1.dll"
+            "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin/libmpg123-0.dll"
+            "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin/libogg-0.dll"
+            "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin/libopus-0.dll"
+            "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin/libopusfile-0.dll"
+            "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin/libvorbis-0.dll"
+            "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin/libvorbisfile-3.dll"
             $<TARGET_FILE_DIR:${TARGET_NAME}>
             )
 endif ()
