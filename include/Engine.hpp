@@ -40,4 +40,6 @@ private:
     Interface *currentInterface;
 
     static void initiateWindowSize();
+
+    static void initiateSDLLibs() ;
 };

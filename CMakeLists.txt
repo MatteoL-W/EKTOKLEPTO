@@ -107,20 +107,24 @@ if (WIN32) # Copy .dll to build folder
     # SET SDL2 flags
     target_link_libraries(${TARGET_NAME} -lmingw32 -lSDL2main -lSDL2 -lSDL2_image -lSDL2_ttf -lSDL2_mixer -lglu32 -lopengl32 ${SDL2_LIBRARIES} ${SDL2IMAGE_LIBRARIES} ${SDL2TTF_LIBRARIES} ${SDL2MIXER_LIBRARIES})
 
-    # Duplicate librarys in bin/
+    # Duplicate libraries in bin/
     add_custom_command(TARGET ${TARGET_NAME} POST_BUILD COMMAND ${CMAKE_COMMAND} -E copy_if_different
             "${PROJECT_SOURCE_DIR}/lib/SDL2-2.0.20/x86_64-w64-mingw32/lib/libSDL2.dll.a"
             "${PROJECT_SOURCE_DIR}/lib/SDL2-2.0.20/x86_64-w64-mingw32/lib/libSDL2main.a"
+
             "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/bin/SDL2_image.dll"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_ttf-2.0.18/x86_64-w64-mingw32/lib/libSDL2_ttf.a"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/lib/libSDL2_image.a"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin/SDL2_mixer.dll"
+            "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/lib/libSDL2_mixer.dll.a"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/lib/libSDL2_mixer.a"
+
             "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/bin/libpng16-16.dll"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/bin/libjpeg-9.dll"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/bin/zlib1.dll"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/bin/libtiff-5.dll"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_image-2.0.5/x86_64-w64-mingw32/bin/libwebp-7.dll"
+
             "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin/libFLAC-8.dll"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin/libmodplug-1.dll"
             "${PROJECT_SOURCE_DIR}/lib/SDL2_mixer-2.0.4/x86_64-w64-mingw32/bin/libmpg123-0.dll"
