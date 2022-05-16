@@ -46,5 +46,12 @@ void Player::setPropsFromType() {
             g = 1;
             b = 0;
             break;
+        case 3:
+            width = 1;
+            height = 2;
+            r = 1;
+            g = 0.5;
+            b = 0.2;
+            break;
     }
 }

@@ -9,11 +9,7 @@ Map::Map(int idMap) {
 }
 
 void Map::update() {
-    //if (!isNear(currentPlayer)) {}
-    currentPlayer->moveRight();
-
     boxes->updateBoxes();
-
 
     if (isNear(currentPlayer)) {
         currentPlayer->setStatus(true);
