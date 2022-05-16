@@ -23,6 +23,8 @@ public:
 
     static const int WINDOW_HEIGHT = 750;
 
+    constexpr static const float PLAYER_Y_AXIS = 0.25;
+
     constexpr static const float GL_VIEW_SIZE = 20.;
 
     static SDL_Renderer *renderer;
@@ -47,4 +49,5 @@ private:
     static void initiateSDLLibs() ;
 
     static void startMusic();
+
 };

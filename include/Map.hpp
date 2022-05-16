@@ -67,4 +67,6 @@ private:
     Player *currentPlayer;
 
     bool done = false;
+
+    void drawBlocks();
 };
