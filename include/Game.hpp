@@ -3,7 +3,7 @@
 #include "Map.hpp"
 #include "Camera.hpp"
 
-const int MAX_LEVELS = 2;
+const int MAX_LEVELS = 3;
 
 class Game {
 public:
@@ -11,20 +11,22 @@ public:
 
     ~Game() = default;
 
+    void setMap(int gameId = -1);
+
     void update();
 
     void draw();
 
     void save(const std::string& saveContent);
 
-    void initializeMap();
+    void initializeMap(int gameId);
 
     Map *getMap() { return currentMap; }
 
     Camera* getCamera() { return camera; }
 
 private:
-    std::string readSave();
+    std::string readSave(int saveId);
 
     Map *currentMap;
 

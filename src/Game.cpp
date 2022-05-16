@@ -3,8 +3,10 @@
 #include <fstream>
 #include "../include/Game.hpp"
 
-Game::Game() {
-    initializeMap();
+Game::Game() {}
+
+void Game::setMap(int gameId) {
+    initializeMap(gameId);
     camera = new Camera(currentMap, currentMap->getMapZoom());
 }
 
@@ -34,9 +36,11 @@ void Game::draw() {
  * @param saveContent
  */
 void Game::save(const std::string& saveContent) {
-    std::ofstream saveFile (saveEmplacements);
+    std::ofstream saveFile (saveEmplacements, std::ios::app);
     if (saveFile.is_open())
     {
+        if (stoi(saveContent) == 1)
+            saveFile << "\n";
         saveFile << saveContent << "\n";
         saveFile.close();
     }
@@ -46,28 +50,53 @@ void Game::save(const std::string& saveContent) {
 /**
  * @brief Initialize the map from the save if needed.
  */
-void Game::initializeMap() {
-    if (readSave().empty()) {
+void Game::initializeMap(int gameId) {
+    if (gameId == -1) {
         currentMap = new Map(1);
         return;
     }
 
-    currentMap = new Map(stoi(readSave()) + 1);
+    if (readSave(gameId).empty()) {
+        std::cout << "game not found, starting default map" << std::endl;
+        currentMap = new Map(1);
+        return;
+    }
+
+    currentMap = new Map(stoi(readSave(gameId)) + 1);
 }
 
 /**
  * @brief Return the last level saved
  * @return
  */
-std::string Game::readSave() {
+std::string Game::readSave(int saveId) {
     std::string savedLevel;
     std::ifstream savedFile (saveEmplacements);
-    if (savedFile.is_open())
-    {
-        while ( getline (savedFile, savedLevel) )
-        {
-            return savedLevel;
+    std::string saveInformation[5][MAX_LEVELS];
+    int partCounting = -1, counter = 0;
+
+    if (savedFile.is_open()) {
+        std::string currentLine;
+
+        while (getline(savedFile, currentLine)) {
+            if (currentLine.empty()) {
+                if (partCounting == saveId) {
+                    return saveInformation[partCounting][counter-1];
+                }
+                partCounting++;
+                counter = 0;
+                continue;
+            }
+            saveInformation[partCounting][counter] = currentLine;
+
+            counter++;
         }
+
+        if (partCounting == saveId) {
+            return saveInformation[partCounting][counter-1];
+        }
+
         savedFile.close();
+        return "";
     }
 }
