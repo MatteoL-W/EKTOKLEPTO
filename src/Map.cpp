@@ -19,6 +19,9 @@ void Map::update() {
             done = true;
         }
     }
+    currentPlayer->setBoxes(boxes->findCorrespondingBoxes(currentPlayer->getCenteredPosition()));
+    std::vector<Box*> wtf = boxes->findCorrespondingBoxes(currentPlayer->getCenteredPosition());
+    currentPlayer->posUpdate();
 }
 
 bool Map::isNear(Player *const &player) {

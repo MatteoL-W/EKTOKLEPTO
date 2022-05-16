@@ -21,6 +21,9 @@ bool QuadTreeNode::isLeaf() const {
  * @param BRPosition
  */
 void QuadTreeNode::drawCorrespondingQuadForScreen(glm::vec2 TLPosition, glm::vec2 BRPosition) {
+    glColor3f(1, 0, 0);
+    drawRect(TLQuad, BRQuad, false);
+
     if (isLeaf()) {
         for (auto &box: boxes) {
             box->draw();
@@ -52,7 +55,7 @@ void QuadTreeNode::drawCorrespondingQuadForScreen(glm::vec2 TLPosition, glm::vec
  * @param playerPosition
  * @return
  */
-std::vector<Box*> QuadTreeNode::findCorrespondingBoxes(glm::vec2 playerPosition) {
+std::vector<Box *> QuadTreeNode::findCorrespondingBoxes(glm::vec2 playerPosition) {
     if (isLeaf())
         return this->boxes;
 
@@ -62,7 +65,7 @@ std::vector<Box*> QuadTreeNode::findCorrespondingBoxes(glm::vec2 playerPosition)
 
         if (top) {
             if (right)
-               return topRight->findCorrespondingBoxes(playerPosition);
+                return topRight->findCorrespondingBoxes(playerPosition);
             else
                 return topLeft->findCorrespondingBoxes(playerPosition);
         } else {
@@ -104,25 +107,31 @@ void QuadTreeNode::drawBoxes(bool drawQuad) {
  * @brief Insert a box into a quadtree
  * @param box
  */
-void QuadTreeNode::insertBox(Box *box) {
-    if (isLeaf()) {
+void QuadTreeNode::insertBox(Box *box, int count) {
+    if (isLeaf() || (!isLeaf() && count > MAX_RECURSIVE_HEIGHT)) {
         boxes.push_back(box);
     }
 
     if (isLeaf() && boxes.size() > 3) {
-        // Initialization
-        initNodes();
+        if (count < MAX_RECURSIVE_HEIGHT) {
+            // Initialization
+            initNodes();
 
-        // Loop on all the boxes already here
-        for (auto &currentBox: boxes) {
-            insertAtTheRightPlace(currentBox);
+            // Loop on all the boxes already here
+            count++;
+            for (auto &currentBox: boxes) {
+                insertAtTheRightPlace(currentBox, count);
+            }
+            boxes.clear();
+        } else {
+            boxes.push_back(box);
         }
-        boxes.clear();
         return;
     }
 
-    if (!isLeaf()) {
-        insertAtTheRightPlace(box);
+    if (!isLeaf() && count < MAX_RECURSIVE_HEIGHT) {
+        count++;
+        insertAtTheRightPlace(box, count);
     }
 }
 
@@ -152,7 +161,7 @@ void QuadTreeNode::initNodes() {
  * @brief Function used to locate in which quad should be a box located
  * @param box
  */
-void QuadTreeNode::insertAtTheRightPlace(Box *box) const {
+void QuadTreeNode::insertAtTheRightPlace(Box *box, int count) const {
     bool left = box->getTLPosition().x < centerQuad.x;
     bool right = box->getTRPosition().x > centerQuad.x;
     bool bottom = box->getBRPosition().y < centerQuad.y;
@@ -160,16 +169,16 @@ void QuadTreeNode::insertAtTheRightPlace(Box *box) const {
 
     if (top) {
         if (left)
-            topLeft->insertBox(box);
+            topLeft->insertBox(box, count);
         if (right)
-            topRight->insertBox(box);
+            topRight->insertBox(box, count);
     }
 
     if (bottom) {
         if (left)
-            bottomLeft->insertBox(box);
+            bottomLeft->insertBox(box, count);
         if (right)
-            bottomRight->insertBox(box);
+            bottomRight->insertBox(box, count);
     }
 }
 

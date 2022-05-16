@@ -1,5 +1,7 @@
 #pragma once
 
+#include <vector>
+#include "../include/Box.hpp"
 #include "glm/vec2.hpp"
 #include "tools/utils.hpp"
 
@@ -17,11 +19,19 @@ public:
 
     void drawEndPlace();
 
-    void moveRight();
+    void jump();
+
+    void posUpdate();
 
     void reset() { BLPosition = BLPositionStart; };
 
     void setStatus(bool p_hasFinished) { hasFinished = p_hasFinished; };
+
+    void setBoxes(std::vector<Box*> p_boxes) { closeBoxes = p_boxes; };
+
+    void setMovingRight(bool right) { movingRight = right; };
+
+    void setMovingLeft(bool left) { movingLeft = left; };
 
     glm::vec2 getCenteredPosition() const { return {BLPosition.x + width / 2, BLPosition.y + height / 2}; };
 
@@ -43,6 +53,22 @@ private:
 
     float width, height;
     float r, g, b;
+
+    float xMaxSpeed = 0.14;
+    float yMaxSpeedUp = 0.55;
+    float gravity = 0.15;
+    float xAccRight = 0.00;
+    float xAccLeft = 0.00;
+    float yAccUp = 0.00;
+    bool movingRight, movingLeft, hasJumped, hasDoubleJumped = false;
+
+    std::vector<Box*> closeBoxes;
+
+    bool collisionBottom, collisionLeft, collisionRight, collisionTop = false;
+
+    void checkCollisions();
+
+    bool isContained(float subject, float limitA, float limitB);
 
     bool hasFinished = false;
 
