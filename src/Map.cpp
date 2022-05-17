@@ -38,12 +38,9 @@ void Map::handleSwitchesCollisions() const {
     glm::vec2 playerBL = currentPlayer->getBLPosition();
     float width = currentPlayer->getWidth();
     for (auto &sw1tch: switches) {
-        if (((isContained(playerBL.x, sw1tch->getX() - 0.2f, sw1tch->getX() + 0.2f) ||
-              isContained(playerBL.x + width, sw1tch->getX() - 0.2f, sw1tch->getX() + 0.2f))
-             && isContained(playerBL.y, sw1tch->getX() - 0.2f, sw1tch->getY() + 0.2f))
-            || ((isContained(sw1tch->getX() - 0.2f, playerBL.x, playerBL.x + width)
-                 || isContained(sw1tch->getX() + 0.2f, playerBL.x, playerBL.x + width))
-                && isContained(sw1tch->getY() + 0.2f, playerBL.y, playerBL.y + 0.2f))) {
+        if (((isContained(sw1tch->getX() - 0.2f, playerBL.x, playerBL.x + width)
+              || isContained(sw1tch->getX() + 0.2f, playerBL.x, playerBL.x + width))
+             && isContained(sw1tch->getY() + 0.2f, playerBL.y, playerBL.y + 0.2f))) {
             sw1tch->activate();
             /*collisionBottom = true;
             hasJumped = false;
