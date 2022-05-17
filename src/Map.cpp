@@ -21,6 +21,8 @@ void Map::update() {
         }
     }
     currentPlayer->setBoxes(boxes->findCorrespondingBoxes(currentPlayer->getCenteredPosition()));
+    currentPlayer->setPlayers(players);
+    currentPlayer->removeCurrentFromArray(currentPlayerId);
     currentPlayer->posUpdate();
 }
 

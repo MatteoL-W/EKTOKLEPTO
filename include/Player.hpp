@@ -27,7 +27,13 @@ public:
 
     void setStatus(bool p_hasFinished) { hasFinished = p_hasFinished; };
 
-    void setBoxes(std::vector<Box*> p_boxes) { closeBoxes = p_boxes; };
+    bool getStatus() { return hasFinished; };
+
+    void setBoxes(std::vector<Box*> p_boxes) { nearBoxes = p_boxes; };
+
+    void setPlayers(std::vector<Player*> p_players) { otherPlayers = p_players; };
+
+    void removeCurrentFromArray(size_t id);
 
     void setMovingRight(bool right) { movingRight = right; };
 
@@ -43,6 +49,12 @@ public:
 
     glm::vec2 getBLPositionEnd() const { return BLPositionEnd; };
 
+    glm::vec2 getBRPosition() const { return { BLPosition.x + width, BLPosition.y }; };
+
+    glm::vec2 getTLPosition() const { return {BLPosition.x, BLPosition.y + height}; };
+
+    glm::vec2 getTRPosition() const { return {BLPosition.x + width, BLPosition.y + height}; };
+
 
 private:
     int type;
@@ -54,15 +66,18 @@ private:
     float width, height;
     float r, g, b;
 
-    float xMaxSpeed = 0.14;
-    float yMaxSpeedUp = 0.55;
-    float gravity = 0.15;
+    const float xMaxSpeed = 0.14;
+    const float yMaxSpeedUp = 0.55;
+    const float gravity = 0.15;
     float xAccRight = 0.00;
     float xAccLeft = 0.00;
     float yAccUp = 0.00;
+    float xSpeed, ySpeed, xSpeedMod;
+    float savedBPx, savedBPy;
     bool movingRight, movingLeft, hasJumped, hasDoubleJumped = false;
 
-    std::vector<Box*> closeBoxes;
+    std::vector<Box*> nearBoxes;
+    std::vector<Player*> otherPlayers;
 
     bool collisionBottom, collisionLeft, collisionRight, collisionTop = false;
 
