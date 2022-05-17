@@ -19,8 +19,9 @@ void Map::update() {
             done = true;
         }
     }
-    currentPlayer->setBoxes(boxes->findCorrespondingBoxes(currentPlayer->getCenteredPosition()));
-    std::vector<Box*> wtf = boxes->findCorrespondingBoxes(currentPlayer->getCenteredPosition());
+    glm::vec2 largerTL = { currentPlayer->getTLPosition().x - 1, currentPlayer->getTLPosition().y + 1};
+    glm::vec2 largerBR = { currentPlayer->getBRPosition().x + 1, currentPlayer->getBRPosition().y - 1};
+    currentPlayer->setBoxes(boxes->findCorrespondingBoxes(largerTL, largerBR));
     currentPlayer->posUpdate();
 }
 

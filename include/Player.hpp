@@ -43,6 +43,10 @@ public:
 
     glm::vec2 getBLPositionEnd() const { return BLPositionEnd; };
 
+    glm::vec2 getTLPosition() const { return {BLPosition.x, BLPosition.y + height}; };
+
+    glm::vec2 getBRPosition() const { return {BLPosition.x + width, BLPosition.y}; };
+
 
 private:
     int type;

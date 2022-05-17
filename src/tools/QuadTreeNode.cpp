@@ -55,25 +55,37 @@ void QuadTreeNode::drawCorrespondingQuadForScreen(glm::vec2 TLPosition, glm::vec
  * @param playerPosition
  * @return
  */
-std::vector<Box *> QuadTreeNode::findCorrespondingBoxes(glm::vec2 playerPosition) {
+std::vector<Box *> QuadTreeNode::findCorrespondingBoxes(glm::vec2 playerPositionTL, glm::vec2 playerPositionBR) {
     if (isLeaf())
         return this->boxes;
 
     if (!isLeaf()) {
-        bool top = playerPosition.y > centerQuad.y;
-        bool right = playerPosition.x > centerQuad.x;
+        std::vector<Box*> returnedBoxes;
+        bool top = playerPositionTL.y > centerQuad.y;
+        bool bottom = playerPositionBR.y < centerQuad.y;
+        bool left = playerPositionTL.x < centerQuad.x;
+        bool right = playerPositionBR.x > centerQuad.x;
 
         if (top) {
-            if (right)
-                return topRight->findCorrespondingBoxes(playerPosition);
-            else
-                return topLeft->findCorrespondingBoxes(playerPosition);
-        } else {
-            if (right)
-                return bottomRight->findCorrespondingBoxes(playerPosition);
-            else
-                return bottomLeft->findCorrespondingBoxes(playerPosition);
+            if (right) {
+                std::vector<Box*> topRightQuad = topRight->findCorrespondingBoxes(playerPositionTL, playerPositionBR);
+                returnedBoxes.insert(returnedBoxes.end(), topRightQuad.begin(), topRightQuad.end());
+            }
+            if (left) {
+                std::vector<Box*> topLeftQuad = topLeft->findCorrespondingBoxes(playerPositionTL, playerPositionBR);
+                returnedBoxes.insert(returnedBoxes.end(), topLeftQuad.begin(), topLeftQuad.end());
+            }
+        } if (bottom) {
+            if (right) {
+                std::vector<Box*> bottomRightQuad = bottomRight->findCorrespondingBoxes(playerPositionTL, playerPositionBR);
+                returnedBoxes.insert(returnedBoxes.end(), bottomRightQuad.begin(), bottomRightQuad.end());
+            }
+            if (left) {
+                std::vector<Box*> bottomLeftQuad = bottomLeft->findCorrespondingBoxes(playerPositionTL, playerPositionBR);
+                returnedBoxes.insert(returnedBoxes.end(), bottomLeftQuad.begin(), bottomLeftQuad.end());
+            }
         }
+        return returnedBoxes;
     }
 
     return (new QuadTreeNode())->boxes;
