@@ -84,4 +84,6 @@ private:
     Player *currentPlayer;
 
     bool done = false;
+
+    void handleSwitchesCollisions() const;
 };

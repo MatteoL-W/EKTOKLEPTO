@@ -24,12 +24,18 @@ public:
 
     std::vector<Zone*> getZones() { return zonesLinked; };
 
+    void activate();
+    void deactivate();
+
+    float getX() const { return x; };
+    float getY() const { return y; };
+
 private:
     int id, type;
 
-    float x, y;
+    float x, y, top = 0.2;
 
-    bool active = true;
+    bool active = false;
 
     std::vector<Zone*> zonesLinked;
 };

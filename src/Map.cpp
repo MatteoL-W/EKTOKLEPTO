@@ -14,7 +14,8 @@ void Map::update() {
 
     boxes->updateBoxes();
 
-    this->handleZones();
+    handleSwitchesCollisions();
+    handleZones();
 
     if (isNear(currentPlayer)) {
         currentPlayer->setStatus(true);
@@ -22,6 +23,33 @@ void Map::update() {
             chooseNextPlayer();
         } else {
             done = true;
+        }
+    }
+}
+
+bool isContained(float subject, float limitA, float limitB) {
+    if (limitA > limitB) {
+        return subject >= limitB && subject <= limitA;
+    }
+    return subject >= limitA && subject <= limitB;
+}
+
+void Map::handleSwitchesCollisions() const {
+    glm::vec2 playerBL = currentPlayer->getBLPosition();
+    float width = currentPlayer->getWidth();
+    for (auto &sw1tch: switches) {
+        if (((isContained(playerBL.x, sw1tch->getX() - 0.2f, sw1tch->getX() + 0.2f) ||
+              isContained(playerBL.x + width, sw1tch->getX() - 0.2f, sw1tch->getX() + 0.2f))
+             && isContained(playerBL.y, sw1tch->getX() - 0.2f, sw1tch->getY() + 0.2f))
+            || ((isContained(sw1tch->getX() - 0.2f, playerBL.x, playerBL.x + width)
+                 || isContained(sw1tch->getX() + 0.2f, playerBL.x, playerBL.x + width))
+                && isContained(sw1tch->getY() + 0.2f, playerBL.y, playerBL.y + 0.2f))) {
+            sw1tch->activate();
+            /*collisionBottom = true;
+            hasJumped = false;
+            hasDoubleJumped = false;*/
+        } else {
+            sw1tch->deactivate();
         }
     }
 }
@@ -85,8 +113,8 @@ void Map::restart() {
     }
 }
 
-Zone* Map::getCurrentZone(std::vector<Zone*> givenZones) {
-    Zone* currentZone = nullptr;
+Zone *Map::getCurrentZone(std::vector<Zone *> givenZones) {
+    Zone *currentZone = nullptr;
 
     for (auto &zone: givenZones) {
         if (zone->contains(currentPlayer->getBLPosition(), currentPlayer->getBRPosition())) {
@@ -97,8 +125,8 @@ Zone* Map::getCurrentZone(std::vector<Zone*> givenZones) {
     return currentZone;
 }
 
-Zone* Map::getCurrentZoneFromSwitches() {
-    Zone* currentZone = nullptr;
+Zone *Map::getCurrentZoneFromSwitches() {
+    Zone *currentZone = nullptr;
     for (auto &sw1tch: switches) {
         if (sw1tch->isActive() && getCurrentZone(sw1tch->getZones()) != nullptr) {
             currentZone = getCurrentZone(sw1tch->getZones());
@@ -111,7 +139,7 @@ Zone* Map::getCurrentZoneFromSwitches() {
  * @brief Handle the players changes if he's in a zone (switch or basic zone)
  */
 void Map::handleZones() {
-    Zone* currentZone = getCurrentZone(zones);
+    Zone *currentZone = getCurrentZone(zones);
     if (getCurrentZoneFromSwitches()) {
         currentZone = getCurrentZoneFromSwitches();
     }

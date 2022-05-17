@@ -8,7 +8,7 @@ void Switch::update() {
 }
 
 void Switch::draw() {
-    drawRect(glm::vec2(x - 0.2, y + 0.2), glm::vec2(x + 0.2, y));
+    drawRect(glm::vec2(x - 0.2, y + top), glm::vec2(x + 0.2, y));
 }
 
 void Switch::linksToZones(std::vector<Zone *> &zones) {
@@ -34,4 +34,14 @@ void Switch::drawZones() {
             zone->draw();
         }
     }
+}
+
+void Switch::activate() {
+    top *= 0.5;
+    active = true;
+}
+
+void Switch::deactivate() {
+    top = 0.2;
+    active = false;
 }
