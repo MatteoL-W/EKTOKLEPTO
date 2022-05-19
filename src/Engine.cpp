@@ -56,12 +56,12 @@ Engine::Engine() {
     }
 
     /* Define the interfaces */
-    breakInterface = new BreakInterface(this);
     menuInterface = new MenuInterface(this);
+    breakInterface = new BreakInterface(this);
     gameInterface = new GameInterface(this);
 
     /* Define the default interface*/
-    currentInterface = breakInterface;
+    currentInterface = menuInterface;
 
     isRunning = true;
 

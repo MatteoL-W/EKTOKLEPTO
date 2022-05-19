@@ -2,11 +2,11 @@
 
 #include "../../include/interfaces/BreakInterface.hpp"
 
-enum Choice {
+enum ChoiceBreak {
     save = 1, erase = 2, quit = 3
 };
 const int MAX_CHOICES_BREAK = 3;
-Choice currentChoice = save;
+ChoiceBreak currentChoice = save;
 
 /**
  * @brief Handle SDL Events in the menu
@@ -32,7 +32,7 @@ void BreakInterface::handleEvents() {
                 break;
 
             case SDLK_TAB:
-                currentChoice = (currentChoice < MAX_CHOICES_BREAK) ? static_cast<Choice>(static_cast<int>(currentChoice) + 1) : save;
+                currentChoice = (currentChoice < MAX_CHOICES_BREAK) ? static_cast<ChoiceBreak>(static_cast<int>(currentChoice) + 1) : save;
                 break;
 
             case SDLK_RETURN:
