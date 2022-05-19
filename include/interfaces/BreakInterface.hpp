@@ -22,5 +22,7 @@ private:
     Engine *engine;
 
     BreakScreen *breakScreen;
+
+    void handleRequest();
 };
 
