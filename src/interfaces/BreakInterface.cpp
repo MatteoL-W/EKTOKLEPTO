@@ -6,7 +6,7 @@ enum ChoiceBreak {
     save = 1, erase = 2, quit = 3
 };
 const int MAX_CHOICES_BREAK = 3;
-ChoiceBreak currentChoice = save;
+ChoiceBreak currentChoiceBreak = save;
 
 /**
  * @brief Handle SDL Events in the menu
@@ -22,17 +22,18 @@ void BreakInterface::handleEvents() {
     if (event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
             case SDLK_1:
-                currentChoice = save;
+                currentChoiceBreak = save;
                 break;
             case SDLK_2:
-                currentChoice = erase;
+                currentChoiceBreak = erase;
                 break;
             case SDLK_3:
-                currentChoice = quit;
+                currentChoiceBreak = quit;
                 break;
 
             case SDLK_TAB:
-                currentChoice = (currentChoice < MAX_CHOICES_BREAK) ? static_cast<ChoiceBreak>(static_cast<int>(currentChoice) + 1) : save;
+                currentChoiceBreak = (currentChoiceBreak < MAX_CHOICES_BREAK) ?
+                        static_cast<ChoiceBreak>(static_cast<int>(currentChoiceBreak) + 1) : save;
                 break;
 
             case SDLK_RETURN:
@@ -54,19 +55,19 @@ void BreakInterface::update() {
  */
 void BreakInterface::render() {
     breakScreen->draw();
-    breakScreen->drawCurrent(currentChoice);
+    breakScreen->drawCurrent(currentChoiceBreak);
 }
 
 void BreakInterface::handleRequest() {
-    if (currentChoice == save) {
+    if (currentChoiceBreak == save) {
         // engine->verifyAndSaveGame();
     }
 
-    if (currentChoice == erase) {
+    if (currentChoiceBreak == erase) {
         // engine->eraseSaves();
     }
 
-    if (currentChoice == quit) {
+    if (currentChoiceBreak == quit) {
         engine->clean();
     }
 }

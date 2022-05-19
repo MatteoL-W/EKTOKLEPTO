@@ -6,7 +6,7 @@ enum ChoiceMenu {
     start = 1, load = 2, quit = 3
 };
 const int MAX_CHOICES_MENU = 3;
-ChoiceMenu currentChoice = start;
+ChoiceMenu currentChoiceMenu = start;
 
 /**
  * @brief Handle SDL Events in the menu
