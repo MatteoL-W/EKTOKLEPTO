@@ -28,12 +28,12 @@ void MenuInterface::handleEvents() {
 
             if ((start.first.x < (float) xMouse && (float) xMouse < start.second.x) &&
                 (start.second.y > (float) yMouse && (float) yMouse > start.first.y)) {
-                // start the game
+                engine->startGame();
             }
 
             if ((load.first.x < (float) xMouse && (float) xMouse < load.second.x) &&
                 (load.second.y > (float) yMouse && (float) yMouse > load.first.y)) {
-                // proposer load
+                // quelle sauvegarde ?
             }
 
             if ((quit.first.x < (float) xMouse && (float) xMouse < quit.second.x) &&

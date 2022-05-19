@@ -3,10 +3,10 @@
 #include "../../include/interfaces/BreakInterface.hpp"
 
 enum ChoiceBreak {
-    save = 1, erase = 2, quit = 3
+    resume = 1, save, erase, quit
 };
-const int MAX_CHOICES_BREAK = 3;
-ChoiceBreak currentChoiceBreak = save;
+const int MAX_CHOICES_BREAK = 4;
+ChoiceBreak currentChoiceBreak = resume;
 
 /**
  * @brief Handle SDL Events in the menu
@@ -22,18 +22,21 @@ void BreakInterface::handleEvents() {
     if (event.type == SDL_KEYDOWN) {
         switch (event.key.keysym.sym) {
             case SDLK_1:
-                currentChoiceBreak = save;
+                currentChoiceBreak = resume;
                 break;
             case SDLK_2:
-                currentChoiceBreak = erase;
+                currentChoiceBreak = save;
                 break;
             case SDLK_3:
+                currentChoiceBreak = erase;
+                break;
+            case SDLK_4:
                 currentChoiceBreak = quit;
                 break;
 
             case SDLK_TAB:
                 currentChoiceBreak = (currentChoiceBreak < MAX_CHOICES_BREAK) ?
-                        static_cast<ChoiceBreak>(static_cast<int>(currentChoiceBreak) + 1) : save;
+                        static_cast<ChoiceBreak>(static_cast<int>(currentChoiceBreak) + 1) : resume;
                 break;
 
             case SDLK_RETURN:
@@ -59,6 +62,10 @@ void BreakInterface::render() {
 }
 
 void BreakInterface::handleRequest() {
+    if (currentChoiceBreak == resume) {
+        engine->resumeGame();
+    }
+
     if (currentChoiceBreak == save) {
         // engine->verifyAndSaveGame();
     }

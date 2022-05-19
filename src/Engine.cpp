@@ -107,3 +107,16 @@ void Engine::initiateWindowSize() {
             (-10), (10)
     );
 }
+
+void Engine::startGame(int level) {
+    currentInterface = gameInterface;
+    // set map
+}
+
+void Engine::displayMenu() {
+    currentInterface = breakInterface;
+}
+
+void Engine::resumeGame() {
+    currentInterface = gameInterface;
+}

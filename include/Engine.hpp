@@ -30,6 +30,14 @@ public:
 
     bool running() const { return isRunning; };
 
+    void startGame(int level = 0);
+
+    void displayMenu();
+
+    void resumeGame();
+
+    static void initiateWindowSize();
+
 private:
     SDL_Window *window;
 
@@ -39,5 +47,4 @@ private:
 
     Interface *currentInterface;
 
-    static void initiateWindowSize();
 };
