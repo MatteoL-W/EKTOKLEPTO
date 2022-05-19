@@ -7,10 +7,12 @@
 #include "../include/Engine.hpp"
 #include "../include/interfaces/MenuInterface.hpp"
 #include "../include/interfaces/GameInterface.hpp"
+#include "../include/interfaces/BreakInterface.hpp"
 
 SDL_Renderer *Engine::renderer = nullptr;
 
 MenuInterface *menuInterface = nullptr;
+BreakInterface *breakInterface = nullptr;
 GameInterface *gameInterface = nullptr;
 
 /**
@@ -54,11 +56,12 @@ Engine::Engine() {
     }
 
     /* Define the interfaces */
+    breakInterface = new BreakInterface(this);
     menuInterface = new MenuInterface(this);
     gameInterface = new GameInterface(this);
 
     /* Define the default interface*/
-    currentInterface = menuInterface;
+    currentInterface = breakInterface;
 
     isRunning = true;
 
