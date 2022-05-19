@@ -27,3 +27,35 @@ void BreakScreen::draw() {
     eraseSavesBreak->draw();
     quitBreak->draw();
 }
+
+void BreakScreen::drawCurrent(int choice) {
+    glDisable(GL_BLEND);
+
+    float x = -7.5, y;
+    switch (choice) {
+        case 1:
+            y = 1;
+            break;
+        case 2:
+            y = 0;
+            break;
+        case 3:
+            y = -1;
+            break;
+        default:
+            break;
+    }
+
+    glPushMatrix();
+        glColor3f(1,1,1);
+        glTranslatef(x, y + 0.35, 0);
+        glRotatef(45,0,0,1);
+
+        glBegin(GL_QUADS);
+            glVertex2f(0.25, 0.25);
+            glVertex2f(-0.25, 0.25);
+            glVertex2f(-0.25, -0.25);
+            glVertex2f(0.25, -0.25);
+        glEnd();
+    glPopMatrix();
+}

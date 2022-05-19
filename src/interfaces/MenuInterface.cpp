@@ -2,11 +2,6 @@
 
 #include "../../include/interfaces/MenuInterface.hpp"
 
-enum Choice {
-    start = 1, load = 2, quit = 3
-};
-Choice currentChoice = start;
-
 /**
  * @brief Handle SDL Events in the menu
  */
@@ -16,20 +11,6 @@ void MenuInterface::handleEvents() {
 
     if (event.type == SDL_QUIT) {
         engine->setRunning(false);
-    }
-
-    if (event.type == SDL_KEYDOWN) {
-        switch (event.key.keysym.sym) {
-            case SDLK_1:
-                currentChoice = start;
-                break;
-            case SDLK_2:
-                currentChoice = load;
-                break;
-            case SDLK_3:
-                currentChoice = quit;
-                break;
-        }
     }
 
 }
@@ -46,5 +27,4 @@ void MenuInterface::update() {
  */
 void MenuInterface::render() {
     menu->draw();
-    menu->drawCurrent(currentChoice);
 }

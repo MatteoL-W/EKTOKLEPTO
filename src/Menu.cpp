@@ -28,34 +28,3 @@ void Menu::draw() {
     loadButton->draw();
     quitButton->draw();
 }
-
-void Menu::drawCurrent(int choice) {
-    glDisable(GL_BLEND);
-    float x = -11, y;
-    switch (choice) {
-        case 1:
-            y = 2;
-            break;
-        case 2:
-            y = 0;
-            break;
-        case 3:
-            y = -2;
-            break;
-        default:
-            break;
-    }
-
-    glPushMatrix();
-        glColor3f(1,1,1);
-        glTranslatef(x, y + 0.35, 0);
-        glRotatef(45,0,0,1);
-
-        glBegin(GL_QUADS);
-            glVertex2f(0.25, 0.25);
-            glVertex2f(-0.25, 0.25);
-            glVertex2f(-0.25, -0.25);
-            glVertex2f(0.25, -0.25);
-        glEnd();
-    glPopMatrix();
-}
