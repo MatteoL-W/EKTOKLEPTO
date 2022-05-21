@@ -4,6 +4,7 @@
 #include "../include/tools/save.hpp"
 #include "../include/variables/color.hpp"
 
+Text *errorMsg;
 Text *titleSaveManager;
 Text *saveSaveManager;
 Text *loadSaveManager;
@@ -11,6 +12,7 @@ Text *eraseSaveManager;
 Text *goBackSaveManager;
 
 SaveManager::SaveManager() {
+    TTF_Font *Press200 = TTF_OpenFont("./assets/fonts/Press.ttf", 200);
     TTF_Font *Press300 = TTF_OpenFont("./assets/fonts/Press.ttf", 300);
     TTF_Font *Press500 = TTF_OpenFont("./assets/fonts/Press.ttf", 500);
     TTF_Font *Press800 = TTF_OpenFont("./assets/fonts/Press.ttf", 800);
@@ -26,6 +28,8 @@ SaveManager::SaveManager() {
                 new Text("EMPLACEMENT " + std::to_string(i) + ((readSave(i).empty()) ? "" : " - NIVEAU " + readSave(i)),
                          Press300, (readSave(i).empty()) ? WhiteColor : GreyColor, 1, 2 - i));
     }
+
+    errorMsg = new Text("No more slots available, please erase the slots", Press200, WhiteColor, -14, -6);
 }
 
 void SaveManager::update(int choice, int loadChoice) {
@@ -54,6 +58,9 @@ void SaveManager::draw() {
     for (auto &slot: slotTexts) {
         slot->draw();
     }
+
+    if (noSlotsMsg)
+        errorMsg->draw();
 
     drawCurrentSquare(x, y);
 }

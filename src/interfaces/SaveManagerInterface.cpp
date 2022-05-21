@@ -95,8 +95,7 @@ void SaveManagerInterface::handleRequest() {
                 refreshSaveManagerTexts();
             }
             else {
-                std::cout << "No more slots available, please erase all the slots" << std::endl;
-                // ToDo
+                saveManager->setSlotMessageActivity(true);
             }
             break;
 
@@ -108,6 +107,7 @@ void SaveManagerInterface::handleRequest() {
 
         case eraseAll:
             eraseSaves();
+            saveManager->setSlotMessageActivity(false);
             refreshSaveManagerTexts();
             break;
 
