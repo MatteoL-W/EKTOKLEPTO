@@ -30,13 +30,16 @@ public:
 
     bool running() const { return isRunning; };
 
+    static void initiateWindowSize();
+
+    //Activity Handle
     void startGame(int level = 0);
 
     void displayMenu();
 
     void resumeGame();
 
-    static void initiateWindowSize();
+    void openSaveManager();
 
 private:
     SDL_Window *window;

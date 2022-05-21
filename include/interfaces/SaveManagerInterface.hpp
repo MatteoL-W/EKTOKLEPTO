@@ -2,12 +2,12 @@
 
 #include "../Engine.hpp"
 #include "../Interface.hpp"
-#include "../BreakScreen.hpp"
+#include "../SaveManager.hpp"
 
 class SaveManagerInterface : public Interface {
 public:
     explicit SaveManagerInterface(Engine *engine)
-            : engine(engine) {
+            : engine(engine), saveManager(new SaveManager()) {
     }
 
     ~SaveManagerInterface() = default;
@@ -20,5 +20,7 @@ public:
 
 private:
     Engine *engine;
+
+    SaveManager* saveManager;
 };
 

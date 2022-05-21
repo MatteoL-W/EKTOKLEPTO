@@ -3,9 +3,9 @@
 #include "../../include/interfaces/BreakInterface.hpp"
 
 enum ChoiceBreak {
-    resume = 1, save, erase, quit
+    resume = 1, openSaveManager, quit
 };
-const int MAX_CHOICES_BREAK = 4;
+const int MAX_CHOICES_BREAK = 3;
 ChoiceBreak currentChoiceBreak = resume;
 
 /**
@@ -25,12 +25,9 @@ void BreakInterface::handleEvents() {
                 currentChoiceBreak = resume;
                 break;
             case SDLK_2:
-                currentChoiceBreak = save;
+                currentChoiceBreak = openSaveManager;
                 break;
             case SDLK_3:
-                currentChoiceBreak = erase;
-                break;
-            case SDLK_4:
                 currentChoiceBreak = quit;
                 break;
 
@@ -58,7 +55,6 @@ void BreakInterface::update() {
  */
 void BreakInterface::render() {
     breakScreen->draw();
-    breakScreen->drawCurrent();
 }
 
 void BreakInterface::handleRequest() {
@@ -66,12 +62,8 @@ void BreakInterface::handleRequest() {
         engine->resumeGame();
     }
 
-    if (currentChoiceBreak == save) {
-        // engine->verifyAndSaveGame();
-    }
-
-    if (currentChoiceBreak == erase) {
-        // engine->eraseSaves();
+    if (currentChoiceBreak == openSaveManager) {
+        engine->openSaveManager();
     }
 
     if (currentChoiceBreak == quit) {

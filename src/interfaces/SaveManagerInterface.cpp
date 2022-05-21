@@ -41,6 +41,10 @@ void SaveManagerInterface::handleEvents() {
     }
 }
 
-void SaveManagerInterface::update() {}
+void SaveManagerInterface::update() {
+    saveManager->update(currentChoiceSave);
+}
 
-void SaveManagerInterface::render() {}
+void SaveManagerInterface::render() {
+    saveManager->draw();
+}

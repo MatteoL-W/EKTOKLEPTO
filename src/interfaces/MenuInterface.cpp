@@ -3,7 +3,7 @@
 #include "../../include/interfaces/MenuInterface.hpp"
 
 enum ChoiceMenu {
-    start = 1, load = 2, quit = 3
+    start = 1, openSaveManager, quit
 };
 const int MAX_CHOICES_MENU = 3;
 ChoiceMenu currentChoiceMenu = start;
@@ -33,7 +33,7 @@ void MenuInterface::handleEvents() {
 
             if ((load.first.x < (float) xMouse && (float) xMouse < load.second.x) &&
                 (load.second.y > (float) yMouse && (float) yMouse > load.first.y)) {
-                // quelle sauvegarde ?
+                engine->openSaveManager();
             }
 
             if ((quit.first.x < (float) xMouse && (float) xMouse < quit.second.x) &&

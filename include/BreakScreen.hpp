@@ -10,8 +10,6 @@ public:
 
     void draw();
 
-    void drawCurrent();
-
 private:
     float x = -7.5, y;
 };

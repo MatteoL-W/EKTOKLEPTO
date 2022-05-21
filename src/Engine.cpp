@@ -8,12 +8,14 @@
 #include "../include/interfaces/MenuInterface.hpp"
 #include "../include/interfaces/GameInterface.hpp"
 #include "../include/interfaces/BreakInterface.hpp"
+#include "../include/interfaces/SaveManagerInterface.hpp"
 
 SDL_Renderer *Engine::renderer = nullptr;
 
 MenuInterface *menuInterface = nullptr;
 BreakInterface *breakInterface = nullptr;
 GameInterface *gameInterface = nullptr;
+SaveManagerInterface *saveManagerInterface = nullptr;
 
 /**
  * @brief Initialize the engine (assign the window, renderer, define the engine as running)
@@ -59,6 +61,7 @@ Engine::Engine() {
     menuInterface = new MenuInterface(this);
     breakInterface = new BreakInterface(this);
     gameInterface = new GameInterface(this);
+    saveManagerInterface = new SaveManagerInterface(this);
 
     /* Define the default interface*/
     currentInterface = menuInterface;
@@ -119,4 +122,8 @@ void Engine::displayMenu() {
 
 void Engine::resumeGame() {
     currentInterface = gameInterface;
+}
+
+void Engine::openSaveManager() {
+    currentInterface = saveManagerInterface;
 }

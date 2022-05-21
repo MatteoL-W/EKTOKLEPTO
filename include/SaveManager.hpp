@@ -2,12 +2,13 @@
 
 class SaveManager {
 public:
-    SaveManager() {}
+    SaveManager();
 
     ~SaveManager() = default;
 
-    void update();
+    void update(int choice);
 
-    void render();
+    void draw();
 private:
+    float x = -15, y;
 };
