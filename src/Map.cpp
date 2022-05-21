@@ -27,13 +27,6 @@ void Map::update() {
     }
 }
 
-bool isContained(float subject, float limitA, float limitB) {
-    if (limitA > limitB) {
-        return subject >= limitB && subject <= limitA;
-    }
-    return subject >= limitA && subject <= limitB;
-}
-
 void Map::handleSwitchesCollisions() const {
     glm::vec2 playerBL = currentPlayer->getBLPosition();
     float width = currentPlayer->getWidth();

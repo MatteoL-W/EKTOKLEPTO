@@ -22,3 +22,17 @@ glm::vec2 getPositionCenter(glm::vec2 topLeftCoord, glm::vec2 bottomRightCoord) 
             (topLeftCoord.y - bottomRightCoord.y) / 2 + bottomRightCoord.y
     };
 }
+
+/**
+ * @brief Get is a subject is between 2 limits
+ * @param subject
+ * @param limitA
+ * @param limitB
+ * @return
+ */
+bool isContained(float subject, float limitA, float limitB) {
+    if (limitA > limitB) {
+        return subject >= limitB && subject <= limitA;
+    }
+    return subject >= limitA && subject <= limitB;
+}

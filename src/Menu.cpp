@@ -1,5 +1,5 @@
 #include "../include/Menu.hpp"
-#include "../include/variables/Color.hpp"
+#include "../include/variables/color.hpp"
 
 Text *title;
 Text *playButton;
