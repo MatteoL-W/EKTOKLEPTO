@@ -34,6 +34,12 @@ void GameInterface::handleEvents() {
             case SDLK_r:
                 currentMap->restart();
                 break;
+
+
+            case SDLK_ESCAPE:
+                engine->displayMenu();
+                Engine::initiateWindowSize();
+                break;
         }
     }
 }

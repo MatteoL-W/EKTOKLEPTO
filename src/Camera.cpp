@@ -43,10 +43,8 @@ void Camera::draw() {
 }
 
 void Camera::centerOrthogonalSystem() {
-    float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
-
     gluOrtho2D(
-            center.x + (-zoom * aspectRatio), center.x + (zoom * aspectRatio),
+            center.x + (-zoom * Engine::aspectRatio), center.x + (zoom * Engine::aspectRatio),
             center.y + (-zoom), center.y + (zoom)
     );
 }

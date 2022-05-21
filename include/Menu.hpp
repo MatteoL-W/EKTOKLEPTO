@@ -13,6 +13,5 @@ public:
 
     void draw();
 
-private:
-    Text *titleText;
+    void drawCurrent(int choice);
 };
