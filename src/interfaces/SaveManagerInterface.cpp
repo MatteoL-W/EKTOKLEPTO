@@ -101,8 +101,9 @@ void SaveManagerInterface::handleRequest() {
             break;
 
         case load:
-            engine->startGame(stoi(readSave(currentLoadSave)));
+            engine->startGame(std::stoi(readSave(currentLoadSave - 1)));
             choosingLevelToLoad = false;
+            currentLoadSave = -1;
             break;
 
         case eraseAll:
@@ -121,7 +122,7 @@ void SaveManagerInterface::refreshSaveManagerTexts() {
     for (size_t i = 0; i < texts.size(); i++) {
         texts[i]->deleteTexture();
         texts[i]->changeColor((readSave(i).empty()) ? WhiteColor : GreyColor);
-        texts[i]->changeText("EMPLACEMENT " + std::to_string(i) + " - NIVEAU " + readSave(i));
+        texts[i]->changeText("EMPLACEMENT " + std::to_string(i) + ((readSave(i).empty()) ? "" : " - NIVEAU " + readSave(i)));
         texts[i]->apply();
     }
 }

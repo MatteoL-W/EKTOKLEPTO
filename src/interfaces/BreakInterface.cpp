@@ -67,6 +67,6 @@ void BreakInterface::handleRequest() {
     }
 
     if (currentChoiceBreak == quit) {
-        engine->clean();
+        engine->setRunning(false);
     }
 }

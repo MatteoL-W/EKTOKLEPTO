@@ -22,8 +22,9 @@ SaveManager::SaveManager() {
     goBackSaveManager = new Text("CANCEL", Press500, WhiteColor, -14, -1);
 
     for (int i = 0; i < 5; i++) {
-        slotTexts.push_back(new Text("EMPLACEMENT " + std::to_string(i) + " - NIVEAU " + readSave(i), Press300,
-                                     (readSave(i).empty()) ? WhiteColor : GreyColor, 1, 2 - i));
+        slotTexts.push_back(
+                new Text("EMPLACEMENT " + std::to_string(i) + ((readSave(i).empty()) ? "" : " - NIVEAU " + readSave(i)),
+                         Press300, (readSave(i).empty()) ? WhiteColor : GreyColor, 1, 2 - i));
     }
 }
 
