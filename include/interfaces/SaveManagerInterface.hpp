@@ -24,5 +24,9 @@ private:
     SaveManager* saveManager;
 
     void handleRequest();
+
+    bool choosingLevelToLoad;
+
+    void refreshSaveManagerTexts() ;
 };
 

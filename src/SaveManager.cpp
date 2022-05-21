@@ -1,41 +1,45 @@
 #include "../include/SaveManager.hpp"
 #include "../include/tools/Text.hpp"
 #include "../include/tools/utils.hpp"
+#include "../include/tools/save.hpp"
 #include "../include/variables/color.hpp"
 
-Text* titleSaveManager;
-Text* saveSaveManager;
-Text* loadSaveManager;
-Text* eraseSaveManager;
-Text* goBackSaveManager;
+Text *titleSaveManager;
+Text *saveSaveManager;
+Text *loadSaveManager;
+Text *eraseSaveManager;
+Text *goBackSaveManager;
 
 SaveManager::SaveManager() {
-    TTF_Font* Press500 = TTF_OpenFont("./assets/fonts/Press.ttf", 500);
-    TTF_Font* Press800 = TTF_OpenFont("./assets/fonts/Press.ttf", 800);
+    TTF_Font *Press300 = TTF_OpenFont("./assets/fonts/Press.ttf", 300);
+    TTF_Font *Press500 = TTF_OpenFont("./assets/fonts/Press.ttf", 500);
+    TTF_Font *Press800 = TTF_OpenFont("./assets/fonts/Press.ttf", 800);
 
     titleSaveManager = new Text("SAVE MANAGER", Press800, WhiteColor, -7.5, 5);
     saveSaveManager = new Text("SAVE", Press500, WhiteColor, -14, 2);
     loadSaveManager = new Text("LOAD", Press500, WhiteColor, -14, 1);
     eraseSaveManager = new Text("ERASE ALL SAVES", Press500, WhiteColor, -14, 0);
     goBackSaveManager = new Text("CANCEL", Press500, WhiteColor, -14, -1);
+
+    for (int i = 0; i < 5; i++) {
+        slotTexts.push_back(new Text("EMPLACEMENT " + std::to_string(i) + " - NIVEAU " + readSave(i), Press300,
+                                     (readSave(i).empty()) ? WhiteColor : GreyColor, 1, 2 - i));
+    }
 }
 
-void SaveManager::update(int choice) {
-    switch (choice) {
-        case 1:
-            y = 2;
-            break;
-        case 2:
-            y = 1;
-            break;
-        case 3:
-            y = 0;
-            break;
-        case 4:
-            y = -1;
-            break;
-        default:
-            break;
+void SaveManager::update(int choice, int loadChoice) {
+    if (loadChoice == -1) {
+        x = -15;
+        for (int i = 1; i < 5; i++) {
+            if (choice == i)
+                y = 2 - i + 1;
+        }
+    } else {
+        x = 0;
+        for (int i = 1; i < 6; i++) {
+            if (loadChoice == i)
+                y = 2 - i + 1;
+        }
     }
 }
 
@@ -45,6 +49,10 @@ void SaveManager::draw() {
     loadSaveManager->draw();
     eraseSaveManager->draw();
     goBackSaveManager->draw();
+
+    for (auto &slot: slotTexts) {
+        slot->draw();
+    }
 
     drawCurrentSquare(x, y);
 }

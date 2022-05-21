@@ -1,14 +1,21 @@
 #pragma once
 
+#include <vector>
+#include "tools/Text.hpp"
+
 class SaveManager {
 public:
     SaveManager();
 
     ~SaveManager() = default;
 
-    void update(int choice);
+    void update(int choice, int loadChoice);
 
     void draw();
+
+    std::vector<Text*> getLevelsText() { return slotTexts; };
 private:
-    float x = -15, y;
+    float x, y;
+
+    std::vector<Text*> slotTexts;
 };
