@@ -33,13 +33,15 @@ public:
     static void initiateWindowSize();
 
     //Activity Handle
+    void setCurrentInterface(Interface* activity) { currentInterface = activity; };
+
     void startGame(int level = 0);
 
     void displayMenu();
 
     void resumeGame();
 
-    void openSaveManager();
+    void openSaveManager(Interface* currentActivity);
 
 private:
     SDL_Window *window;

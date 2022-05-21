@@ -108,7 +108,7 @@ void SaveManagerInterface::handleRequest() {
             break;
 
         case goBack:
-            engine->resumeGame();
+            engine->setCurrentInterface(previousActivity);
             break;
     }
 }

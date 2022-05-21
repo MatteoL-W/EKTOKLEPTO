@@ -18,6 +18,8 @@ public:
 
     void render() override;
 
+    void setPreviousActivity(Interface* p_previousActivity) { previousActivity = p_previousActivity; };
+
 private:
     Engine *engine;
 
@@ -28,5 +30,7 @@ private:
     bool choosingLevelToLoad;
 
     void refreshSaveManagerTexts() ;
+
+    Interface* previousActivity;
 };
 

@@ -33,7 +33,7 @@ void MenuInterface::handleEvents() {
 
             if ((load.first.x < (float) xMouse && (float) xMouse < load.second.x) &&
                 (load.second.y > (float) yMouse && (float) yMouse > load.first.y)) {
-                engine->openSaveManager();
+                engine->openSaveManager(this);
             }
 
             if ((quit.first.x < (float) xMouse && (float) xMouse < quit.second.x) &&

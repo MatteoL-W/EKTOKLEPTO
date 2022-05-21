@@ -63,7 +63,7 @@ void BreakInterface::handleRequest() {
     }
 
     if (currentChoiceBreak == openSaveManager) {
-        engine->openSaveManager();
+        engine->openSaveManager(this);
     }
 
     if (currentChoiceBreak == quit) {

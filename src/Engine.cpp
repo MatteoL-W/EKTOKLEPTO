@@ -125,6 +125,7 @@ void Engine::resumeGame() {
     currentInterface = gameInterface;
 }
 
-void Engine::openSaveManager() {
+void Engine::openSaveManager(Interface* currentActivity) {
     currentInterface = saveManagerInterface;
+    saveManagerInterface->setPreviousActivity(currentActivity);
 }
