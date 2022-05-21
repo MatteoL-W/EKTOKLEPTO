@@ -112,8 +112,9 @@ void Engine::initiateWindowSize() {
 }
 
 void Engine::startGame(int level) {
+    Game::level = level;
     currentInterface = gameInterface;
-    // set map
+    gameInterface->updateLevel();
 }
 
 void Engine::displayMenu() {

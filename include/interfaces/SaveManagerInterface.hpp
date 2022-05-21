@@ -22,5 +22,7 @@ private:
     Engine *engine;
 
     SaveManager* saveManager;
+
+    void handleRequest();
 };
 

@@ -9,13 +9,11 @@ public:
 
     ~Game() = default;
 
-    void setMap(int gameId = -1);
+    void setMap();
 
     void update();
 
     void draw();
-
-    void initializeMap(int gameId);
 
     Map *getMap() { return currentMap; }
 
@@ -23,11 +21,11 @@ public:
 
     static std::string saveEmplacements;
 
+    static int level;
+
 private:
 
     Map *currentMap;
 
     Camera *camera;
-
-    int level = 1;
 };

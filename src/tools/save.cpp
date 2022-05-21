@@ -1,7 +1,26 @@
 #include "../include/tools/save.hpp"
 
+int getSlotUsedAmount() {
+    std::string savedLevel;
+    std::ifstream savedFile (Game::saveEmplacements);
+    int counter = 0;
+
+    if (savedFile.is_open()) {
+        std::string currentLine;
+
+        while (getline(savedFile, currentLine)) {
+            if (currentLine.empty()) {
+                counter++;
+            }
+        }
+        savedFile.close();
+    }
+    return counter;
+}
+
 /**
- * @brief Return the last level saved
+ * @brief Return the level of a save
+ * @param saveId
  * @return
  */
 std::string readSave(int saveId) {
@@ -44,10 +63,18 @@ void save(const std::string& saveContent) {
     std::ofstream saveFile (Game::saveEmplacements, std::ios::app);
     if (saveFile.is_open())
     {
-        if (stoi(saveContent) == 1)
-            saveFile << "\n";
-        saveFile << saveContent << "\n";
+        saveFile << "\n" << saveContent << "\n";
         saveFile.close();
     }
-    else std::cout << "Unable to open file";
+    else std::cout << "Unable to open file - save";
+}
+
+void eraseSaves() {
+    std::ofstream saveFile (Game::saveEmplacements);
+    if (saveFile.is_open())
+    {
+        saveFile << "";
+        saveFile.close();
+    }
+    else std::cout << "Unable to open file - eraseSaves";
 }
