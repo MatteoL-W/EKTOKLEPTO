@@ -1,15 +1,19 @@
 #include "../include/Menu.hpp"
-#include "../include/Engine.hpp"
-#include "../include/tools/utils.hpp"
 #include "../include/variables/Color.hpp"
 
+Text *title;
+Text *playButton;
+Text *loadButton;
+Text *quitButton;
+
 Menu::Menu() {
-    titleText = new Text();
-    titleText->create("Welcome in the menu", WhiteColor, "Press");
-    titleText->changeDestRect(
-            getPadding(Engine::WINDOW_WIDTH, titleText->getDestRect().w),
-            getPadding(Engine::WINDOW_HEIGHT, titleText->getDestRect().h)
-    );
+    TTF_Font* Press800 = TTF_OpenFont("./assets/fonts/Press.ttf", 800);
+    TTF_Font* Press500 = TTF_OpenFont("./assets/fonts/Press.ttf", 500);
+
+    title = new Text("Menu", Press800, WhiteColor, -2.2, 6);
+    playButton = new Text("Start a new game", Press500, WhiteColor, -10, 2);
+    loadButton = new Text("Load a saved game", Press500, WhiteColor, -10, 0);
+    quitButton = new Text("Quit the game", Press500, WhiteColor, -10, -2);
 }
 
 void Menu::update() {
@@ -17,5 +21,10 @@ void Menu::update() {
 }
 
 void Menu::draw() {
-    titleText->draw();
+    glClearColor(0.18, 0.5, 0.41, 1);
+
+    title->draw();
+    playButton->draw();
+    loadButton->draw();
+    quitButton->draw();
 }

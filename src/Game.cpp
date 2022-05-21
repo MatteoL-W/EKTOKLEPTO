@@ -8,6 +8,7 @@ Game::Game() {}
 void Game::setMap(int gameId) {
     initializeMap(gameId);
     camera = new Camera(currentMap, currentMap->getMapZoom());
+    camera->newLevel(level);
 }
 
 void Game::update() {
@@ -19,7 +20,7 @@ void Game::update() {
         currentMap = new Map(level);
 
         camera->setMap(currentMap);
-        camera->setZoom(currentMap->getMapZoom());
+        camera->newLevel(level);
     }
 
     camera->update();

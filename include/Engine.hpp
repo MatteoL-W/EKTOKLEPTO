@@ -22,13 +22,21 @@ public:
 
     static const int WINDOW_HEIGHT = 750;
 
-    constexpr static const float GL_VIEW_SIZE = 20.;
+    constexpr static const float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
 
     static SDL_Renderer *renderer;
 
     void setRunning(bool newState) { isRunning = newState; }
 
     bool running() const { return isRunning; };
+
+    void startGame(int level = 0);
+
+    void displayMenu();
+
+    void resumeGame();
+
+    static void initiateWindowSize();
 
 private:
     SDL_Window *window;
@@ -39,5 +47,4 @@ private:
 
     Interface *currentInterface;
 
-    static void initiateWindowSize();
 };

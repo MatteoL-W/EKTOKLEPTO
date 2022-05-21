@@ -1,50 +1,40 @@
 #pragma once
 
+#include <GL/gl.h>
+#include <GL/glu.h>
 #include "SDL2/SDL_ttf.h"
 #include <iostream>
 
 class Text {
 public:
-    Text() {}
+    Text(std::string p_content, TTF_Font *p_font, SDL_Color p_color, float p_x, float p_y)
+            : content(p_content), font(p_font), color(p_color), x(p_x), y(p_y) {
+        generateSurface();
+        bindTexture();
+    };
 
     ~Text() = default;
 
-    void create(std::string text, SDL_Color color, std::string fontName);
-
     void draw();
 
-    void changeText(std::string newText);
-
-    void changeColor(SDL_Color newColor);
-
-    void changeDestRect(int x, int y);
-
-    void changeFont(std::string name, int size);
-
-    int getSize() { return size; };
-
-    SDL_Rect getDestRect() { return destRect; };
-
-    std::string getText() { return message; };
-
 private:
-    std::string message;
+    void generateSurface();
+
+    void bindTexture();
+
+    void deleteTexture();
+
+    std::string content;
 
     TTF_Font *font;
 
-    SDL_Surface *surface;
-
     SDL_Color color;
 
-    SDL_Texture *texture;
+    SDL_Surface* renderedText;
 
-    SDL_Rect destRect;
+    GLuint textureBind = 0;
 
-    int size = 24;
+    float x, y;
 };
-
-TTF_Font *createFont(Text *text, std::string fontName);
-
-SDL_Rect createDestRect(TTF_Font *font, std::string text, int x, int y);
 
 

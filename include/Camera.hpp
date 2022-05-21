@@ -17,16 +17,23 @@ public:
 
     void setTrajectory(glm::vec2 initial, glm::vec2 final);
 
+    void newLevel(int level);
+
     void setMap(Map* newMap) { map = newMap; };
 
     void setZoom(int newZoom) { zoom = newZoom; };
 
     void unsetTrajectory();
 
+
 private:
     void drawCameraContent();
 
     void centerOrthogonalSystem();
+
+    void drawLevelIndication();
+
+    void setZoom();
 
     Map *map;
 
