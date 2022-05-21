@@ -19,22 +19,7 @@ BreakScreen::BreakScreen() {
     quitBreak = new Text("QUIT", Press500, WhiteColor, -6.5, -1);
 }
 
-void BreakScreen::update() {
-
-}
-
-void BreakScreen::draw() {
-    titleBreak->draw();
-    resumeBreak->draw();
-    saveBreak->draw();
-    eraseSavesBreak->draw();
-    quitBreak->draw();
-}
-
-void BreakScreen::drawCurrent(int choice) {
-    glDisable(GL_BLEND);
-
-    float x = -7.5, y;
+void BreakScreen::update(int choice) {
     switch (choice) {
         case 1:
             y = 2;
@@ -51,6 +36,18 @@ void BreakScreen::drawCurrent(int choice) {
         default:
             break;
     }
+}
+
+void BreakScreen::draw() {
+    titleBreak->draw();
+    resumeBreak->draw();
+    saveBreak->draw();
+    eraseSavesBreak->draw();
+    quitBreak->draw();
+}
+
+void BreakScreen::drawCurrent() {
+    glDisable(GL_BLEND);
 
     glPushMatrix();
         glColor3f(1,1,1);

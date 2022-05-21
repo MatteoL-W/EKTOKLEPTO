@@ -50,7 +50,7 @@ void BreakInterface::handleEvents() {
  * @brief Update the menu
  */
 void BreakInterface::update() {
-    breakScreen->update();
+    breakScreen->update(currentChoiceBreak);
 }
 
 /**
@@ -58,7 +58,7 @@ void BreakInterface::update() {
  */
 void BreakInterface::render() {
     breakScreen->draw();
-    breakScreen->drawCurrent(currentChoiceBreak);
+    breakScreen->drawCurrent();
 }
 
 void BreakInterface::handleRequest() {

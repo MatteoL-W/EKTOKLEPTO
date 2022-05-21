@@ -6,9 +6,12 @@ public:
 
     ~BreakScreen() = default;
 
-    void update();
+    void update(int choice);
 
     void draw();
 
-    void drawCurrent(int choice);
+    void drawCurrent();
+
+private:
+    float x = -7.5, y;
 };
