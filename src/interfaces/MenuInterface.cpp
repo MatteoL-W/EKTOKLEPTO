@@ -3,7 +3,7 @@
 #include "../../include/interfaces/MenuInterface.hpp"
 
 enum ChoiceMenu {
-    start = 1, load = 2, quit = 3
+    start = 1, openSaveManager, quit
 };
 const int MAX_CHOICES_MENU = 3;
 ChoiceMenu currentChoiceMenu = start;
@@ -33,12 +33,12 @@ void MenuInterface::handleEvents() {
 
             if ((load.first.x < (float) xMouse && (float) xMouse < load.second.x) &&
                 (load.second.y > (float) yMouse && (float) yMouse > load.first.y)) {
-                // quelle sauvegarde ?
+                engine->openSaveManager(this);
             }
 
             if ((quit.first.x < (float) xMouse && (float) xMouse < quit.second.x) &&
                 (quit.second.y > (float) yMouse && (float) yMouse > quit.first.y)) {
-                engine->clean();
+                engine->setRunning(false);
             }
 
             break;
@@ -67,12 +67,12 @@ void MenuInterface::setButtonCoordinates() {
     );
 
     load = std::make_pair(
-            glm::vec2(5, 5),
-            glm::vec2(10, 10)
+            glm::vec2(217, 340),
+            glm::vec2(768, 381)
     );
 
     quit = std::make_pair(
-            glm::vec2(1, 1),
-            glm::vec2(5, 5)
+            glm::vec2(216, 417),
+            glm::vec2(560, 456)
     );
 }

@@ -6,8 +6,9 @@
 
 class GameInterface : public Interface {
 public:
-    explicit GameInterface(Engine *game)
-            : engine(game), game(new Game()), currentMap(this->game->getMap()), camera(this->game->getCamera()) {
+    explicit GameInterface(Engine *engine)
+            : engine(engine), game(new Game()), currentMap(this->game->getMap()), camera(this->game->getCamera()) {
+        game->setMap();
     }
 
     ~GameInterface() = default;
@@ -17,6 +18,8 @@ public:
     void update() override;
 
     void render() override;
+
+    void updateLevel();
 
 private:
     Engine *engine;

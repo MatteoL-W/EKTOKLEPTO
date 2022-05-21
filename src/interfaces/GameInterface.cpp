@@ -61,3 +61,7 @@ void GameInterface::render() {
     game->draw();
 }
 
+void GameInterface::updateLevel() {
+    game->setMap();
+}
+

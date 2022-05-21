@@ -12,7 +12,7 @@ Menu::Menu() {
 
     title = new Text("Menu", Press800, WhiteColor, -2.2, 6);
     playButton = new Text("Start a new game", Press500, WhiteColor, -10, 2);
-    loadButton = new Text("Load a saved game", Press500, WhiteColor, -10, 0);
+    loadButton = new Text("Open the Save Manager", Press500, WhiteColor, -10, 0);
     quitButton = new Text("Quit the game", Press500, WhiteColor, -10, -2);
 }
 

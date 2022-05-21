@@ -1,5 +1,6 @@
 #include "../include/BreakScreen.hpp"
 #include "../include/tools/Text.hpp"
+#include "../include/tools/utils.hpp"
 #include "../include/variables/color.hpp"
 
 Text* titleBreak;
@@ -14,27 +15,11 @@ BreakScreen::BreakScreen() {
 
     titleBreak = new Text("THOMAS WAS DRUNK", Press800, WhiteColor, -7.5, 5);
     resumeBreak = new Text("RESUME", Press500, WhiteColor, -6.5, 2);
-    saveBreak = new Text("SAVE (MAX 5 SAVES)", Press500, WhiteColor, -6.5, 1);
-    eraseSavesBreak = new Text("ERASE ALL SAVES", Press500, WhiteColor, -6.5, 0);
-    quitBreak = new Text("QUIT", Press500, WhiteColor, -6.5, -1);
+    saveBreak = new Text("OPEN SAVE MANAGER", Press500, WhiteColor, -6.5, 1);
+    quitBreak = new Text("QUIT", Press500, WhiteColor, -6.5, 0);
 }
 
-void BreakScreen::update() {
-
-}
-
-void BreakScreen::draw() {
-    titleBreak->draw();
-    resumeBreak->draw();
-    saveBreak->draw();
-    eraseSavesBreak->draw();
-    quitBreak->draw();
-}
-
-void BreakScreen::drawCurrent(int choice) {
-    glDisable(GL_BLEND);
-
-    float x = -7.5, y;
+void BreakScreen::update(int choice) {
     switch (choice) {
         case 1:
             y = 2;
@@ -45,23 +30,16 @@ void BreakScreen::drawCurrent(int choice) {
         case 3:
             y = 0;
             break;
-        case 4:
-            y = -1;
-            break;
         default:
             break;
     }
+}
 
-    glPushMatrix();
-        glColor3f(1,1,1);
-        glTranslatef(x, y + 0.35, 0);
-        glRotatef(45,0,0,1);
+void BreakScreen::draw() {
+    titleBreak->draw();
+    resumeBreak->draw();
+    saveBreak->draw();
+    quitBreak->draw();
 
-        glBegin(GL_QUADS);
-            glVertex2f(0.25, 0.25);
-            glVertex2f(-0.25, 0.25);
-            glVertex2f(-0.25, -0.25);
-            glVertex2f(0.25, -0.25);
-        glEnd();
-    glPopMatrix();
+    drawCurrentSquare(x, y);
 }
