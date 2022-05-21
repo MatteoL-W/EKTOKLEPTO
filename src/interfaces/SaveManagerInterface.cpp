@@ -10,7 +10,7 @@ const int MAX_CHOICES_SAVE = 4;
 ChoiceSave currentChoiceSave = saveGame;
 int currentLoadSave = -1;
 
-int SDLKeyTo5[5] = {SDLK_1, SDLK_2, SDLK_3, SDLK_4, SDLK_5};
+int SDLKeyTo5[5] = {SDLK_0, SDLK_1, SDLK_2, SDLK_3, SDLK_4};
 
 void SaveManagerInterface::handleEvents() {
     SDL_Event event = engine->event;
@@ -45,12 +45,12 @@ void SaveManagerInterface::handleEvents() {
                     handleRequest();
                     break;
             }
+        // Chosing level to load
         else {
             // Set associated slot when load is selected
-            for (int i = 0; i < 5; i++) {
-                if (event.key.keysym.sym == SDLKeyTo5[i] && i >= getSlotUsedAmount()) {
+            for (int i = 0; i < getSlotUsedAmount(); i++) {
+                if (event.key.keysym.sym == SDLKeyTo5[i]) {
                     currentLoadSave = i+1;
-                    std::cout << currentLoadSave;
                 }
             }
 
@@ -63,7 +63,7 @@ void SaveManagerInterface::handleEvents() {
                     handleRequest();
                     break;
                 case SDLK_TAB:
-                    currentLoadSave = (currentLoadSave < 5) ? currentLoadSave + 1 : 1;
+                    currentLoadSave = (currentLoadSave < getSlotUsedAmount()) ? currentLoadSave + 1 : 1;
                     break;
             }
         }
@@ -81,8 +81,10 @@ void SaveManagerInterface::render() {
 
 void SaveManagerInterface::handleRequest() {
     if (currentChoiceSave == load && currentLoadSave == -1) {
-        choosingLevelToLoad = true;
-        currentLoadSave = getSlotUsedAmount() + 1;
+        if (getSlotUsedAmount() != 0) {
+            choosingLevelToLoad = true;
+            currentLoadSave = 1;
+        }
         return;
     }
 
@@ -100,6 +102,7 @@ void SaveManagerInterface::handleRequest() {
 
         case load:
             engine->startGame(stoi(readSave(currentLoadSave)));
+            choosingLevelToLoad = false;
             break;
 
         case eraseAll:

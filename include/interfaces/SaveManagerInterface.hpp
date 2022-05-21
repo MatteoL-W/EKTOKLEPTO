@@ -29,7 +29,7 @@ private:
 
     bool choosingLevelToLoad;
 
-    void refreshSaveManagerTexts() ;
+    void refreshSaveManagerTexts();
 
     Interface* previousActivity;
 };
