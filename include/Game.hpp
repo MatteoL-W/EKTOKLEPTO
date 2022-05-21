@@ -2,6 +2,7 @@
 
 #include "Map.hpp"
 #include "Camera.hpp"
+#include "Minimap.hpp"
 
 class Game {
 public:
@@ -24,8 +25,9 @@ public:
     static int level;
 
 private:
-
     Map *currentMap;
 
     Camera *camera;
+
+    Minimap *minimap;
 };
