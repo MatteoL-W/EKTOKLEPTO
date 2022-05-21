@@ -1,6 +1,6 @@
 #include "../include/Camera.hpp"
 #include "../include/tools/Text.hpp"
-#include "../include/variables/Color.hpp"
+#include "../include/variables/color.hpp"
 #include <glm/gtx/norm.hpp>
 
 /**
@@ -83,8 +83,9 @@ void Camera::unsetTrajectory() {
  * @param level
  */
 void Camera::newLevel(int level) {
+    std::cout << std::to_string(level);
     zoom = map->getMapZoom() * 8;
-    levelText = new Text("LEVEL " + std::to_string(level), TTF_OpenFont("./assets/fonts/Press.ttf", 100), WhiteColor,
+    levelText = new Text("LEVEL " + std::to_string(level), TTF_OpenFont("./assets/fonts/Press.ttf", 70), WhiteColor,
                          -0.28, 0.2);
 }
 
@@ -94,10 +95,10 @@ void Camera::newLevel(int level) {
 void Camera::drawLevelIndication() {
     if (levelText) {
         glPushMatrix();
-        glLoadIdentity();
-        float opacity = (float)zoom / map->getMapZoom() / 8.;
-        glColor4f(1, 1, 1, opacity);
-        levelText->draw();
+            glLoadIdentity();
+            float opacity = (float)zoom / map->getMapZoom() / 8.;
+            glColor4f(1, 1, 1, opacity);
+            levelText->draw();
         glPopMatrix();
     }
 }

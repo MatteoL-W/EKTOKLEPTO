@@ -1,6 +1,6 @@
 #include "../include/BreakScreen.hpp"
 #include "../include/tools/Text.hpp"
-#include "../include/variables/Color.hpp"
+#include "../include/variables/color.hpp"
 
 Text* titleBreak;
 Text* resumeBreak;
