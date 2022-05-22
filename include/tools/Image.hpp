@@ -8,7 +8,7 @@
 
 class Image {
 public:
-    Image(std::string p_path, float p_x, float p_y, float p_divider)
+    Image(std::string p_path, float p_x = 0, float p_y = 0, float p_divider = 0)
             : path(std::move(p_path)), x(p_x), y(p_y), divider(p_divider) {
         apply();
     };
@@ -16,6 +16,7 @@ public:
     ~Image() = default;
 
     void draw();
+    void draw(glm::vec2 BL, float width, float height);
 
     void apply() { generateSurface(); bindTexture(); }
 

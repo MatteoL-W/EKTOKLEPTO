@@ -1,22 +1,21 @@
 #include <GL/gl.h>
 #include <iostream>
+#include <SDL2/SDL_image.h>
 #include "../include/Player.hpp"
 #include "../include/tools/draw.hpp"
 
-Player::~Player() {}
-
 void Player::draw() {
     if (!hasFinished) {
-        glColor3f(r, g, b);
+        background->draw(BLPosition, width, height);
     } else {
         glColor3f(255, 255, 255);
+        drawRect(
+                glm::vec2(BLPosition.x, BLPosition.y + height),
+                glm::vec2(BLPosition.x + width, BLPosition.y)
+        );
     }
-
-    drawRect(
-            glm::vec2(BLPosition.x, BLPosition.y + height),
-            glm::vec2(BLPosition.x + width, BLPosition.y)
-    );
 }
+
 
 void Player::drawEndPlace() {
     glColor3f(r, g, b);
@@ -32,7 +31,9 @@ void Player::moveRight() {
 }
 
 void Player::setPropsFromType() {
-    enum Players { Orange = 1, Green };
+    enum Players {
+        Orange = 1, Green
+    };
 
     switch (type) {
         case Orange:
@@ -41,6 +42,7 @@ void Player::setPropsFromType() {
             r = 0.74;
             g = 0.3;
             b = 0.25;
+            background = new Image("./assets/img/player1_bg.png");
             break;
 
         case Green:

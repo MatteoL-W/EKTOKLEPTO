@@ -32,6 +32,21 @@ void Image::draw() {
     glDisable(GL_BLEND);
 }
 
+void Image::draw(glm::vec2 BL, float width, float height) {
+    glEnable(GL_BLEND);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, imageSurface->w, imageSurface->h, 0,
+                 GL_RGBA, GL_UNSIGNED_BYTE,imageSurface->pixels);
+
+    glBegin(GL_QUADS);
+    glTexCoord2d(0, 1); glVertex2f(BL.x, BL.y);
+    glTexCoord2d(1, 1); glVertex2f(BL.x + width, BL.y);
+    glTexCoord2d(1, 0); glVertex2f(BL.x + width, BL.y + height);
+    glTexCoord2d(0, 0); glVertex2f(BL.x, BL.y + height);
+    glEnd();
+
+    glDisable(GL_BLEND);
+}
+
 void Image::deleteTexture() {
     glDeleteTextures(1, &textureBind);
     SDL_FreeSurface(imageSurface);
