@@ -9,20 +9,25 @@ class Text {
 public:
     Text(std::string p_content, TTF_Font *p_font, SDL_Color p_color, float p_x, float p_y)
             : content(p_content), font(p_font), color(p_color), x(p_x), y(p_y) {
-        generateSurface();
-        bindTexture();
+        apply();
     };
 
     ~Text() = default;
 
     void draw();
 
+    void changeText(std::string newText) { content = std::move(newText);};
+
+    void changeColor(SDL_Color newColor) { color = newColor;};
+
+    void apply() { generateSurface(); bindTexture(); }
+
+    void deleteTexture();
+
 private:
     void generateSurface();
 
     void bindTexture();
-
-    void deleteTexture();
 
     std::string content;
 

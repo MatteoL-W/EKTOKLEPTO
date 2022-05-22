@@ -1,9 +1,18 @@
 #include <GL/gl.h>
+#include <iostream>
 #include "../include/Game.hpp"
+#include "../include/tools/save.hpp"
 
-Game::Game() {
-    currentMap = new Map(level);
+std::string Game::saveEmplacements = "assets/save/save.txt";
+int Game::level = 1;
+
+Game::Game() {}
+
+void Game::setMap() {
+    if (Game::level == 0) { Game::level = 1; }
+    currentMap = new Map(Game::level);
     camera = new Camera(currentMap, currentMap->getMapZoom());
+    camera->newLevel(Game::level);
 }
 
 void Game::update() {
@@ -14,7 +23,7 @@ void Game::update() {
         currentMap = new Map(level);
 
         camera->setMap(currentMap);
-        camera->setZoom(currentMap->getMapZoom());
+        camera->newLevel(level);
     }
 
     camera->update();
@@ -25,4 +34,3 @@ void Game::draw() {
     currentMap->draw();
     camera->draw();
 }
-

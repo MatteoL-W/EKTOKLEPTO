@@ -1,5 +1,4 @@
 #include <GL/gl.h>
-#include <iostream>
 #include "../include/Box.hpp"
 #include "../include/tools/draw.hpp"
 

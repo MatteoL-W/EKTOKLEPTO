@@ -21,8 +21,8 @@ void Player::draw() {
 void Player::drawEndPlace() {
     glColor3f(r, g, b);
     drawRect(
-            glm::vec2(BLPositionEnd.x, BLPositionEnd.y + height),
-            glm::vec2(BLPositionEnd.x + width, BLPositionEnd.y),
+            glm::vec2(BLPositionEnd.x, BLPositionEnd.y + fixHeight),
+            glm::vec2(BLPositionEnd.x + fixWidth, BLPositionEnd.y),
             false
     );
 }
@@ -230,15 +230,18 @@ void Player::posUpdate() {
 }
 
 void Player::setPropsFromType() {
+    enum Players { Orange = 1, Green };
+
     switch (type) {
-        case 1:
+        case Orange:
             width = 1;
             height = 1;
             r = 0.74;
             g = 0.3;
             b = 0.25;
             break;
-        case 2:
+
+        case Green:
             width = 0.5;
             height = 0.5;
             r = 0;
@@ -253,6 +256,19 @@ void Player::setPropsFromType() {
             b = 0.2;
             break;
     }
+
+    fixWidth = width;
+    fixHeight = height;
+}
+
+void Player::setMiniMode() {
+    width = (width <= fixWidth * 0.5) ? fixWidth * 0.5f : width * 0.92;
+    height = (height <= fixHeight * 0.5) ? fixHeight * 0.5f : height * 0.92;
+}
+
+void Player::unsetMiniMode() {
+    width = (width < fixWidth) ? width * 1.08 : fixWidth;
+    height = (height < fixHeight) ? height * 1.08 : fixHeight;
 }
 
 void Player::removeCurrentFromArray(size_t id) {
