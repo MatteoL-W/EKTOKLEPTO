@@ -32,8 +32,18 @@ void BreakInterface::handleEvents() {
                 break;
 
             case SDLK_TAB:
+            case SDLK_DOWN:
                 currentChoiceBreak = (currentChoiceBreak < MAX_CHOICES_BREAK) ?
-                        static_cast<ChoiceBreak>(static_cast<int>(currentChoiceBreak) + 1) : resume;
+                                     static_cast<ChoiceBreak>(static_cast<int>(currentChoiceBreak) + 1) : resume;
+                break;
+
+            case SDLK_UP:
+                currentChoiceBreak = (currentChoiceBreak > 1) ?
+                                     static_cast<ChoiceBreak>(static_cast<int>(currentChoiceBreak) - 1) : quit;
+                break;
+
+            case SDLK_ESCAPE:
+                engine->resumeGame();
                 break;
 
             case SDLK_RETURN:
