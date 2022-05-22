@@ -1,5 +1,6 @@
 #include <SDL2/SDL_image.h>
 #include <SDL2/SDL_ttf.h>
+#include <SDL2/SDL_mixer.h>
 #include <GL/gl.h>
 #include <GL/glu.h>
 #include <iostream>
@@ -11,6 +12,7 @@
 #include "../include/interfaces/SaveManagerInterface.hpp"
 
 SDL_Renderer *Engine::renderer = nullptr;
+Music *Engine::ambianceMusic = nullptr;
 
 MenuInterface *menuInterface = nullptr;
 BreakInterface *breakInterface = nullptr;
@@ -21,21 +23,7 @@ SaveManagerInterface *saveManagerInterface = nullptr;
  * @brief Initialize the engine (assign the window, renderer, define the engine as running)
  */
 Engine::Engine() {
-    /* Vérifications */
-    if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
-        std::cout << "SDL_INIT HAS FAILED. SDL_ERROR: " << SDL_GetError() << std::endl;
-        exit(1);
-    }
-
-    if (!IMG_Init(IMG_INIT_PNG)) {
-        std::cout << "IMG_Init HAS FAILED. SDL_ERROR: " << SDL_GetError() << std::endl;
-        exit(1);
-    }
-
-    if (TTF_Init() < 0) {
-        std::cout << "TTF_Init HAS FAILED. SDL_ERROR: " << SDL_GetError() << std::endl;
-        exit(1);
-    }
+    initiateSDLLibs();
 
     /* Create SDL needs */
     window = SDL_CreateWindow("Thomas Was Alone", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, WINDOW_WIDTH,
@@ -69,6 +57,29 @@ Engine::Engine() {
     isRunning = true;
 
     initiateWindowSize();
+    startMusic();
+}
+
+void Engine::initiateSDLLibs() {
+    if (SDL_Init(SDL_INIT_EVERYTHING) != 0) {
+        std::cout << "SDL_INIT HAS FAILED. SDL_ERROR: " << SDL_GetError() << std::endl;
+        exit(1);
+    }
+
+    if (!IMG_Init(IMG_INIT_PNG)) {
+        std::cout << "IMG_Init HAS FAILED. SDL_ERROR: " << SDL_GetError() << std::endl;
+        exit(1);
+    }
+
+    if (TTF_Init() < 0) {
+        std::cout << "TTF_Init HAS FAILED. SDL_ERROR: " << SDL_GetError() << std::endl;
+        exit(1);
+    }
+
+    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) {
+        printf("Mix_OpenAudio: %s\n", Mix_GetError());
+        exit(1);
+    }
 }
 
 Engine::~Engine() = default;
@@ -128,4 +139,9 @@ void Engine::resumeGame() {
 void Engine::openSaveManager(Interface* currentActivity) {
     currentInterface = saveManagerInterface;
     saveManagerInterface->setPreviousActivity(currentActivity);
+}
+
+void Engine::startMusic() {
+    ambianceMusic = new Music("./assets/sounds/ambiance.wav");
+    ambianceMusic->play(-1);
 }
