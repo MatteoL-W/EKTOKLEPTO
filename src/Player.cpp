@@ -1,7 +1,7 @@
 #include <GL/gl.h>
+#include <iostream>
 #include "../include/Player.hpp"
 #include "../include/tools/draw.hpp"
-#include <iostream>
 
 Player::~Player() {}
 
@@ -40,69 +40,123 @@ void Player::checkCollisions() {
     collisionRight = false;
     collisionTop = false;
 
+    // player/box collision
     size_t i = 0;
-    while (i < closeBoxes.size()) {  // for each box close to the player
+    while (i < nearBoxes.size()) {  // for each box close to the player
 
-        // check bottom player / top box collision
-        if ( ( ( isContained(BLPosition.x, closeBoxes[i]->getBLPosition().x, closeBoxes[i]->getBRPosition().x)
-        || isContained(BLPosition.x + width, closeBoxes[i]->getBLPosition().x, closeBoxes[i]->getBRPosition().x) )
-        && isContained(BLPosition.y, closeBoxes[i]->getTLPosition().y - 0.2f, closeBoxes[i]->getTLPosition().y) )
-        || ( (isContained(closeBoxes[i]->getBLPosition().x, BLPosition.x, BLPosition.x + width)
-        || isContained(closeBoxes[i]->getBRPosition().x, BLPosition.x, BLPosition.x + width))
-        && isContained(closeBoxes[i]->getTLPosition().y, BLPosition.y, BLPosition.y + 0.2f) ) )
+        // if there is a collision detected (box bigger than player)
+        if ( ( ( isContained(BLPosition.x, nearBoxes[i]->getBLPosition().x, nearBoxes[i]->getBRPosition().x)
+        || isContained(BLPosition.x + width, nearBoxes[i]->getBLPosition().x, nearBoxes[i]->getBRPosition().x))
+        && (isContained(BLPosition.y, nearBoxes[i]->getBLPosition().y, nearBoxes[i]->getTLPosition().y)
+        || isContained(BLPosition.y + height, nearBoxes[i]->getBLPosition().y, nearBoxes[i]->getTLPosition().y) ) )
+        // (player bigger than box)
+        || ( ( isContained(nearBoxes[i]->getBLPosition().x, BLPosition.x, BLPosition.x + width)
+        || isContained(nearBoxes[i]->getBRPosition().x, BLPosition.x, BLPosition.x + width))
+        && (isContained(nearBoxes[i]->getBLPosition().y, BLPosition.y, BLPosition.y + height)
+        || isContained(nearBoxes[i]->getTLPosition().y, BLPosition.y, BLPosition.y + height) ) ) )
         {
-            BLPosition.y = closeBoxes[i]->getTLPosition().y;
-            collisionBottom = true;
-            hasJumped = false;
-            hasDoubleJumped = false;
-        } else {
-            collisionBottom = false;
-        }
 
-        // check top player / bottom box collision
-        if ( ( ( isContained(BLPosition.x, closeBoxes[i]->getBLPosition().x, closeBoxes[i]->getBRPosition().x)
-        || isContained(BLPosition.x + width, closeBoxes[i]->getBLPosition().x, closeBoxes[i]->getBRPosition().x) )
-        && isContained(BLPosition.y + height, closeBoxes[i]->getBLPosition().y,closeBoxes[i]->getBLPosition().y + 0.2f) )
-        || ( (isContained(closeBoxes[i]->getBLPosition().x, BLPosition.x, BLPosition.x + width)
-        || isContained(closeBoxes[i]->getBRPosition().x, BLPosition.x, BLPosition.x + width))
-        && isContained(closeBoxes[i]->getBLPosition().y, BLPosition.y + height - 0.2f, BLPosition.y + height) ) )
-        {
-            BLPosition.y = closeBoxes[i]->getBLPosition().y - height;
-            collisionTop = true;
-            yAccUp -= 0.25;
-        } else {
-            collisionTop = false;
-        }
+            // player left / box right collision
+            if (isContained(nearBoxes[i]->getBRPosition().x, savedBPx, BLPosition.x)){
+                collisionLeft = true;
+                BLPosition.x = nearBoxes[i]->getBRPosition().x;
+                xAccLeft = 0.0;
+            }
 
-        // check left player / right box collision
-        if ( ( ( isContained(BLPosition.y + height, closeBoxes[i]->getBLPosition().y, closeBoxes[i]->getTLPosition().y)
-        || isContained(BLPosition.y, closeBoxes[i]->getBLPosition().y, closeBoxes[i]->getTLPosition().y) )
-        && isContained(BLPosition.x, closeBoxes[i]->getBRPosition().x - 0.2f, closeBoxes[i]->getBRPosition().x) )
-        || ( (isContained(closeBoxes[i]->getBLPosition().y, BLPosition.y, BLPosition.y + height)
-        || isContained(closeBoxes[i]->getTLPosition().y, BLPosition.y, BLPosition.y + height))
-        && isContained(closeBoxes[i]->getBRPosition().x, BLPosition.x, BLPosition.x + 0.2f) ) )
-        {
-            BLPosition.x = closeBoxes[i]->getBRPosition().x;
-            collisionLeft = true;
-        } else {
-            collisionLeft = false;
-        }
+            // player right / box left collision
+            if (isContained(nearBoxes[i]->getBLPosition().x, savedBPx + width, BLPosition.x + width)){
+                collisionRight = true;
+                BLPosition.x = nearBoxes[i]->getBLPosition().x - width;
+                xAccRight = 0.0;
+            }
 
-        // check right player / left box collision
-        if ( ( ( isContained(BLPosition.y + height, closeBoxes[i]->getBLPosition().y, closeBoxes[i]->getTLPosition().y)
-        || isContained(BLPosition.y, closeBoxes[i]->getBLPosition().y, closeBoxes[i]->getTLPosition().y) )
-        && isContained(BLPosition.x + width, closeBoxes[i]->getBLPosition().x, closeBoxes[i]->getBLPosition().x + 0.2f) )
-        || ( (isContained(closeBoxes[i]->getBLPosition().y, BLPosition.y, BLPosition.y + height)
-        || isContained(closeBoxes[i]->getTLPosition().y, BLPosition.y, BLPosition.y + height))
-        && isContained(closeBoxes[i]->getBLPosition().x, BLPosition.x + width, BLPosition.x + width - 0.2f) ) )
-        {
-            BLPosition.x = closeBoxes[i]->getBLPosition().x - width;
-            collisionRight = true;
-        } else {
-            collisionRight = false;
-        }
+            // player bottom / box top collision (gravity) (can't happen at the same time as a lateral collision with the same box to prevent clipping on corners)
+            if ( isContained(nearBoxes[i]->getTLPosition().y, savedBPy, BLPosition.y)
+            && ( (!isContained(nearBoxes[i]->getBLPosition().x, savedBPx + width, BLPosition.x + width))
+            && (!isContained(nearBoxes[i]->getBRPosition().x, savedBPx, BLPosition.x)) ) )
+            {
+                collisionBottom = true;
+                hasJumped = false;
+                hasDoubleJumped = false;
+                BLPosition.y = nearBoxes[i]->getTLPosition().y;
+                if (ySpeed < 0){
+                    ySpeed = 0;
+                }
+                if (nearBoxes[i]->isMovable()){
+                    xSpeedMod += nearBoxes[i]->getSpeed();
+                }
+            }
 
+            // player top / box bottom collision
+            if (isContained(nearBoxes[i]->getBLPosition().y, savedBPy + height, BLPosition.y + height)){
+                collisionTop = true;
+                BLPosition.y = nearBoxes[i]->getBLPosition().y - height;
+                if (ySpeed > 0){
+                    yAccUp -= 0.25;
+                }
+            }
+        }
+        
         i++;
+    }
+
+    //  player/player collision
+    size_t j = 0;
+    while (j < otherPlayers.size()) {
+
+        // if there is a collision detected (other player bigger than current player)
+        if ( ( ( ( isContained(BLPosition.x, otherPlayers[j]->getBLPosition().x, otherPlayers[j]->getBRPosition().x)
+        || isContained(BLPosition.x + width, otherPlayers[j]->getBLPosition().x, otherPlayers[j]->getBRPosition().x))
+        && (isContained(BLPosition.y, otherPlayers[j]->getBLPosition().y, otherPlayers[j]->getTLPosition().y)
+        || isContained(BLPosition.y + height, otherPlayers[j]->getBLPosition().y, otherPlayers[j]->getTLPosition().y) ) )
+        // (player bigger than box)
+        || ( ( isContained(otherPlayers[j]->getBLPosition().x, BLPosition.x, BLPosition.x + width)
+        || isContained(otherPlayers[j]->getBRPosition().x, BLPosition.x, BLPosition.x + width))
+        && (isContained(otherPlayers[j]->getBLPosition().y, BLPosition.y, BLPosition.y + height)
+        || isContained(otherPlayers[j]->getTLPosition().y, BLPosition.y, BLPosition.y + height) ) ) )
+        // and if the other player has not finished
+        && !otherPlayers[j]->getStatus())
+        {
+
+            // current player left / other player right collision
+            if (isContained(otherPlayers[j]->getBRPosition().x, savedBPx, BLPosition.x)){
+                collisionLeft = true;
+                BLPosition.x = otherPlayers[j]->getBRPosition().x;
+                xAccLeft = 0.0;
+            }
+
+            // current player right / other player left collision
+            if (isContained(otherPlayers[j]->getBLPosition().x, savedBPx + width, BLPosition.x + width)){
+                collisionRight = true;
+                BLPosition.x = otherPlayers[j]->getBLPosition().x - width;
+                xAccRight = 0.0;
+            }
+
+            // current player bottom / other player top collision (gravity) (can't happen at the same time as a lateral collision with the same box to prevent clipping on corners)
+            if ( isContained(otherPlayers[j]->getTLPosition().y, savedBPy, BLPosition.y)
+            && ( (!isContained(otherPlayers[j]->getBLPosition().x, savedBPx + width, BLPosition.x + width))
+            && (!isContained(otherPlayers[j]->getBRPosition().x, savedBPx, BLPosition.x)) ) )
+            {
+                collisionBottom = true;
+                hasJumped = false;
+                hasDoubleJumped = false;
+                BLPosition.y = otherPlayers[j]->getTLPosition().y;
+                if (ySpeed < 0){
+                    ySpeed = 0;
+                }
+            }
+
+            // current player top / other player box bottom collision
+            if (isContained(otherPlayers[j]->getBLPosition().y, savedBPy + height, BLPosition.y + height)){
+                collisionTop = true;
+                BLPosition.y = otherPlayers[j]->getBLPosition().y - height;
+                if (ySpeed > 0){
+                    yAccUp -= 0.25;
+                }
+            }
+        }
+
+        j++;
     }
 }
 
@@ -128,24 +182,23 @@ void Player::jump() {
 
 void Player::posUpdate() {
 
-    // Updating position according to speed and acceleration
-    BLPosition.x = BLPosition.x + xMaxSpeed * xAccRight - xMaxSpeed * xAccLeft;
-    BLPosition.y = BLPosition.y + yMaxSpeedUp * yAccUp - gravity;
+    // Reset xSpeed modifier (can be altered by moving boxes)
+    xSpeedMod = 0.0;
 
     // If arrow is pushed, max speed in that direction, else, speed is decreasing
-    if (movingRight){
+    if (movingRight && !collisionRight){
         xAccRight = 1.00;
     } else {
         xAccRight = xAccRight * 0.9f;
     }
 
-    if (movingLeft){
+    if (movingLeft && !collisionLeft){
         xAccLeft = 1.00;
     } else {
         xAccLeft = xAccLeft * 0.9f;
     }
 
-    // Upwards acceleration constantly decreasing
+    // Upwards acceleration decreases constantly
     yAccUp = yAccUp * 0.9f;
 
     // Stop calculating speed if very small
@@ -159,8 +212,20 @@ void Player::posUpdate() {
         xAccLeft = 0;
     }
 
+    // Updating speed according to acceleration
+    xSpeed = xMaxSpeed * xAccRight - xMaxSpeed * xAccLeft + xSpeedMod;
+    ySpeed = yMaxSpeedUp * yAccUp - gravity;
+
     // Check for collisions
     checkCollisions();
+
+    // Save current position for use in collision check during next frame
+    savedBPy = BLPosition.y;
+    savedBPx = BLPosition.x;
+
+    // Update position
+    BLPosition.x = BLPosition.x + xSpeed;
+    BLPosition.y = BLPosition.y + ySpeed;
 
 }
 
@@ -188,4 +253,8 @@ void Player::setPropsFromType() {
             b = 0.2;
             break;
     }
+}
+
+void Player::removeCurrentFromArray(size_t id) {
+    otherPlayers.erase(otherPlayers.begin() + (int)id);
 }
