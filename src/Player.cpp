@@ -1,19 +1,23 @@
 #include <GL/gl.h>
 #include <iostream>
-#include <SDL2/SDL_image.h>
 #include "../include/Player.hpp"
 #include "../include/tools/draw.hpp"
 
 void Player::draw() {
-    if (!hasFinished) {
+    if (!hasFinished && background) {
         background->draw(BLPosition, width, height);
-    } else {
-        glColor3f(255, 255, 255);
-        drawRect(
-                glm::vec2(BLPosition.x, BLPosition.y + height),
-                glm::vec2(BLPosition.x + width, BLPosition.y)
-        );
+        return;
     }
+
+    if (!hasFinished)
+        glColor3f(r, g, b);
+    else
+        glColor3f(255, 255, 255);
+
+    drawRect(
+            glm::vec2(BLPosition.x, BLPosition.y + height),
+            glm::vec2(BLPosition.x + width, BLPosition.y)
+    );
 }
 
 
