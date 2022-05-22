@@ -3,13 +3,13 @@
 #include "Map.hpp"
 #include "Camera.hpp"
 
-const int MAX_LEVELS = 2;
-
 class Game {
 public:
     Game();
 
     ~Game() = default;
+
+    void setMap();
 
     void update();
 
@@ -17,14 +17,17 @@ public:
 
     Map *getMap() { return currentMap; }
 
-    Camera* getCamera() { return camera; }
+    Camera *getCamera() { return camera; }
+
+    static std::string saveEmplacements;
+
+    static int level;
 
 private:
+
     Map *currentMap;
 
     Camera *camera;
 
-    int level = 1;
-
-    static void handleMusicVolume() ;
+    static void handleMusicVolume();
 };

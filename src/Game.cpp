@@ -1,12 +1,19 @@
 #include <GL/gl.h>
 #include "../include/Game.hpp"
 #include "../include/tools/Sound.hpp"
+#include "../include/tools/save.hpp"
 
 Sound* levelUpSound;
+std::string Game::saveEmplacements = "assets/save/save.txt";
+int Game::level = 1;
 
-Game::Game() {
-    currentMap = new Map(level);
+Game::Game() {}
+
+void Game::setMap() {
+    if (Game::level == 0) { Game::level = 1; }
+    currentMap = new Map(Game::level);
     camera = new Camera(currentMap, currentMap->getMapZoom());
+    camera->newLevel(Game::level);
 
     handleMusicVolume();
     levelUpSound = new Sound("./assets/sounds/level_up.wav");
@@ -22,7 +29,7 @@ void Game::update() {
         levelUpSound->play();
 
         camera->setMap(currentMap);
-        camera->setZoom(currentMap->getMapZoom());
+        camera->newLevel(level);
     }
 
     camera->update();

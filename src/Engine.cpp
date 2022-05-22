@@ -8,12 +8,16 @@
 #include "../include/Engine.hpp"
 #include "../include/interfaces/MenuInterface.hpp"
 #include "../include/interfaces/GameInterface.hpp"
+#include "../include/interfaces/BreakInterface.hpp"
+#include "../include/interfaces/SaveManagerInterface.hpp"
 
 SDL_Renderer *Engine::renderer = nullptr;
 Music *Engine::ambianceMusic = nullptr;
 
 MenuInterface *menuInterface = nullptr;
+BreakInterface *breakInterface = nullptr;
 GameInterface *gameInterface = nullptr;
+SaveManagerInterface *saveManagerInterface = nullptr;
 
 /**
  * @brief Initialize the engine (assign the window, renderer, define the engine as running)
@@ -43,10 +47,12 @@ Engine::Engine() {
 
     /* Define the interfaces */
     menuInterface = new MenuInterface(this);
+    breakInterface = new BreakInterface(this);
     gameInterface = new GameInterface(this);
+    saveManagerInterface = new SaveManagerInterface(this);
 
     /* Define the default interface*/
-    currentInterface = gameInterface;
+    currentInterface = menuInterface;
 
     isRunning = true;
 
@@ -94,7 +100,6 @@ void Engine::clean() {
 void Engine::refresh() {
     currentInterface->update();
 
-    // Blue background
     SDL_RenderClear(Engine::renderer);
     glClear(GL_COLOR_BUFFER_BIT);
     currentInterface->render();
@@ -111,8 +116,29 @@ void Engine::initiateWindowSize() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    // On définit plutôt les repère depuis le bas à gauche
-    gluOrtho2D(0, GL_VIEW_SIZE, 0, GL_VIEW_SIZE);
+    gluOrtho2D(
+            (-10 * aspectRatio), (10 * aspectRatio),
+            (-10), (10)
+    );
+}
+
+void Engine::startGame(int level) {
+    Game::level = level;
+    currentInterface = gameInterface;
+    gameInterface->updateLevel();
+}
+
+void Engine::displayMenu() {
+    currentInterface = breakInterface;
+}
+
+void Engine::resumeGame() {
+    currentInterface = gameInterface;
+}
+
+void Engine::openSaveManager(Interface* currentActivity) {
+    currentInterface = saveManagerInterface;
+    saveManagerInterface->setPreviousActivity(currentActivity);
 }
 
 void Engine::startMusic() {

@@ -8,6 +8,7 @@ class MenuInterface : public Interface {
 public:
     explicit MenuInterface(Engine *engine)
             : engine(engine), menu(new Menu()) {
+        setButtonCoordinates();
     }
 
     ~MenuInterface() = default;
@@ -19,8 +20,15 @@ public:
     void render() override;
 
 private:
+    void setButtonCoordinates();
+
     Engine *engine;
 
     Menu *menu;
+
+    // TL and BR corners
+    std::pair<glm::vec2, glm::vec2> start;
+    std::pair<glm::vec2, glm::vec2> load;
+    std::pair<glm::vec2, glm::vec2> quit;
 };
 
