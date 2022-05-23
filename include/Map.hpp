@@ -48,6 +48,8 @@ public:
 
     bool isFinished() const { return done; };
 
+    void setDrawingStatus(bool isDrawingEverythingOrNot ) { drawEverything = isDrawingEverythingOrNot; };
+
 private:
     static bool isNear(Player *const &player);
 
@@ -84,6 +86,8 @@ private:
     Player *currentPlayer;
 
     bool done = false;
+
+    bool drawEverything = false;
 
     void handleSwitchesCollisions() const;
 

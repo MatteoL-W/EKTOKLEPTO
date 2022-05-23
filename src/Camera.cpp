@@ -91,13 +91,16 @@ void Camera::drawLevelIndication() {
  */
 void Camera::setZoom() {
     if (zoom != map->getMapZoom()) {
+        map->setDrawingStatus(true);
         zoom = zoom * 0.999;
         if (zoom < map->getMapZoom()) {
             zoom = map->getMapZoom();
             levelText = nullptr;
+            map->setDrawingStatus(false);
         }
     } else {
         zoom = map->getMapZoom();
         levelText = nullptr;
+        map->setDrawingStatus(false);
     }
 }
