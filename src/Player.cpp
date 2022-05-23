@@ -3,14 +3,17 @@
 #include "../include/Player.hpp"
 #include "../include/tools/draw.hpp"
 
-Player::~Player() {}
-
 void Player::draw() {
-    if (!hasFinished) {
-        glColor3f(r, g, b);
-    } else {
-        glColor3f(255, 255, 255);
+    if (!hasFinished && background) {
+        glColor3f(1,1,1);
+        background->draw(BLPosition, width, height);
+        return;
     }
+
+    if (!hasFinished)
+        glColor3f(r, g, b);
+    else
+        glColor3f(255, 255, 255);
 
     drawRect(
             glm::vec2(BLPosition.x, BLPosition.y + height),
@@ -96,7 +99,7 @@ void Player::checkCollisions() {
                 }
             }
         }
-        
+
         i++;
     }
 
@@ -230,7 +233,9 @@ void Player::posUpdate() {
 }
 
 void Player::setPropsFromType() {
-    enum Players { Orange = 1, Green };
+    enum Players {
+        Orange = 1, Green
+    };
 
     switch (type) {
         case Orange:
@@ -239,6 +244,7 @@ void Player::setPropsFromType() {
             r = 0.74;
             g = 0.3;
             b = 0.25;
+            background = new Image("./assets/img/player1_bg.png");
             break;
 
         case Green:
@@ -247,6 +253,7 @@ void Player::setPropsFromType() {
             r = 0;
             g = 1;
             b = 0;
+            background = new Image("./assets/img/player1_bgtest.png");
             break;
         case 3:
             width = 1;
@@ -254,6 +261,7 @@ void Player::setPropsFromType() {
             r = 1;
             g = 0.5;
             b = 0.2;
+            background = new Image("./assets/img/player1_bgtest.png");
             break;
     }
 
@@ -269,6 +277,10 @@ void Player::setMiniMode() {
 void Player::unsetMiniMode() {
     width = (width < fixWidth) ? width * 1.08 : fixWidth;
     height = (height < fixHeight) ? height * 1.08 : fixHeight;
+}
+
+void Player::drawGhost() {
+    ghost->draw(BLPosition, width, height);
 }
 
 void Player::removeCurrentFromArray(size_t id) {

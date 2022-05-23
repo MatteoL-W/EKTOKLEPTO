@@ -17,7 +17,7 @@ public:
 
     Map *getMap() { return currentMap; }
 
-    Camera* getCamera() { return camera; }
+    Camera *getCamera() { return camera; }
 
     static std::string saveEmplacements;
 
@@ -28,4 +28,6 @@ private:
     Map *currentMap;
 
     Camera *camera;
+
+    static void handleMusicVolume();
 };

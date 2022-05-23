@@ -86,4 +86,6 @@ private:
     bool done = false;
 
     void handleSwitchesCollisions() const;
+
+    void drawBlocks();
 };

@@ -5,6 +5,7 @@
 
 #include "Interface.hpp"
 #include "Map.hpp"
+#include "tools/Music.hpp"
 
 class Engine {
 public:
@@ -24,7 +25,13 @@ public:
 
     constexpr static const float aspectRatio = Engine::WINDOW_WIDTH / (float) Engine::WINDOW_HEIGHT;
 
+    constexpr static const float PLAYER_Y_AXIS = 0.25;
+
+    constexpr static const float GL_VIEW_SIZE = 20.;
+
     static SDL_Renderer *renderer;
+
+    static Music *ambianceMusic;
 
     void setRunning(bool newState) { isRunning = newState; }
 
@@ -51,5 +58,9 @@ private:
     bool isRunning = false;
 
     Interface *currentInterface;
+
+    static void initiateSDLLibs() ;
+
+    static void startMusic();
 
 };

@@ -2,6 +2,7 @@
 #include <iostream>
 #include <cstring>
 #include "../include/Map.hpp"
+#include "../include/Engine.hpp"
 
 Map::Map(int idMap) {
     boxes = new QuadTreeNode();
@@ -78,6 +79,9 @@ void Map::draw() {
         player->draw();
         player->drawEndPlace();
     }
+    currentPlayer->drawGhost();
+
+    drawBlocks();
 }
 
 void Map::setCurrentPlayer(size_t i) {
@@ -142,6 +146,28 @@ void Map::handleZones() {
     else {
         currentPlayer->unsetMiniMode();
     }
+
+    drawBlocks();
+}
+
+void Map::drawBlocks() {
+    glm::vec2 center = currentPlayer->getCenteredPosition();
+    int zoom = mapZoom;
+
+    glm::vec2 TLScreen = glm::vec2(
+            1 + center.x + (float)(-zoom),
+            center.y + (float)(zoom) * (1 - Engine::PLAYER_Y_AXIS)
+    );
+
+    glm::vec2 BRScreen = glm::vec2(
+            center.x + (float)(zoom) - 1,
+            center.y + (float)(-zoom) * Engine::PLAYER_Y_AXIS
+    );
+
+   boxes->drawCorrespondingQuadForScreen(
+            TLScreen,
+            BRScreen
+    );
 }
 
 /**

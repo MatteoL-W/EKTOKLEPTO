@@ -38,7 +38,6 @@ void Camera::draw() {
     glLoadIdentity();
 
     centerOrthogonalSystem();
-    drawCameraContent();
     drawLevelIndication();
 }
 
@@ -46,23 +45,6 @@ void Camera::centerOrthogonalSystem() {
     gluOrtho2D(
             center.x + (-zoom * Engine::aspectRatio), center.x + (zoom * Engine::aspectRatio),
             center.y + (-zoom), center.y + (zoom)
-    );
-}
-
-void Camera::drawCameraContent() {
-    glm::vec2 TLScreen = glm::vec2(
-            1 + center.x + (-zoom),
-            center.y + (zoom) * (1 - playerYAxis)
-    );
-
-    glm::vec2 BRScreen = glm::vec2(
-            center.x + (zoom) - 1,
-            center.y + (-zoom) * playerYAxis
-    );
-
-    map->getBoxes()->drawCorrespondingQuadForScreen(
-            TLScreen,
-            BRScreen
     );
 }
 
@@ -100,6 +82,7 @@ void Camera::drawLevelIndication() {
             glColor4f(1, 1, 1, opacity);
             levelText->draw();
         glPopMatrix();
+        glColor4f(1, 1, 1, 1);
     }
 }
 
