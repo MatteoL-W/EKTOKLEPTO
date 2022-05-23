@@ -6,7 +6,7 @@
 
 class Camera {
 public:
-    explicit Camera(Map *p_map, int p_zoom)
+    Camera(Map *p_map, int p_zoom)
             : map(p_map), center(map->getPlayers()[0]->getCenteredPosition()), zoom(p_zoom) {};
 
     ~Camera() = default;
@@ -17,9 +17,8 @@ public:
 
     void setTrajectory(glm::vec2 initial, glm::vec2 final);
 
+    void setMap(Map *newMap) { map = newMap; };
     void newLevel(int level);
-
-    void setMap(Map* newMap) { map = newMap; };
 
     void setZoom(int newZoom) { zoom = newZoom; };
 
@@ -27,7 +26,6 @@ public:
 
 
 private:
-    void drawCameraContent();
 
     void centerOrthogonalSystem();
 
@@ -44,5 +42,5 @@ private:
     float distance;
 
     int zoom;
-    float playerYAxis = 0.25;
+    float playerYAxis = Engine::PLAYER_Y_AXIS;
 };

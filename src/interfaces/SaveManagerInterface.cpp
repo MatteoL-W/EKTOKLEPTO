@@ -37,20 +37,29 @@ void SaveManagerInterface::handleEvents() {
                     break;
 
                 case SDLK_TAB:
+                case SDLK_DOWN:
                     currentChoiceSave = (currentChoiceSave < MAX_CHOICES_SAVE) ?
                                         static_cast<ChoiceSave>(static_cast<int>(currentChoiceSave) + 1) : saveGame;
+                    break;
+
+                case SDLK_UP:
+                    currentChoiceSave = (currentChoiceSave > 1) ?
+                                        static_cast<ChoiceSave>(static_cast<int>(currentChoiceSave) - 1) : goBack;
                     break;
 
                 case SDLK_RETURN:
                     handleRequest();
                     break;
+                case SDLK_ESCAPE:
+                    engine->setCurrentInterface(previousActivity);
+                    break;
             }
-        // Chosing level to load
+            // Chosing level to load
         else {
             // Set associated slot when load is selected
             for (int i = 0; i < getSlotUsedAmount(); i++) {
                 if (event.key.keysym.sym == SDLKeyTo5[i]) {
-                    currentLoadSave = i+1;
+                    currentLoadSave = i + 1;
                 }
             }
 
@@ -93,8 +102,7 @@ void SaveManagerInterface::handleRequest() {
             if (getSlotUsedAmount() < 5) {
                 save(std::to_string(Game::level));
                 refreshSaveManagerTexts();
-            }
-            else {
+            } else {
                 saveManager->setSlotMessageActivity(true);
             }
             break;
@@ -118,11 +126,12 @@ void SaveManagerInterface::handleRequest() {
 }
 
 void SaveManagerInterface::refreshSaveManagerTexts() {
-    std::vector<Text*> texts = saveManager->getLevelsText();
+    std::vector<Text *> texts = saveManager->getLevelsText();
     for (size_t i = 0; i < texts.size(); i++) {
         texts[i]->deleteTexture();
         texts[i]->changeColor((readSave(i).empty()) ? WhiteColor : GreyColor);
-        texts[i]->changeText("EMPLACEMENT " + std::to_string(i) + ((readSave(i).empty()) ? "" : " - NIVEAU " + readSave(i)));
+        texts[i]->changeText(
+                "EMPLACEMENT " + std::to_string(i) + ((readSave(i).empty()) ? "" : " - NIVEAU " + readSave(i)));
         texts[i]->apply();
     }
 }
