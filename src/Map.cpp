@@ -10,9 +10,6 @@ Map::Map(int idMap) {
 }
 
 void Map::update() {
-    //if (!isNear(currentPlayer)) {}
-    currentPlayer->moveRight();
-
     boxes->updateBoxes();
 
     handleSwitchesCollisions();
@@ -26,6 +23,12 @@ void Map::update() {
             done = true;
         }
     }
+    glm::vec2 largerTL = { currentPlayer->getTLPosition().x - 1, currentPlayer->getTLPosition().y + 1};
+    glm::vec2 largerBR = { currentPlayer->getBRPosition().x + 1, currentPlayer->getBRPosition().y - 1};
+    currentPlayer->setBoxes(boxes->findCorrespondingBoxes(largerTL, largerBR));
+    currentPlayer->setPlayers(players);
+    currentPlayer->removeCurrentFromArray(currentPlayerId);
+    currentPlayer->posUpdate();
 }
 
 void Map::handleSwitchesCollisions() const {
@@ -148,20 +151,25 @@ void Map::handleZones() {
 }
 
 void Map::drawBlocks() {
+    // Draw everything when the camera is zooming at the beginning
+    if (drawEverything) {
+        boxes->drawBoxes();
+        return;
+    }
+
     glm::vec2 center = currentPlayer->getCenteredPosition();
-    int zoom = mapZoom;
 
     glm::vec2 TLScreen = glm::vec2(
-            1 + center.x + (float)(-zoom),
-            center.y + (float)(zoom) * (1 - Engine::PLAYER_Y_AXIS)
+            1 + center.x + (float)(-mapZoom),
+            center.y + (float)(mapZoom) * (1 - Engine::PLAYER_Y_AXIS)
     );
 
     glm::vec2 BRScreen = glm::vec2(
-            center.x + (float)(zoom) - 1,
-            center.y + (float)(-zoom) * Engine::PLAYER_Y_AXIS
+            center.x + (float)(mapZoom) - 1,
+            center.y + (float)(-mapZoom) * Engine::PLAYER_Y_AXIS
     );
 
-   boxes->drawCorrespondingQuadForScreen(
+    boxes->drawCorrespondingQuadForScreen(
             TLScreen,
             BRScreen
     );

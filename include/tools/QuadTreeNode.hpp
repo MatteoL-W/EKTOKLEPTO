@@ -6,6 +6,7 @@
 #include "../tools/utils.hpp"
 #include "../tools/draw.hpp"
 
+const int MAX_RECURSIVE_HEIGHT = 3;
 
 struct QuadTreeNode {
     QuadTreeNode *topLeft;
@@ -25,15 +26,15 @@ struct QuadTreeNode {
 
     void drawCorrespondingQuadForScreen(glm::vec2 TLPosition, glm::vec2 BRPosition);
 
-    std::vector<Box*> findCorrespondingBoxes(glm::vec2 playerPosition);
+    std::vector<Box*> findCorrespondingBoxes(glm::vec2 playerPositionTL, glm::vec2 playerPositionBR);
 
     void drawBoxes(bool drawQuad = false);
 
-    void insertBox(Box *box);
+    void insertBox(Box *box, int count = 0);
 
     void initNodes();
 
-    void insertAtTheRightPlace(Box *box) const;
+    void insertAtTheRightPlace(Box *box, int count) const;
 
     void updateBoxes();
 };
