@@ -2,6 +2,7 @@
 
 #include "glm/vec2.hpp"
 #include "tools/utils.hpp"
+#include "tools/Image.hpp"
 
 class Player {
 public:
@@ -11,9 +12,10 @@ public:
         setPropsFromType();
     }
 
-    ~Player();
+    ~Player() = default;
 
     void draw();
+    void drawGhost();
 
     void drawEndPlace();
 
@@ -50,6 +52,8 @@ private:
     float fixWidth, fixHeight;
     float width, height;
     float r, g, b;
+    Image* background;
+    Image* ghost = new Image("./assets/img/player1.png");
 
     bool hasFinished = false;
 

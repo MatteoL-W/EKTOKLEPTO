@@ -1,12 +1,17 @@
+#include <SDL2/SDL_image.h>
 #include "../include/Menu.hpp"
 #include "../include/variables/color.hpp"
+#include "../include/tools/Image.hpp"
 
 Text *title;
 Text *playButton;
 Text *loadButton;
 Text *quitButton;
 
+Image* backgroundMenu;
+
 Menu::Menu() {
+    backgroundMenu = new Image("./assets/img/thomas_test.png", -6, -6, 50);
     TTF_Font* Press800 = TTF_OpenFont("./assets/fonts/Press.ttf", 800);
     TTF_Font* Press500 = TTF_OpenFont("./assets/fonts/Press.ttf", 500);
 
@@ -27,4 +32,6 @@ void Menu::draw() {
     playButton->draw();
     loadButton->draw();
     quitButton->draw();
+
+    backgroundMenu->draw();
 }
