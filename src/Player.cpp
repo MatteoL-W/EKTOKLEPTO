@@ -15,19 +15,12 @@ void Player::draw() {
     else
         glColor3f(255, 255, 255);
 
-    drawRect(
-            glm::vec2(BLPosition.x, BLPosition.y + height),
-            glm::vec2(BLPosition.x + width, BLPosition.y)
-    );
+    drawRect(BLPosition, width, height);
 }
 
 void Player::drawEndPlace() {
     glColor3f(r, g, b);
-    drawRect(
-            glm::vec2(BLPositionEnd.x, BLPositionEnd.y + fixHeight),
-            glm::vec2(BLPositionEnd.x + fixWidth, BLPositionEnd.y),
-            false
-    );
+    drawRect(BLPositionEnd, fixWidth, fixHeight, false);
 }
 
 bool Player::isContained(float subject, float limitA, float limitB){
