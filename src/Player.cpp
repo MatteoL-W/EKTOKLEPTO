@@ -177,6 +177,8 @@ void Player::jump() {
 }
 
 void Player::posUpdate() {
+    if (hasFinished)
+        return;
 
     // Reset xSpeed modifier (can be altered by moving boxes)
     xSpeedMod = 0.0;

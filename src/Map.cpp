@@ -23,12 +23,16 @@ void Map::update() {
             done = true;
         }
     }
-    glm::vec2 largerTL = { currentPlayer->getTLPosition().x - 1, currentPlayer->getTLPosition().y + 1};
-    glm::vec2 largerBR = { currentPlayer->getBRPosition().x + 1, currentPlayer->getBRPosition().y - 1};
-    currentPlayer->setBoxes(boxes->findCorrespondingBoxes(largerTL, largerBR));
-    currentPlayer->setPlayers(players);
-    currentPlayer->removeCurrentFromArray(currentPlayerId);
-    currentPlayer->posUpdate();
+
+    for (size_t i = 0; i < players.size(); i++) {
+        glm::vec2 largerTL = { players[i]->getTLPosition().x - 1, players[i]->getTLPosition().y + 1};
+        glm::vec2 largerBR = { players[i]->getBRPosition().x + 1, players[i]->getBRPosition().y - 1};
+        players[i]->setBoxes(boxes->findCorrespondingBoxes(largerTL, largerBR));
+        players[i]->setPlayers(players);
+        players[i]->removeCurrentFromArray(i);
+        players[i]->posUpdate();
+    }
+
 }
 
 void Map::handleSwitchesCollisions() const {
