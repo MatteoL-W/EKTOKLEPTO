@@ -225,7 +225,6 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
     stockBoxes(mapInformation[2]);
     stockZones(mapInformation[4]);
     stockSwitches(mapInformation[3]);
-
 }
 
 /**

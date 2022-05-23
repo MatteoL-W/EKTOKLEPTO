@@ -65,7 +65,6 @@ void Camera::unsetTrajectory() {
  * @param level
  */
 void Camera::newLevel(int level) {
-    std::cout << std::to_string(level);
     zoom = map->getMapZoom() * 8;
     levelText = new Text("LEVEL " + std::to_string(level), TTF_OpenFont("./assets/fonts/Press.ttf", 70), WhiteColor,
                          -0.28, 0.2);
