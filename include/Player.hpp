@@ -25,7 +25,7 @@ public:
 
     void posUpdate();
 
-    void reset() { BLPosition = BLPositionStart; };
+    void reset() { BLPosition = BLPositionStart; hasFinished = false; };
 
     void setStatus(bool p_hasFinished) { hasFinished = p_hasFinished; };
 
@@ -38,7 +38,6 @@ public:
     void removeCurrentFromArray(size_t id);
 
     void setMovingRight(bool right) { movingRight = right; };
-
     void setMovingLeft(bool left) { movingLeft = left; };
 
     glm::vec2 getCenteredPosition() const { return {BLPosition.x + width / 2, BLPosition.y + height / 2}; };
