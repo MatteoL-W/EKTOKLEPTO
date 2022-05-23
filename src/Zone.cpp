@@ -9,18 +9,16 @@ void Zone::initValues() {
             b = 1;
             break;
         case Mini:
-            r = 200;
-            g = 40;
+            r = 1;
+            g = 0.15;
             b = 0;
             break;
     }
 }
 
 void Zone::draw() {
-    glPushMatrix();
     glColor3f(r, g, b);
     drawRect(TL, BR, true);
-    glPopMatrix();
 }
 
 bool Zone::contains(glm::vec2 playerBL, glm::vec2 playerBR) {

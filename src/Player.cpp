@@ -5,6 +5,7 @@
 
 void Player::draw() {
     if (!hasFinished && background) {
+        glColor3f(1,1,1);
         background->draw(BLPosition, width, height);
         return;
     }
@@ -22,7 +23,7 @@ void Player::draw() {
 
 
 void Player::drawEndPlace() {
-    glColor3f(r, g, b);
+    //glColor3f(r, g, b);
     drawRect(
             glm::vec2(BLPositionEnd.x, BLPositionEnd.y + fixHeight),
             glm::vec2(BLPositionEnd.x + fixWidth, BLPositionEnd.y),

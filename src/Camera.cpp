@@ -100,6 +100,7 @@ void Camera::drawLevelIndication() {
             glColor4f(1, 1, 1, opacity);
             levelText->draw();
         glPopMatrix();
+        glColor4f(1, 1, 1, 1);
     }
 }
 
