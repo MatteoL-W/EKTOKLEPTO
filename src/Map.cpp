@@ -76,6 +76,7 @@ void Map::draw() {
         player->draw();
         player->drawEndPlace();
     }
+    currentPlayer->drawGhost();
 
     drawBlocks();
 }

@@ -56,6 +56,7 @@ void Player::setPropsFromType() {
             r = 0;
             g = 1;
             b = 0;
+            background = new Image("./assets/img/player1_bgtest.png");
             break;
     }
 
@@ -71,4 +72,8 @@ void Player::setMiniMode() {
 void Player::unsetMiniMode() {
     width = (width < fixWidth) ? width * 1.08 : fixWidth;
     height = (height < fixHeight) ? height * 1.08 : fixHeight;
+}
+
+void Player::drawGhost() {
+    ghost->draw(BLPosition, width, height);
 }
