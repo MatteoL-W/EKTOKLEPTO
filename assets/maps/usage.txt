@@ -2,17 +2,17 @@
 [mapWidth] [mapHeight] [mapZoom]
 
 // On positionne tous nos joueurs (quel type ? position de départ ? position de fin))
-// [idCarré] [x(positionDepartCarré1)] [y(positionDepartCarré1)] [x(positionFinaleCarré1)] [y(positionFinaleCarré1)]
-// [idCarré] [x(positionDepartCarré2)] [y(positionDepartCarré2)] [x(positionFinaleCarré2)] [y(positionFinaleCarré2)]
-// [idCarré] [x(positionDepartCarréN)] [y(positionDepartCarréN)] [x(positionFinaleCarréN)] [y(positionFinaleCarréN)]
+// [idJoueur] [x(positionDepartCarré1)] [y(positionDepartCarré1)] [x(positionFinaleCarré1)] [y(positionFinaleCarré1)]
+// [idJoueur] [x(positionDepartCarré2)] [y(positionDepartCarré2)] [x(positionFinaleCarré2)] [y(positionFinaleCarré2)]
+// [idJoueur] [x(positionDepartCarréN)] [y(positionDepartCarréN)] [x(positionFinaleCarréN)] [y(positionFinaleCarréN)]
 
-// Boxes ; xMax; yMax and speed sont optionnels
-[xTopLeft] [yTopLeft] [xBottomRight] [yBottomRight] ([xMax] [yMax] [speed])
+// Boxes // xMax, yMax and speed et optionnels
+[xTopLeft] [yTopLeft] [xBottomRight] [yBottomRight] [xMax?] [yMax?] [speed?]
 
 // Interrupteur
 [idSwitch] [idType] [xInterrupteur] [yInterrupteur]
 
-// Zones (avec lien interrupteur optionnel)
+// Zones // Lien interrupteur (idSwitchReference) optionnel
 [idChangement] [xZoneTopLeft] [yZoneTopLeft] [xZoneBottomRight] [yZoneBottomRight] [idSwitchReference?]
 [idChangement] [xZone2TopLeft] [yZone2TopLeft] [xZone2BottomRight] [yZone2BottomRight] [idSwitchReference?]
 [idChangement] [xZone3TopLeft] [yZone3TopLeft] [xZone3BottomRight] [yZone3BottomRight] [idSwitchReference?]

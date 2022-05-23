@@ -32,19 +32,22 @@ void Map::update() {
 }
 
 void Map::handleSwitchesCollisions() const {
-    glm::vec2 playerBL = currentPlayer->getBLPosition();
-    float width = currentPlayer->getWidth();
     for (auto &sw1tch: switches) {
-        if (((isContained(sw1tch->getX() - 0.2f, playerBL.x, playerBL.x + width)
-              || isContained(sw1tch->getX() + 0.2f, playerBL.x, playerBL.x + width))
-             && isContained(sw1tch->getY() + 0.2f, playerBL.y, playerBL.y + 0.2f))) {
-            sw1tch->activate();
-            /*collisionBottom = true;
-            hasJumped = false;
-            hasDoubleJumped = false;*/
-        } else {
-            sw1tch->deactivate();
+        bool isActivated = false;
+        for (auto player : players) {
+            glm::vec2 playerBL = player->getBLPosition();
+            float width = player->getWidth();
+            if (((isContained(sw1tch->getX() - 0.2f, playerBL.x, playerBL.x + width)
+                  || isContained(sw1tch->getX() + 0.2f, playerBL.x, playerBL.x + width))
+                 && isContained(sw1tch->getY() + 0.2f, playerBL.y, playerBL.y + 0.2f))) {
+                isActivated = true;
+            }
         }
+
+        if (isActivated)
+            sw1tch->activate();
+        else
+            sw1tch->deactivate();
     }
 }
 
