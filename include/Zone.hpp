@@ -3,7 +3,7 @@
 #include "glm/vec2.hpp"
 #include "Player.hpp"
 
-enum Changes { ReverseGravity = 1, Mini };
+enum Changes { ReverseGravity = 1, Mini, Maxi, Jump };
 
 class Zone {
 public:

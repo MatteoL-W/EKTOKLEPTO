@@ -13,6 +13,16 @@ void Zone::initValues() {
             g = 0.15;
             b = 0;
             break;
+        case Maxi:
+            r = 0.7;
+            g = 0;
+            b = 0.2;
+            break;
+        case Jump:
+            r = 0;
+            g = 0.6;
+            b = 0;
+            break;
     }
 }
 
@@ -23,7 +33,7 @@ void Zone::draw() {
 
 bool Zone::contains(glm::vec2 playerBL, glm::vec2 playerBR) {
     if ((TL.x <= playerBL.x && playerBL.x <= BR.x) && (BR.y <= playerBL.y && playerBL.y <= TL.y)
-    && (TL.x <= playerBR.x && playerBR.x <= BR.x) && (BR.y <= playerBR.y && playerBR.y <= TL.y)) {
+        && (TL.x <= playerBR.x && playerBR.x <= BR.x) && (BR.y <= playerBR.y && playerBR.y <= TL.y)) {
         return true;
     }
     return false;
@@ -35,6 +45,12 @@ void Zone::applyChanges(Player *currentPlayer) {
             break;
         case Mini:
             currentPlayer->setMiniMode();
+            break;
+        case Maxi:
+            //currentPlayer->setMaxiMode();
+            break;
+        case Jump:
+            //currentPlayer->setJumpyMode();
             break;
     }
 }
