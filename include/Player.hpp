@@ -5,6 +5,7 @@
 #include "glm/vec2.hpp"
 #include "tools/utils.hpp"
 #include "tools/Image.hpp"
+#include "tools/Sound.hpp"
 
 class Player {
 public:
@@ -12,6 +13,7 @@ public:
             : type(p_type), BLPositionStart(p_xStart, p_yStart), BLPosition(p_xStart, p_yStart),
               BLPositionEnd(p_xEnd, p_yEnd) {
         setPropsFromType();
+        jumpSound = new Sound("./assets/sounds/jump.wav");
     }
 
     ~Player() = default;
@@ -99,4 +101,6 @@ private:
     bool hasFinished = false;
 
     void setPropsFromType();
+
+    Sound* jumpSound;
 };

@@ -156,6 +156,7 @@ void Player::checkCollisions() {
 }
 
 void Player::jump() {
+    jumpSound->play();
     if (hasJumped && !hasDoubleJumped) {
         yAccUp = 1.00;
         hasDoubleJumped = true;
