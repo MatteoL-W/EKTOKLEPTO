@@ -20,7 +20,9 @@ public:
 
     bool contains(glm::vec2 playerBL, glm::vec2 playerBR);
 
-    bool getIdSwitch() const { return idSwitch; };
+    int getIdChange() const { return idChange; }
+
+    int getIdSwitch() const { return idSwitch; };
 
     void applyChanges(Player* currentPlayer);
 

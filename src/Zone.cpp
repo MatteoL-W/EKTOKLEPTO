@@ -44,10 +44,11 @@ void Zone::applyChanges(Player *currentPlayer) {
         case ReverseGravity:
             break;
         case Mini:
+            std::cout << "test";
             currentPlayer->setMiniMode();
             break;
         case Maxi:
-            //currentPlayer->setMaxiMode();
+            currentPlayer->setMaxiMode();
             break;
         case Jump:
             //currentPlayer->setJumpyMode();

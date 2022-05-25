@@ -50,17 +50,22 @@ public:
     glm::vec2 getTLPosition() const { return {BLPosition.x, BLPosition.y + height}; };
     glm::vec2 getTRPosition() const { return {BLPosition.x + width, BLPosition.y + height}; };
 
-
     float getWidth() const { return width; };
     float getHeight() const { return height; };
     float getFixWidth() const { return fixWidth; };
     float getFixHeight() const { return fixHeight; };
 
+    float getCurrentChanges() const { return currentChanges; };
+
+    void setMaxiMode();
     void setMiniMode();
+
+    void unsetMaxiMode();
     void unsetMiniMode();
 
 private:
     int type;
+    int currentChanges;
 
     glm::vec2 BLPositionStart;
     glm::vec2 BLPosition;
