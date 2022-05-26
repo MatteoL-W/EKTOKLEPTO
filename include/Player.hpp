@@ -70,7 +70,7 @@ private:
     float width, height;
     float r, g, b;
     Image* background;
-    Image* ghost = new Image("./assets/img/player1.png");
+    Image* ghost;
 
     const float xMaxSpeed = 0.14;
     const float yMaxSpeedUp = 0.55;
