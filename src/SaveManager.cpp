@@ -5,51 +5,51 @@
 #include "../include/variables/color.hpp"
 
 Text *errorMsg;
-Text *titleSaveManager;
 Text *saveSaveManager;
 Text *loadSaveManager;
 Text *eraseSaveManager;
 Text *goBackSaveManager;
 
-SaveManager::SaveManager() {
-    TTF_Font *Press200 = TTF_OpenFont("./assets/fonts/Press.ttf", 200);
-    TTF_Font *Press300 = TTF_OpenFont("./assets/fonts/Press.ttf", 300);
-    TTF_Font *Press500 = TTF_OpenFont("./assets/fonts/Press.ttf", 500);
-    TTF_Font *Press800 = TTF_OpenFont("./assets/fonts/Press.ttf", 800);
+Image* backgroundSaveManager;
 
-    titleSaveManager = new Text("SAVE MANAGER", Press800, WhiteColor, -7.5, 5);
-    saveSaveManager = new Text("SAVE", Press500, WhiteColor, -14, 2);
-    loadSaveManager = new Text("LOAD", Press500, WhiteColor, -14, 1);
-    eraseSaveManager = new Text("ERASE ALL SAVES", Press500, WhiteColor, -14, 0);
-    goBackSaveManager = new Text("CANCEL", Press500, WhiteColor, -14, -1);
+SaveManager::SaveManager() {
+    x = 50;
+    backgroundSaveManager = new Image("./assets/img/menu/savemanager-background.png");
+    TTF_Font *Font20 = TTF_OpenFont("./assets/fonts/HKGrotesk-Bold.ttf", 20);
+    TTF_Font *Font30 = TTF_OpenFont("./assets/fonts/HKGrotesk-Bold.ttf", 30);
+    TTF_Font *Font50 = TTF_OpenFont("./assets/fonts/HKGrotesk-Bold.ttf", 50);
+
+    saveSaveManager = new Text("Sauvegarder", Font50, WhiteColor, 70, 430);
+    loadSaveManager = new Text("Charger", Font50, WhiteColor, 70, 380);
+    eraseSaveManager = new Text("Supprimer les sauvegardes", Font50, WhiteColor, 70, 330);
+    goBackSaveManager = new Text("Retour", Font50, WhiteColor, 70, 280);
 
     for (int i = 0; i < 5; i++) {
         slotTexts.push_back(
-                new Text("EMPLACEMENT " + std::to_string(i) + ((readSave(i).empty()) ? "" : " - NIVEAU " + readSave(i)),
-                         Press300, (readSave(i).empty()) ? WhiteColor : GreyColor, 1, 2 - i));
+                new Text("Emplacement " + std::to_string(i) + ((readSave(i).empty()) ? "" : " - niveau " + readSave(i)),
+                         Font30, (readSave(i).empty()) ? WhiteColor : GreyColor, 70, 200 - i * 40));
     }
 
-    errorMsg = new Text("No more slots available, please erase the slots", Press200, WhiteColor, -14, -6);
+//    errorMsg = new Text("No more slots available, please erase the slots", Font20, WhiteColor, -14, -6);
 }
 
 void SaveManager::update(int choice, int loadChoice) {
     if (loadChoice == -1) {
-        x = -15;
         for (int i = 1; i < 5; i++) {
             if (choice == i)
-                y = 2 - i + 1;
+                y = 480 - i * 50 + 30;
         }
     } else {
-        x = 0;
         for (int i = 1; i < 6; i++) {
             if (loadChoice == i)
-                y = 2 - i + 1;
+                y = 200 - i * 40 + 60;
         }
     }
 }
 
 void SaveManager::draw() {
-    titleSaveManager->draw();
+    backgroundSaveManager->draw(glm::vec2(0,0), 1200, 720);
+
     saveSaveManager->draw();
     loadSaveManager->draw();
     eraseSaveManager->draw();
@@ -59,8 +59,8 @@ void SaveManager::draw() {
         slot->draw();
     }
 
-    if (noSlotsMsg)
-        errorMsg->draw();
+//    if (noSlotsMsg)
+//        errorMsg->draw();
 
     drawCurrentSquare(x, y);
 }

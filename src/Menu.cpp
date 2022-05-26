@@ -15,11 +15,11 @@ bool goingDown = true;
 Menu::Menu() {
     backgroundMenu = new Image("./assets/img/menu/menu-background.png");
     ektoklepto = new Image("./assets/img/menu/ektoklepto.png");
-    TTF_Font* Font500 = TTF_OpenFont("./assets/fonts/HKGrotesk-Bold.ttf", 50);
+    TTF_Font* Font50 = TTF_OpenFont("./assets/fonts/HKGrotesk-Bold.ttf", 50);
 
-    playButton = new Text("Jouer", Font500, WhiteColor, 140, 420);
-    loadButton = new Text("Sauvegardes", Font500, WhiteColor, 140, 350);
-    quitButton = new Text("Quitter", Font500, WhiteColor, 140, 280);
+    playButton = new Text("Jouer", Font50, WhiteColor, 140, 420);
+    loadButton = new Text("Sauvegardes", Font50, WhiteColor, 140, 350);
+    quitButton = new Text("Quitter", Font50, WhiteColor, 140, 280);
 }
 
 void Menu::update() {
