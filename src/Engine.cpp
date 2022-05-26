@@ -117,8 +117,8 @@ void Engine::initiateWindowSize() {
     glLoadIdentity();
 
     gluOrtho2D(
-            (-10 * aspectRatio), (10 * aspectRatio),
-            (-10), (10)
+            0, 1200,
+            0, 720
     );
 }
 

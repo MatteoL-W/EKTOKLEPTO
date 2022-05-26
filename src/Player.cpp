@@ -240,6 +240,7 @@ void Player::setPropsFromType() {
             g = 0.3;
             b = 0.25;
             background = new Image("./assets/img/player1_bg.png");
+            //ghost = new Image("./assets/img/player1_bg.png");
             break;
 
         case Green:
@@ -249,6 +250,7 @@ void Player::setPropsFromType() {
             g = 1;
             b = 0;
             background = new Image("./assets/img/player1_bgtest.png");
+            //background = new Image("./assets/img/player1_bgtest.png");
             break;
         case 3:
             width = 1;
@@ -256,6 +258,7 @@ void Player::setPropsFromType() {
             r = 1;
             g = 0.5;
             b = 0.2;
+            //background = new Image("./assets/img/player1_bgtest.png");
             background = new Image("./assets/img/player1_bgtest.png");
             break;
     }
