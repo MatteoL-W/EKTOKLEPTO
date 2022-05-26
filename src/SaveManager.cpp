@@ -30,7 +30,7 @@ SaveManager::SaveManager() {
                          Font30, (readSave(i).empty()) ? WhiteColor : GreyColor, 70, 200 - i * 40));
     }
 
-//    errorMsg = new Text("No more slots available, please erase the slots", Font20, WhiteColor, -14, -6);
+    errorMsg = new Text("No more slots available, please erase the slots", Font20, WhiteColor, 70, 10);
 }
 
 void SaveManager::update(int choice, int loadChoice) {
@@ -59,8 +59,8 @@ void SaveManager::draw() {
         slot->draw();
     }
 
-//    if (noSlotsMsg)
-//        errorMsg->draw();
+    if (noSlotsMsg)
+        errorMsg->draw();
 
     drawCurrentSquare(x, y);
 }
