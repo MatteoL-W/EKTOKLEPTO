@@ -62,17 +62,17 @@ void MenuInterface::render() {
 
 void MenuInterface::setButtonCoordinates() {
     start = std::make_pair(
-            glm::vec2(214, 258),
-            glm::vec2(642, 305)
+            glm::vec2(121, 242),
+            glm::vec2(282, 300)
     );
 
     load = std::make_pair(
-            glm::vec2(217, 340),
-            glm::vec2(768, 381)
+            glm::vec2(133, 322),
+            glm::vec2(441, 376)
     );
 
     quit = std::make_pair(
-            glm::vec2(216, 417),
-            glm::vec2(560, 456)
+            glm::vec2(129, 399),
+            glm::vec2(325, 448)
     );
 }

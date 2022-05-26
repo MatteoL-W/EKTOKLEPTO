@@ -239,7 +239,8 @@ void Player::setPropsFromType() {
             r = 0.74;
             g = 0.3;
             b = 0.25;
-            background = new Image("./assets/img/player1_bg.png");
+            background = new Image("./assets/img/players/tab-50-50.png");
+            ghost = new Image("./assets/img/players/tab-50-50-possessed.png");
             break;
 
         case Green:
@@ -248,7 +249,8 @@ void Player::setPropsFromType() {
             r = 0;
             g = 1;
             b = 0;
-            background = new Image("./assets/img/player1_bgtest.png");
+            background = new Image("./assets/img/players/tab-25-25.png");
+            ghost = new Image("./assets/img/players/tab-25-25-possessed.png");
             break;
         case 3:
             width = 1;
@@ -256,7 +258,8 @@ void Player::setPropsFromType() {
             r = 1;
             g = 0.5;
             b = 0.2;
-            background = new Image("./assets/img/player1_bgtest.png");
+            background = new Image("./assets/img/players/tab-100-50.png");
+            ghost = new Image("./assets/img/players/tab-100-50-possessed.png");
             break;
     }
 
@@ -275,6 +278,7 @@ void Player::unsetMiniMode() {
 }
 
 void Player::drawGhost() {
+    glColor3f(1,1,1);
     ghost->draw(BLPosition, width, height);
 }
 
