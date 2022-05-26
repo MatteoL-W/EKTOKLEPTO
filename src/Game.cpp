@@ -36,6 +36,7 @@ void Game::update() {
 }
 
 void Game::draw() {
+    // ToDo changer couleur fond
     glClearColor(0.18, 0.22, 0.41, 1);
     currentMap->draw();
     camera->draw();
