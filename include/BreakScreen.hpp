@@ -1,5 +1,7 @@
 #pragma once
 
+#include "glm/vec2.hpp"
+
 class BreakScreen {
 public:
     BreakScreen();
@@ -11,5 +13,5 @@ public:
     void draw();
 
 private:
-    float x = -7.5, y;
+    float x = 670, y;
 };
