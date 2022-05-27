@@ -7,14 +7,14 @@ Text *playButton;
 Text *loadButton;
 Text *quitButton;
 
-Image* backgroundMenu;
-Image* ektoklepto;
+Image* endBackground;
+Image* ektokleptoImg;
 float yEktoklepto = 100;
 bool goingDown = true;
 
 Menu::Menu() {
-    backgroundMenu = new Image("./assets/img/menu/menu-background.png");
-    ektoklepto = new Image("./assets/img/menu/ektoklepto.png");
+    endBackground = new Image("./assets/img/menu/menu-background.png");
+    ektokleptoImg = new Image("./assets/img/menu/ektoklepto.png");
     TTF_Font* Font50 = TTF_OpenFont("./assets/fonts/HKGrotesk-Bold.ttf", 50);
 
     playButton = new Text("Jouer", Font50, WhiteColor, 140, 420);
@@ -48,8 +48,8 @@ void Menu::update() {
 void Menu::draw() {
     glClearColor(0.18, 0.5, 0.41, 1);
 
-    backgroundMenu->draw(glm::vec2(0,0), 1200, 720);
-    ektoklepto->draw(glm::vec2(600, yEktoklepto), 500, 458.66);
+    endBackground->draw(glm::vec2(0, 0), 1200, 720);
+    ektokleptoImg->draw(glm::vec2(600, yEktoklepto), 500, 458.66);
 
     playButton->draw();
     loadButton->draw();

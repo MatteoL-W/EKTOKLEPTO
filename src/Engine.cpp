@@ -10,6 +10,8 @@
 #include "../include/interfaces/GameInterface.hpp"
 #include "../include/interfaces/BreakInterface.hpp"
 #include "../include/interfaces/SaveManagerInterface.hpp"
+#include "../include/interfaces/EndInterface.hpp"
+#include "../include/tools/Sound.hpp"
 
 SDL_Renderer *Engine::renderer = nullptr;
 Music *Engine::ambianceMusic = nullptr;
@@ -18,6 +20,7 @@ MenuInterface *menuInterface = nullptr;
 BreakInterface *breakInterface = nullptr;
 GameInterface *gameInterface = nullptr;
 SaveManagerInterface *saveManagerInterface = nullptr;
+EndInterface *endInterface = nullptr;
 
 /**
  * @brief Initialize the engine (assign the window, renderer, define the engine as running)
@@ -50,6 +53,7 @@ Engine::Engine() {
     breakInterface = new BreakInterface(this);
     gameInterface = new GameInterface(this);
     saveManagerInterface = new SaveManagerInterface(this);
+    endInterface = new EndInterface(this);
 
     /* Define the default interface*/
     currentInterface = menuInterface;
@@ -144,4 +148,17 @@ void Engine::openSaveManager(Interface* currentActivity) {
 void Engine::startMusic() {
     ambianceMusic = new Music("./assets/sounds/ambiance.wav");
     ambianceMusic->play(-1);
+}
+
+void Engine::displayEnd() {
+    Music::stop();
+    currentInterface = endInterface;
+    initiateWindowSize();
+    Mix_Volume(-1, MIX_MAX_VOLUME);
+    Mix_VolumeMusic(MIX_MAX_VOLUME/8);
+    ambianceMusic = nullptr;
+    ambianceMusic = new Music("./assets/sounds/wont_stop.wav");
+    ambianceMusic->play(-1);
+    auto *policeSound = new Sound("./assets/sounds/police.wav");
+    policeSound->play();
 }

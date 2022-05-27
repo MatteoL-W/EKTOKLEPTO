@@ -11,6 +11,8 @@ public:
 
     void play(int loops) { Mix_PlayMusic(music, loops); };
 
+    static void stop() { Mix_HaltMusic(); };
+
 private:
     Mix_Music *music;
 };
