@@ -59,6 +59,9 @@ public:
     void setMiniMode();
     void unsetMiniMode();
 
+    void setWarpedGravity();
+    void unsetWarpedGravity();
+
 private:
     int type;
 
@@ -73,14 +76,18 @@ private:
     Image* ghost;
 
     const float xMaxSpeed = 0.14;
-    const float yMaxSpeedUp = 0.55;
-    const float gravity = 0.15;
+    float yMaxSpeedUp = 0.55;
+    float gravity = 0.15;
     float xAccRight = 0.00;
     float xAccLeft = 0.00;
     float yAccUp = 0.00;
+    float gravityAcc = 1.00;
     float xSpeed, ySpeed, xSpeedMod;
     float savedBPx, savedBPy;
-    bool movingRight, movingLeft, hasJumped, hasDoubleJumped = false;
+    bool movingRight, movingLeft = false;
+    bool toJump = false;
+    int hasJumped = 0;
+    bool warpedGravity = false;
 
     std::vector<Box *> nearBoxes;
     std::vector<Player *> otherPlayers;

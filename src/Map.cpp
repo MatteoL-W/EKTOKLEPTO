@@ -152,6 +152,7 @@ void Map::handleZones() {
         currentZone->applyChanges(currentPlayer);
     else {
         currentPlayer->unsetMiniMode();
+        currentPlayer->unsetWarpedGravity();
     }
 
     drawBlocks();
