@@ -32,6 +32,10 @@ void Game::update() {
         camera->newLevel(level);
     }
 
+    if (currentMap->isFinished() && level == MAX_LEVELS) {
+        ended = true;
+    }
+
     camera->update();
 }
 

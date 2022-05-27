@@ -37,3 +37,4 @@ void EndInterface::update() {
 void EndInterface::render() {
     end->draw();
 }
+

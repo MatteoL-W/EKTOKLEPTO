@@ -23,6 +23,8 @@ public:
 
     static int level;
 
+    bool isEnded() const { return ended; };
+
 private:
 
     Map *currentMap;
@@ -30,4 +32,6 @@ private:
     Camera *camera;
 
     static void handleMusicVolume();
+
+    bool ended = false;
 };

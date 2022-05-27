@@ -11,6 +11,7 @@
 #include "../include/interfaces/BreakInterface.hpp"
 #include "../include/interfaces/SaveManagerInterface.hpp"
 #include "../include/interfaces/EndInterface.hpp"
+#include "../include/tools/Sound.hpp"
 
 SDL_Renderer *Engine::renderer = nullptr;
 Music *Engine::ambianceMusic = nullptr;
@@ -55,7 +56,7 @@ Engine::Engine() {
     endInterface = new EndInterface(this);
 
     /* Define the default interface*/
-    currentInterface = endInterface;
+    currentInterface = menuInterface;
 
     isRunning = true;
 
@@ -147,4 +148,15 @@ void Engine::openSaveManager(Interface* currentActivity) {
 void Engine::startMusic() {
     ambianceMusic = new Music("./assets/sounds/ambiance.wav");
     ambianceMusic->play(-1);
+}
+
+void Engine::displayEnd() {
+    Music::stop();
+    currentInterface = endInterface;
+    initiateWindowSize();
+    ambianceMusic = nullptr;
+    ambianceMusic = new Music("./assets/sounds/wont_stop.wav");
+    auto *policeSound = new Sound("./assets/sounds/police.wav");
+    ambianceMusic->play(-1);
+    policeSound->play();
 }

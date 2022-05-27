@@ -33,13 +33,17 @@ void End::update() {
 }
 
 void End::draw() {
+    glColor4f(1,1,1,1);
+
     if (!secondImage) {
+        std::cout << "draw background" << std::endl;
         backgroundEnd->draw(
                 glm::vec2(backgroundStartingX, backgroundStartingY),
                 backgroundWidth,
                 backgroundHeight
         );
     } else {
+        std::cout << "draw screen end" << std::endl;
         screenEnd->draw(glm::vec2(0,0), 1200, 720);
     }
 
