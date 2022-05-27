@@ -7,7 +7,7 @@ Image *backgroundEnd;
 Image *screenEnd;
 Image *ektokleptoEnd;
 bool goingForward = true, secondImage = false;
-float backgroundWidth = 1200, backgroundHeight = 720, backgroundStartingX = 0, backgroundStartingY = 0;
+float backgroundWidth = 1200*1.25, backgroundHeight = 720*1.25, backgroundStartingX = 0, backgroundStartingY = 0;
 float ektoWidth = 500, ektoHeight = 458.66, ektoStartingX = 600, ektoStartingY = 100;
 float opacity = 0;
 
@@ -19,8 +19,8 @@ End::End() {
 
 void End::update() {
     if (goingForward) {
-        backgroundWidth *= 0.9999;
-        backgroundHeight *= 0.9999;
+        backgroundWidth *= 0.999;
+        backgroundHeight *= 0.999;
         ektoWidth *= 1.005;
         ektoHeight *= 1.005;
         ektoStartingX -= 5;
@@ -36,14 +36,12 @@ void End::draw() {
     glColor4f(1,1,1,1);
 
     if (!secondImage) {
-        std::cout << "draw background" << std::endl;
         backgroundEnd->draw(
                 glm::vec2(backgroundStartingX, backgroundStartingY),
                 backgroundWidth,
                 backgroundHeight
         );
     } else {
-        std::cout << "draw screen end" << std::endl;
         screenEnd->draw(glm::vec2(0,0), 1200, 720);
     }
 

@@ -154,9 +154,11 @@ void Engine::displayEnd() {
     Music::stop();
     currentInterface = endInterface;
     initiateWindowSize();
+    Mix_Volume(-1, MIX_MAX_VOLUME);
+    Mix_VolumeMusic(MIX_MAX_VOLUME/8);
     ambianceMusic = nullptr;
     ambianceMusic = new Music("./assets/sounds/wont_stop.wav");
-    auto *policeSound = new Sound("./assets/sounds/police.wav");
     ambianceMusic->play(-1);
+    auto *policeSound = new Sound("./assets/sounds/police.wav");
     policeSound->play();
 }
