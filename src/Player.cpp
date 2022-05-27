@@ -84,7 +84,7 @@ void Player::checkCollisions() {
                         hasJumped = 0;
                     }
                     if (nearBoxes[i]->isMovable()){
-                        xSpeedMod += nearBoxes[i]->getSpeed();
+                        xSpeedMod = nearBoxes[i]->getSpeed();
                     }
                     if (ySpeed < 0){
                         ySpeed = 0;
@@ -261,26 +261,28 @@ void Player::posUpdate() {
     // Check if jump was scheduled
     if (toJump){
         if (hasJumped < 2){
-            if (!warpedGravity){
-                yAccUp = 1.00;
-            } else {
+            if (warpedGravity){
                 gravityAcc = 3.6;
+            } else if (superJump) {
+                yAccUp = 1.50;
+            } else {
+                yAccUp = 1.00;
             }
             if (!collisionBottom){
                 // walljump to right
                 if (collisionLeft){
                     xAccLeft = 0.0;
+                    yAccUp = 1.20;
                     xAccRight = 1.50;
                 }
                 // walljump to left
                 if (collisionRight){
                     xAccRight = 0.0;
                     xAccLeft = 1.50;
+                    yAccUp = 1.20;
                 }
             }
             hasJumped += 1;
-            std::cout << "Jump !" << std::endl;
-            std::cout << "Number of jumps : " << hasJumped << std::endl;
         }
     }
 

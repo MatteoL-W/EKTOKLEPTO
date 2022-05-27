@@ -87,7 +87,10 @@ private:
     bool movingRight, movingLeft = false;
     bool toJump = false;
     int hasJumped = 0;
+
+    // Zone effects
     bool warpedGravity = false;
+    bool superJump = false;
 
     std::vector<Box *> nearBoxes;
     std::vector<Player *> otherPlayers;
