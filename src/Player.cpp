@@ -117,6 +117,7 @@ void Player::checkCollisions() {
                         yAccUp -= 0.25;
                     }
                 }
+                noJumpCounter = 15;
                 BLPosition.y = boxBottom - height;
             }
         }
@@ -259,7 +260,7 @@ void Player::posUpdate() {
     }
 
     // Check if jump was scheduled
-    if (toJump){
+    if (toJump && noJumpCounter == 0){
         if (hasJumped < 2){
             if (warpedGravity){
                 gravityAcc = 3.6;
@@ -270,13 +271,13 @@ void Player::posUpdate() {
             }
             if (!collisionBottom){
                 // walljump to right
-                if (collisionLeft){
+                if (collisionLeft && !collisionRight){
                     xAccLeft = 0.0;
                     yAccUp = 1.20;
                     xAccRight = 1.50;
                 }
                 // walljump to left
-                if (collisionRight){
+                if (collisionRight && !collisionLeft){
                     xAccRight = 0.0;
                     xAccLeft = 1.50;
                     yAccUp = 1.20;
@@ -285,7 +286,6 @@ void Player::posUpdate() {
             hasJumped += 1;
         }
     }
-
 
     // Stop calculating speed if very small
     if (yAccUp <= 0.05){ yAccUp = 0; }
@@ -312,6 +312,9 @@ void Player::posUpdate() {
 
     // Jumping request has been processed
     toJump = false;
+    if (noJumpCounter > 0){
+        noJumpCounter -= 1;
+    }
 
 }
 

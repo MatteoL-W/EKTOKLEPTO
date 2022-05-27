@@ -86,6 +86,7 @@ private:
     float savedBPx, savedBPy;
     bool movingRight, movingLeft = false;
     bool toJump = false;
+    int noJumpCounter = 0;
     int hasJumped = 0;
 
     // Zone effects
