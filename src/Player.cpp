@@ -279,7 +279,7 @@ void Player::posUpdate() {
             if (warpedGravity){
                 gravityAcc = 3.6;
             } else if (superJump) {
-                yAccUp = 1.50;
+                yAccUp = 5;
             } else {
                 yAccUp = 1.00;
             }

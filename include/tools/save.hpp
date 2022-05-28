@@ -2,7 +2,7 @@
 #include <fstream>
 #include "../Game.hpp"
 
-const int MAX_LEVELS = 5;
+const int MAX_LEVELS = 7;
 
 int getSlotUsedAmount();
 std::string readSave(int saveId);

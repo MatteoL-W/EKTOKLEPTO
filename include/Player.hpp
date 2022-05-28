@@ -70,6 +70,9 @@ public:
     void setWarpedGravity();
     void unsetWarpedGravity();
 
+    void setSuperJumpMode() { superJump = true; };
+    void unsetSuperJumpMode() { superJump = false; };
+
 private:
     int type;
     int currentChanges;

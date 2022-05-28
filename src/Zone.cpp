@@ -45,14 +45,13 @@ void Zone::applyChanges(Player *currentPlayer) {
             currentPlayer->setWarpedGravity();
             break;
         case Mini:
-            std::cout << "test";
             currentPlayer->setMiniMode();
             break;
         case Maxi:
             currentPlayer->setMaxiMode();
             break;
         case Jump:
-            //currentPlayer->setJumpyMode();
+            currentPlayer->setSuperJumpMode();
             break;
     }
 }

@@ -162,6 +162,7 @@ void Map::handleZones() {
             currentPlayer->unsetMiniMode();
         else if (currentPlayer->getCurrentChanges() == Changes::Maxi)
             currentPlayer->unsetMaxiMode();
+        currentPlayer->unsetSuperJumpMode();
         currentPlayer->unsetWarpedGravity();
     }
 
