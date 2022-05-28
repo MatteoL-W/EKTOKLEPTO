@@ -124,7 +124,11 @@ Zone *Map::getCurrentZone(std::vector<Zone *> givenZones) {
     Zone *currentZone = nullptr;
 
     for (auto &zone: givenZones) {
-        if (zone->contains(currentPlayer->getBLPosition(), currentPlayer->getBRPosition())) {
+        glm::vec2 playerBL = currentPlayer->getBLPosition();
+        glm::vec2 playerBR = currentPlayer->getBRPosition();
+        playerBL.y += 0.1;
+        playerBR.y += 0.1;
+        if (zone->contains(playerBL, playerBR)) {
             currentZone = zone;
             break;
         }
