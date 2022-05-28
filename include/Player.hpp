@@ -94,7 +94,7 @@ private:
     float xAccLeft = 0.00;
     float yAccUp = 0.00;
     float gravityAcc = 1.00;
-    float xSpeed, ySpeed, xSpeedMod;
+    float xSpeed, ySpeed, xSpeedMod, ySpeedMod;
     float savedBPx, savedBPy;
     bool movingRight, movingLeft = false;
     bool hasTouchedGround = false;
@@ -104,7 +104,7 @@ private:
 
     // Zone effects
     bool warpedGravity = false;
-    bool superJump = false;
+    bool superJump = true;
 
     std::vector<Box *> nearBoxes;
     std::vector<Player *> otherPlayers;
