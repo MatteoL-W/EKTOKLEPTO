@@ -46,7 +46,7 @@ public:
     glm::vec2 getCenteredPositionEnd() const { return {BLPositionEnd.x + width / 2, BLPositionEnd.y + height / 2}; };
 
     glm::vec2 getBLPosition() const { return BLPosition; };
-    glm::vec2 getBRPosition() const { glm::vec2 playerBR = BLPosition; playerBR.x = BLPosition.x + width; return playerBR;  };
+    glm::vec2 getBRPosition() const { glm::vec2 playerBR = BLPosition; playerBR.x = BLPosition.x + width; return playerBR; };
     glm::vec2 getBLPositionStart() const { return BLPositionStart; };
     glm::vec2 getBLPositionEnd() const { return BLPositionEnd; };
     glm::vec2 getTLPosition() const { return {BLPosition.x, BLPosition.y + height}; };

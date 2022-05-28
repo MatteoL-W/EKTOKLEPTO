@@ -46,7 +46,7 @@ void Map::handleSwitchesCollisions() const {
             float width = player->getWidth();
             if (((isContained(sw1tch->getX() - 0.2f, playerBL.x, playerBL.x + width)
                   || isContained(sw1tch->getX() + 0.2f, playerBL.x, playerBL.x + width))
-                 && isContained(sw1tch->getY() + 0.2f, playerBL.y, playerBL.y + 0.2f))) {
+                 && isContained(sw1tch->getY() + 0.2f, playerBL.y, playerBL.y + 0.3f))) {
                 isActivated = true;
             }
         }
