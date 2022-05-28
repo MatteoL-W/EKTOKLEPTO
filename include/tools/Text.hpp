@@ -15,6 +15,7 @@ public:
     ~Text() = default;
 
     void draw();
+    void drawInGame();
 
     void changeText(std::string newText) { content = std::move(newText);};
 

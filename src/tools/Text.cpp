@@ -32,6 +32,21 @@ void Text::draw() {
     glDisable(GL_BLEND);
 }
 
+void Text::drawInGame() {
+    glEnable(GL_BLEND);
+    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, renderedText->w, renderedText->h, 0,
+                 GL_RGBA, GL_UNSIGNED_BYTE,renderedText->pixels);
+
+    glBegin(GL_QUADS);
+    glTexCoord2d(0, 1); glVertex2f(x, y);
+    glTexCoord2d(1, 1); glVertex2f(x + ((float)renderedText->w / (Engine::WINDOW_WIDTH)) * Engine::aspectRatio, y);
+    glTexCoord2d(1, 0); glVertex2f(x + ((float)renderedText->w / (Engine::WINDOW_WIDTH)) * Engine::aspectRatio, y + (float)renderedText->h / (Engine::WINDOW_HEIGHT));
+    glTexCoord2d(0, 0); glVertex2f(x, y + (float)renderedText->h / (Engine::WINDOW_HEIGHT));
+    glEnd();
+
+    glDisable(GL_BLEND);
+}
+
 void Text::deleteTexture() {
     glDeleteTextures(1, &textureBind);
     SDL_FreeSurface(renderedText);

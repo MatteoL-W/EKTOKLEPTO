@@ -1,6 +1,7 @@
 #include "../include/Camera.hpp"
 #include "../include/tools/Text.hpp"
 #include "../include/variables/color.hpp"
+#include "../include/tools/save.hpp"
 #include <glm/gtx/norm.hpp>
 
 /**
@@ -37,8 +38,8 @@ void Camera::draw() {
     glMatrixMode(GL_PROJECTION);
     glLoadIdentity();
 
-    centerOrthogonalSystem();
     drawLevelIndication();
+    centerOrthogonalSystem();
 }
 
 void Camera::centerOrthogonalSystem() {
@@ -65,10 +66,12 @@ void Camera::unsetTrajectory() {
  * @param level
  */
 void Camera::newLevel(int level) {
-    std::cout << std::to_string(level);
     zoom = map->getMapZoom() * 8;
-    levelText = new Text("LEVEL " + std::to_string(level), TTF_OpenFont("./assets/fonts/Press.ttf", 70), WhiteColor,
-                         -0.28, 0.2);
+    levelText = new Text(
+            "Niveau " + std::to_string(level) + "/" + std::to_string(MAX_LEVELS),
+            TTF_OpenFont("./assets/fonts/HKGrotesk-Bold.ttf", 70),
+            WhiteColor,-0.24, 0.2
+    );
 }
 
 /**
@@ -80,7 +83,7 @@ void Camera::drawLevelIndication() {
             glLoadIdentity();
             float opacity = (float)zoom / map->getMapZoom() / 8.;
             glColor4f(1, 1, 1, opacity);
-            levelText->draw();
+            levelText->drawInGame();
         glPopMatrix();
         glColor4f(1, 1, 1, 1);
     }
