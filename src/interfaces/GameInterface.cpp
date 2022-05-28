@@ -46,7 +46,6 @@ void GameInterface::handleEvents() {
     }
 
     if (event.type == SDL_KEYDOWN || event.type == SDL_KEYUP) {
-
         if (keyState[SDL_SCANCODE_RIGHT]){
             currentPlayer->setMovingRight(true);
         } else {
@@ -70,6 +69,10 @@ void GameInterface::handleEvents() {
  * @brief Update the menu
  */
 void GameInterface::update() {
+    if (game->isEnded()) {
+        engine->displayEnd();
+    }
+
     if (game->getMap() != currentMap) {
         currentMap = game->getMap();
     }

@@ -46,6 +46,8 @@ public:
 
     void displayMenu();
 
+    void displayEnd();
+
     void resumeGame();
 
     void openSaveManager(Interface* currentActivity);

@@ -42,6 +42,7 @@ bool Zone::contains(glm::vec2 playerBL, glm::vec2 playerBR) {
 void Zone::applyChanges(Player *currentPlayer) {
     switch (idChange) {
         case ReverseGravity:
+            currentPlayer->setWarpedGravity();
             break;
         case Mini:
             std::cout << "test";

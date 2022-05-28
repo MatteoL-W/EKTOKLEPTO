@@ -24,9 +24,9 @@ void Text::draw() {
 
     glBegin(GL_QUADS);
         glTexCoord2d(0, 1); glVertex2f(x, y);
-        glTexCoord2d(1, 1); glVertex2f(x + ((float)renderedText->w / (Engine::WINDOW_WIDTH)) * Engine::aspectRatio, y);
-        glTexCoord2d(1, 0); glVertex2f(x + ((float)renderedText->w / (Engine::WINDOW_WIDTH)) * Engine::aspectRatio, y + (float)renderedText->h / (Engine::WINDOW_HEIGHT));
-        glTexCoord2d(0, 0); glVertex2f(x, y + (float)renderedText->h / (Engine::WINDOW_HEIGHT));
+        glTexCoord2d(1, 1); glVertex2f(x + ((float)renderedText->w), y);
+        glTexCoord2d(1, 0); glVertex2f(x + ((float)renderedText->w), y + (float)renderedText->h);
+        glTexCoord2d(0, 0); glVertex2f(x, y + (float)renderedText->h );
     glEnd();
 
     glDisable(GL_BLEND);
