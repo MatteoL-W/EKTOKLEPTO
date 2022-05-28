@@ -37,6 +37,8 @@ public:
 
     float getHorizontalMovement() const { return direction.x * speed; };
 
+    float getVerticalMovement() const { return direction.y * speed; };
+
     bool isMovable() { return (TLInitialPosition != TLMaxPosition); };
 
 private:

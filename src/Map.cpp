@@ -10,6 +10,7 @@ Map::Map(int idMap) {
 }
 
 void Map::update() {
+
     boxes->updateBoxes();
 
     handleSwitchesCollisions();
@@ -25,13 +26,13 @@ void Map::update() {
     }
 
     for (size_t i = 0; i < players.size(); i++) {
-        glm::vec2 largerTL = { players[i]->getTLPosition().x - 1, players[i]->getTLPosition().y + 1};
-        glm::vec2 largerBR = { players[i]->getBRPosition().x + 1, players[i]->getBRPosition().y - 1};
+        glm::vec2 largerTL = {players[i]->getTLPosition().x - 1, players[i]->getTLPosition().y + 1};
+        glm::vec2 largerBR = {players[i]->getBRPosition().x + 1, players[i]->getBRPosition().y - 1};
         players[i]->setBoxes(boxes->findCorrespondingBoxes(largerTL, largerBR));
         players[i]->setPlayers(players);
         players[i]->removeCurrentFromArray(i);
         players[i]->posUpdate();
-        if (getCurrentPlayer() != players[i]){
+        if (getCurrentPlayer() != players[i]) {
             players[i]->setInactive();
         }
     }
@@ -41,7 +42,7 @@ void Map::update() {
 void Map::handleSwitchesCollisions() const {
     for (auto &sw1tch: switches) {
         bool isActivated = false;
-        for (auto player : players) {
+        for (auto player: players) {
             glm::vec2 playerBL = player->getBLPosition();
             float width = player->getWidth();
             if (((isContained(sw1tch->getX() - 0.2f, playerBL.x, playerBL.x + width)
@@ -158,7 +159,11 @@ void Map::handleZones() {
     if (currentZone)
         currentZone->applyChanges(currentPlayer);
     else {
-        currentPlayer->unsetMiniMode();
+        if (currentPlayer->getCurrentChanges() == Changes::Mini)
+            currentPlayer->unsetMiniMode();
+        else if (currentPlayer->getCurrentChanges() == Changes::Maxi)
+            currentPlayer->unsetMaxiMode();
+        currentPlayer->unsetSuperJumpMode();
         currentPlayer->unsetWarpedGravity();
     }
 
@@ -175,13 +180,13 @@ void Map::drawBlocks() {
     glm::vec2 center = currentPlayer->getCenteredPosition();
 
     glm::vec2 TLScreen = glm::vec2(
-            1 + center.x + (float)(-mapZoom),
-            center.y + (float)(mapZoom) * (1 - Engine::PLAYER_Y_AXIS)
+            1 + center.x + (float) (-mapZoom),
+            center.y + (float) (mapZoom) * (1 - Engine::PLAYER_Y_AXIS)
     );
 
     glm::vec2 BRScreen = glm::vec2(
-            center.x + (float)(mapZoom) - 1,
-            center.y + (float)(-mapZoom) * Engine::PLAYER_Y_AXIS
+            center.x + (float) (mapZoom) - 1,
+            center.y + (float) (-mapZoom) * Engine::PLAYER_Y_AXIS
     );
 
     boxes->drawCorrespondingQuadForScreen(
@@ -233,7 +238,6 @@ void Map::stockMapInfo(std::string (*mapInformation)[MAX_SQUARES]) {
     stockBoxes(mapInformation[2]);
     stockZones(mapInformation[4]);
     stockSwitches(mapInformation[3]);
-
 }
 
 /**
@@ -316,7 +320,7 @@ void Map::stockSwitches(std::string lineInformation[32]) {
  * @param lineInformation
  */
 void Map::stockZones(std::string lineInformation[32]) {
-    for (int i = 0; i < MAX_SWITCHES; i++) {
+    for (int i = 0; i < MAX_ZONES; i++) {
         char *zonesInformation = lineInformation[i].data();
         float parameter[6] = {0, 0, 0, 0, 0, 0};
         int counter = 0;

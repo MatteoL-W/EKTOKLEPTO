@@ -5,6 +5,7 @@
 #include "glm/vec2.hpp"
 #include "tools/utils.hpp"
 #include "tools/Image.hpp"
+#include "tools/Sound.hpp"
 
 class Player {
 public:
@@ -12,6 +13,7 @@ public:
             : type(p_type), BLPositionStart(p_xStart, p_yStart), BLPosition(p_xStart, p_yStart),
               BLPositionEnd(p_xEnd, p_yEnd) {
         setPropsFromType();
+        jumpSound = new Sound("./assets/sounds/jump.wav");
     }
 
     ~Player() = default;
@@ -52,20 +54,28 @@ public:
     glm::vec2 getTLPosition() const { return {BLPosition.x, BLPosition.y + height}; };
     glm::vec2 getTRPosition() const { return {BLPosition.x + width, BLPosition.y + height}; };
 
-
     float getWidth() const { return width; };
     float getHeight() const { return height; };
     float getFixWidth() const { return fixWidth; };
     float getFixHeight() const { return fixHeight; };
 
+    float getCurrentChanges() const { return currentChanges; };
+
+    void setMaxiMode();
     void setMiniMode();
+
+    void unsetMaxiMode();
     void unsetMiniMode();
 
     void setWarpedGravity();
     void unsetWarpedGravity();
 
+    void setSuperJumpMode() { superJump = true; };
+    void unsetSuperJumpMode() { superJump = false; };
+
 private:
     int type;
+    int currentChanges;
 
     glm::vec2 BLPositionStart;
     glm::vec2 BLPosition;
@@ -84,7 +94,7 @@ private:
     float xAccLeft = 0.00;
     float yAccUp = 0.00;
     float gravityAcc = 1.00;
-    float xSpeed, ySpeed, xSpeedMod;
+    float xSpeed, ySpeed, xSpeedMod, ySpeedMod;
     float savedBPx, savedBPy;
     bool movingRight, movingLeft = false;
     bool hasTouchedGround = false;
@@ -94,7 +104,7 @@ private:
 
     // Zone effects
     bool warpedGravity = false;
-    bool superJump = false;
+    bool superJump = true;
 
     std::vector<Box *> nearBoxes;
     std::vector<Player *> otherPlayers;
@@ -108,4 +118,6 @@ private:
     bool hasFinished = false;
 
     void setPropsFromType();
+
+    Sound* jumpSound;
 };

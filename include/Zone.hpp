@@ -3,7 +3,7 @@
 #include "glm/vec2.hpp"
 #include "Player.hpp"
 
-enum Changes { ReverseGravity = 1, Mini };
+enum Changes { ReverseGravity = 1, Mini, Maxi, Jump };
 
 class Zone {
 public:
@@ -20,7 +20,9 @@ public:
 
     bool contains(glm::vec2 playerBL, glm::vec2 playerBR);
 
-    bool getIdSwitch() const { return idSwitch; };
+    int getIdChange() const { return idChange; }
+
+    int getIdSwitch() const { return idSwitch; };
 
     void applyChanges(Player* currentPlayer);
 

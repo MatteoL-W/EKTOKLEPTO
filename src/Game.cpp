@@ -14,6 +14,9 @@ void Game::setMap() {
     currentMap = new Map(Game::level);
     camera = new Camera(currentMap, currentMap->getMapZoom());
     camera->newLevel(Game::level);
+    for (auto &player : currentMap->getPlayers()) {
+        player->setInactive();
+    }
 
     handleMusicVolume();
     levelUpSound = new Sound("./assets/sounds/level_up.wav");
@@ -25,11 +28,14 @@ void Game::update() {
     if (currentMap->isFinished() && level < MAX_LEVELS) {
         level++;
         currentMap = new Map(level);
-
         levelUpSound->play();
 
         camera->setMap(currentMap);
         camera->newLevel(level);
+
+        for (auto &player : currentMap->getPlayers()) {
+            player->setInactive();
+        }
     }
 
     if (currentMap->isFinished() && level == MAX_LEVELS) {

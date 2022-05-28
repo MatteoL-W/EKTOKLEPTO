@@ -8,6 +8,7 @@ void Switch::update() {
 }
 
 void Switch::draw() {
+    glColor3f(1,1,1);
     drawRect(glm::vec2(x - 0.2, y + top), glm::vec2(x + 0.2, y));
 }
 
