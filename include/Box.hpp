@@ -21,13 +21,21 @@ public:
 
     glm::vec2 getBRPosition() { return BRPosition; };
 
+    glm::vec2 getTLMaxPosition() { return TLMaxPosition; };
+
+    glm::vec2 getBRMaxPosition() { return BRMaxPosition; };
+
     glm::vec2 getTRPosition() const { return {BRPosition.x, TLPosition.y}; };
 
     glm::vec2 getBLPosition() const { return {TLPosition.x, BRPosition.y}; };
 
-    float getSpeed() { return speed; };
+    void setTLPosition(glm::vec2 p_TLPosition) { TLPosition = p_TLPosition; };
 
-    float getHorizontalMovement() { return direction.x * speed; };
+    void setBRPosition(glm::vec2 p_BRPosition) { BRPosition = p_BRPosition; };
+
+    float getSpeed() const { return speed; };
+
+    float getHorizontalMovement() const { return direction.x * speed; };
 
     bool isMovable() { return (TLInitialPosition != TLMaxPosition); };
 

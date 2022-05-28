@@ -97,7 +97,7 @@ void Player::checkCollisions() {
                         hasJumped = 0;
                     }
                     if (nearBoxes[i]->isMovable()){
-                        xSpeedMod = nearBoxes[i]->getHorizontalMovement() * 4;
+                        xSpeedMod = nearBoxes[i]->getHorizontalMovement() * 10;
                     }
                     if (ySpeed < 0){
                         ySpeed = 0;
@@ -261,7 +261,6 @@ void Player::posUpdate() {
         }
 
     } else {
-
         gravityAcc = gravityAcc * 0.9f;
         if (yAccUp < 0.27) {
             if (yAccUp <= 0){
