@@ -130,6 +130,12 @@ void QuadTreeNode::insertBox(Box *box, int count) {
             count++;
             for (auto &currentBox: boxes) {
                 insertAtTheRightPlace(currentBox, count);
+//                if (currentBox->getSpeed() != 0) {
+//                    Box* afterMvtBox = currentBox;
+//                    afterMvtBox->setTLPosition(afterMvtBox->getTLMaxPosition());
+//                    afterMvtBox->setBRPosition(afterMvtBox->getBRMaxPosition());
+//                    insertAtTheRightPlace(afterMvtBox, count);
+//                }
             }
             boxes.clear();
         } else {
@@ -141,6 +147,12 @@ void QuadTreeNode::insertBox(Box *box, int count) {
     if (!isLeaf() && count < MAX_RECURSIVE_HEIGHT) {
         count++;
         insertAtTheRightPlace(box, count);
+        if (box->getSpeed() != 0) {
+            Box* afterMvtBox = box;
+            afterMvtBox->setTLPosition(afterMvtBox->getTLMaxPosition());
+            afterMvtBox->setBRPosition(afterMvtBox->getBRMaxPosition());
+            insertAtTheRightPlace(afterMvtBox, count);
+        }
     }
 }
 

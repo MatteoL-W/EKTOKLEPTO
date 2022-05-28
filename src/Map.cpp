@@ -31,6 +31,9 @@ void Map::update() {
         players[i]->setPlayers(players);
         players[i]->removeCurrentFromArray(i);
         players[i]->posUpdate();
+        if (getCurrentPlayer() != players[i]){
+            players[i]->setInactive();
+        }
     }
 
 }
@@ -43,7 +46,7 @@ void Map::handleSwitchesCollisions() const {
             float width = player->getWidth();
             if (((isContained(sw1tch->getX() - 0.2f, playerBL.x, playerBL.x + width)
                   || isContained(sw1tch->getX() + 0.2f, playerBL.x, playerBL.x + width))
-                 && isContained(sw1tch->getY() + 0.2f, playerBL.y, playerBL.y + 0.2f))) {
+                 && isContained(sw1tch->getY() + 0.2f, playerBL.y, playerBL.y + 0.3f))) {
                 isActivated = true;
             }
         }
@@ -121,7 +124,11 @@ Zone *Map::getCurrentZone(std::vector<Zone *> givenZones) {
     Zone *currentZone = nullptr;
 
     for (auto &zone: givenZones) {
-        if (zone->contains(currentPlayer->getBLPosition(), currentPlayer->getBRPosition())) {
+        glm::vec2 playerBL = currentPlayer->getBLPosition();
+        glm::vec2 playerBR = currentPlayer->getBRPosition();
+        playerBL.y += 0.1;
+        playerBR.y += 0.1;
+        if (zone->contains(playerBL, playerBR)) {
             currentZone = zone;
             break;
         }
@@ -152,6 +159,7 @@ void Map::handleZones() {
         currentZone->applyChanges(currentPlayer);
     else {
         currentPlayer->unsetMiniMode();
+        currentPlayer->unsetWarpedGravity();
     }
 
     drawBlocks();
