@@ -9,8 +9,9 @@
 #include "tools/QuadTreeNode.hpp"
 
 const int MAX_SQUARES = 32;
-const int MAX_PLAYERS = 5;
+const int MAX_PLAYERS = 3;
 const int MAX_SWITCHES = 5;
+const int MAX_ZONES = 13;
 
 class Map {
 public:

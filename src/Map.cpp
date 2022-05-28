@@ -10,6 +10,7 @@ Map::Map(int idMap) {
 }
 
 void Map::update() {
+
     boxes->updateBoxes();
 
     handleSwitchesCollisions();
@@ -319,7 +320,7 @@ void Map::stockSwitches(std::string lineInformation[32]) {
  * @param lineInformation
  */
 void Map::stockZones(std::string lineInformation[32]) {
-    for (int i = 0; i < MAX_SWITCHES; i++) {
+    for (int i = 0; i < MAX_ZONES; i++) {
         char *zonesInformation = lineInformation[i].data();
         float parameter[6] = {0, 0, 0, 0, 0, 0};
         int counter = 0;

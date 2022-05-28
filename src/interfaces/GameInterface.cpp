@@ -3,7 +3,7 @@
 #include "../../include/interfaces/GameInterface.hpp"
 
 int SDLK_KeysFrom1ToMax[MAX_PLAYERS] = {
-        SDLK_1, SDLK_2, SDLK_3, SDLK_4, SDLK_5
+        SDLK_1, SDLK_2, SDLK_3
 };
 
 /**
