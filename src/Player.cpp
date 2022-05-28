@@ -56,18 +56,31 @@ void Player::checkCollisions() {
         && (isContained(nearBoxes[i]->getBLPosition().y, BLPosition.y, BLPosition.y + height)
         || isContained(nearBoxes[i]->getTLPosition().y, BLPosition.y, BLPosition.y + height) ) ) )
         {
+            hasTouchedGround = true;
 
             // player left / box right collision
-            if (isContained(boxRight, savedBPx, BLPosition.x)){
+            if (isContained(boxRight, savedBPx, BLPosition.x)
+            || (isContained(BLPosition.x, boxRight + nearBoxes[i]->getHorizontalMovement() * 4, boxRight - nearBoxes[i]->getHorizontalMovement() * 4) && (nearBoxes[i]->isMovable()))){
                 collisionLeft = true;
                 BLPosition.x = boxRight;
+                if (nearBoxes[i]->isMovable() && nearBoxes[i]->getHorizontalMovement() > 0){
+                    BLPosition.x = boxRight + nearBoxes[i]->getHorizontalMovement() * 4;
+                    xSpeedMod = nearBoxes[i]->getHorizontalMovement() * 4;
+                    xAccRight += xAccLeft + 0.25f;
+                }
                 xAccLeft = 0.0;
             }
 
             // player right / box left collision
-            if (isContained(boxLeft, savedBPx + width, BLPosition.x + width)){
+            if (isContained(boxLeft, savedBPx + width, BLPosition.x + width)
+            || (isContained(BLPosition.x + width, boxLeft + nearBoxes[i]->getHorizontalMovement() * 4, boxLeft - nearBoxes[i]->getHorizontalMovement() * 4) && (nearBoxes[i]->isMovable()))){
                 collisionRight = true;
                 BLPosition.x = boxLeft - width;
+                if (nearBoxes[i]->isMovable() && nearBoxes[i]->getHorizontalMovement() < 0){
+                    BLPosition.x = boxLeft - width - nearBoxes[i]->getHorizontalMovement() * 4;
+                    xSpeedMod = nearBoxes[i]->getHorizontalMovement() * 4;
+                    xAccLeft += xAccRight + 0.25f;
+                }
                 xAccRight = 0.0;
             }
 
@@ -84,7 +97,7 @@ void Player::checkCollisions() {
                         hasJumped = 0;
                     }
                     if (nearBoxes[i]->isMovable()){
-                        xSpeedMod = nearBoxes[i]->getSpeed();
+                        xSpeedMod = nearBoxes[i]->getHorizontalMovement() * 4;
                     }
                     if (ySpeed < 0){
                         ySpeed = 0;
@@ -120,7 +133,9 @@ void Player::checkCollisions() {
                 noJumpCounter = 15;
                 BLPosition.y = boxBottom - height;
             }
+
         }
+
 
         i++;
     }
@@ -219,13 +234,13 @@ void Player::posUpdate() {
     xSpeedMod = 0.0;
 
     // If arrow is pushed, max speed in that direction, else, speed is decreasing
-    if (movingRight && !collisionRight){
+    if (movingRight && !collisionRight && hasTouchedGround){
         xAccRight = 1.00;
     } else {
         xAccRight = xAccRight * 0.9f;
     }
 
-    if (movingLeft && !collisionLeft){
+    if (movingLeft && !collisionLeft && hasTouchedGround){
         xAccLeft = 1.00;
     } else {
         xAccLeft = xAccLeft * 0.9f;
@@ -295,12 +310,15 @@ void Player::posUpdate() {
 
 
     // Updating speed according to acceleration
-    xSpeed = xMaxSpeed * xAccRight - xMaxSpeed * xAccLeft + xSpeedMod;
+    xSpeed = xMaxSpeed * xAccRight - xMaxSpeed * xAccLeft;
     ySpeed = yMaxSpeedUp * yAccUp - gravity * gravityAcc;
 
 
     // Check for collisions
     checkCollisions();
+
+    // Account for collisions with moving blocks
+    xSpeed += xSpeedMod;
 
     // Save current position for use in collision check during next frame
     savedBPy = BLPosition.y;
@@ -315,7 +333,11 @@ void Player::posUpdate() {
     if (noJumpCounter > 0){
         noJumpCounter -= 1;
     }
+}
 
+void Player::setInactive() {
+    movingRight = false;
+    movingLeft = false;
 }
 
 void Player::setPropsFromType() {

@@ -31,6 +31,9 @@ void Map::update() {
         players[i]->setPlayers(players);
         players[i]->removeCurrentFromArray(i);
         players[i]->posUpdate();
+        if (getCurrentPlayer() != players[i]){
+            players[i]->setInactive();
+        }
     }
 
 }

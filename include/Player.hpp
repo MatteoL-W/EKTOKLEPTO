@@ -35,6 +35,8 @@ public:
 
     void setPlayers(std::vector<Player *> p_players) { otherPlayers = p_players; };
 
+    void setInactive();
+
     void removeCurrentFromArray(size_t id);
 
     void setMovingRight(bool right) { movingRight = right; };
@@ -85,8 +87,9 @@ private:
     float xSpeed, ySpeed, xSpeedMod;
     float savedBPx, savedBPy;
     bool movingRight, movingLeft = false;
+    bool hasTouchedGround = false;
     bool toJump = false;
-    int noJumpCounter = 0;
+    int noJumpCounter = 2;
     int hasJumped = 0;
 
     // Zone effects

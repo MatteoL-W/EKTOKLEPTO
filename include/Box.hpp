@@ -27,6 +27,8 @@ public:
 
     float getSpeed() { return speed; };
 
+    float getHorizontalMovement() { return direction.x * speed; };
+
     bool isMovable() { return (TLInitialPosition != TLMaxPosition); };
 
 private:
