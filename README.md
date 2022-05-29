@@ -8,7 +8,7 @@
 ### Linux
 - Install CMAKE
 - Install lib ```sudo apt install git build-essential pkg-config cmake cmake-data libsdl2-dev libsdl2-image-dev libsdl2-ttf-dev libsdl2-mixer-dev```
-- Clone the repo : ```git clone --recurse-submodules https://github.com/MatteoL-W/Thomas_Was_Alone_Recoding```
+- Clone the repo **with the submodule** : ```git clone --recurse-submodules https://github.com/MatteoL-W/Thomas_Was_Alone_Recoding```
 - At the cloned repo root, execute ```cmake --build "build"```
 - Start the game ```./bin/thomas_was_not_alone```
 
