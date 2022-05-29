@@ -7,7 +7,7 @@ Image *backgroundEnd;
 Image *screenEnd;
 Image *ektokleptoEnd;
 bool goingForward = true, secondImage = false;
-float backgroundWidth = 1200*1.25, backgroundHeight = 720*1.25, backgroundStartingX = 0, backgroundStartingY = 0;
+float backgroundWidth = 1200 * 1.25, backgroundHeight = 720 * 1.25, backgroundStartingX = 0, backgroundStartingY = 0;
 float ektoWidth = 500, ektoHeight = 458.66, ektoStartingX = 600, ektoStartingY = 100;
 float opacity = 0;
 
@@ -33,7 +33,7 @@ void End::update() {
 }
 
 void End::draw() {
-    glColor4f(1,1,1,1);
+    glColor4f(1, 1, 1, 1);
 
     if (!secondImage) {
         backgroundEnd->draw(
@@ -42,7 +42,7 @@ void End::draw() {
                 backgroundHeight
         );
     } else {
-        screenEnd->draw(glm::vec2(0,0), 1200, 720);
+        screenEnd->draw(glm::vec2(0, 0), 1200, 720);
     }
 
     ektokleptoEnd->draw(

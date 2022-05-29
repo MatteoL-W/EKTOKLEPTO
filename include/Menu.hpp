@@ -12,6 +12,4 @@ public:
     void update();
 
     void draw();
-
-    void drawCurrent(int choice);
 };

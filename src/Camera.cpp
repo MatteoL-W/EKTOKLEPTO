@@ -70,7 +70,7 @@ void Camera::newLevel(int level) {
     levelText = new Text(
             "Niveau " + std::to_string(level) + "/" + std::to_string(MAX_LEVELS),
             TTF_OpenFont("./assets/fonts/HKGrotesk-Bold.ttf", 70),
-            WhiteColor,-0.24, 0.2
+            WhiteColor, -0.24, 0.2
     );
 }
 
@@ -80,10 +80,10 @@ void Camera::newLevel(int level) {
 void Camera::drawLevelIndication() {
     if (levelText) {
         glPushMatrix();
-            glLoadIdentity();
-            float opacity = (float)zoom / map->getMapZoom() / 8.;
-            glColor4f(1, 1, 1, opacity);
-            levelText->drawInGame();
+        glLoadIdentity();
+        float opacity = (float) zoom / map->getMapZoom() / 8.;
+        glColor4f(1, 1, 1, opacity);
+        levelText->drawInGame();
         glPopMatrix();
         glColor4f(1, 1, 1, 1);
     }

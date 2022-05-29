@@ -130,7 +130,8 @@ void SaveManagerInterface::refreshSaveManagerTexts() {
     for (size_t i = 0; i < texts.size(); i++) {
         texts[i]->deleteTexture();
         texts[i]->changeColor((readSave(i).empty()) ? WhiteColor : GreyColor);
-        texts[i]->changeText("Emplacement " + std::to_string(i) + ((readSave(i).empty()) ? "" : " - niveau " + readSave(i)));
+        texts[i]->changeText(
+                "Emplacement " + std::to_string(i) + ((readSave(i).empty()) ? "" : " - niveau " + readSave(i)));
         texts[i]->apply();
     }
 }

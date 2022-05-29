@@ -251,7 +251,6 @@ void Player::posUpdate() {
 
     // Upwards acceleration increases or decreases according to gravity direction
     if (!warpedGravity){
-
         yAccUp = yAccUp * 0.9f;
         if (gravityAcc < 1) {
             if (gravityAcc <= 0){
@@ -345,11 +344,11 @@ void Player::setInactive() {
 
 void Player::setPropsFromType() {
     enum Players {
-        Orange = 1, Green
+        Joconde = 1, Marylin, Cri
     };
 
     switch (type) {
-        case Orange:
+        case Joconde:
             width = 1;
             height = 1;
             r = 0.74;
@@ -359,7 +358,7 @@ void Player::setPropsFromType() {
             ghost = new Image("./assets/img/players/tab-50-50-possessed.png");
             break;
 
-        case Green:
+        case Marylin:
             width = 0.5;
             height = 0.5;
             r = 0;
@@ -368,7 +367,8 @@ void Player::setPropsFromType() {
             background = new Image("./assets/img/players/tab-25-25.png");
             ghost = new Image("./assets/img/players/tab-25-25-possessed.png");
             break;
-        case 3:
+
+        case Cri:
             width = 1;
             height = 2;
             r = 1;

@@ -49,7 +49,7 @@ public:
 
     bool isFinished() const { return done; };
 
-    void setDrawingStatus(bool isDrawingEverythingOrNot ) { drawEverything = isDrawingEverythingOrNot; };
+    void setDrawingStatus(bool isDrawingEverythingOrNot) { drawEverything = isDrawingEverythingOrNot; };
 
 private:
     static bool isNear(Player *const &player);
@@ -68,9 +68,9 @@ private:
 
     void stockZones(std::string *);
 
-    Zone* getCurrentZone(std::vector<Zone*>);
+    Zone *getCurrentZone(std::vector<Zone *>);
 
-    Zone* getCurrentZoneFromSwitches();
+    Zone *getCurrentZoneFromSwitches();
 
     void handleZones();
 

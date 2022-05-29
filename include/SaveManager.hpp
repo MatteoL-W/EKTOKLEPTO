@@ -13,13 +13,14 @@ public:
 
     void draw();
 
-    std::vector<Text*> getLevelsText() { return slotTexts; };
-
     void setSlotMessageActivity(bool newActivity) { noSlotsMsg = newActivity; };
+
+    std::vector<Text *> getLevelsText() { return slotTexts; };
+
 private:
     float x, y;
 
-    std::vector<Text*> slotTexts;
+    std::vector<Text *> slotTexts;
 
     bool noSlotsMsg = false;
 };

@@ -86,8 +86,6 @@ void Engine::initiateSDLLibs() {
     }
 }
 
-Engine::~Engine() = default;
-
 /**
  * @brief Quit the engine properly
  */
@@ -140,7 +138,7 @@ void Engine::resumeGame() {
     currentInterface = gameInterface;
 }
 
-void Engine::openSaveManager(Interface* currentActivity) {
+void Engine::openSaveManager(Interface *currentActivity) {
     currentInterface = saveManagerInterface;
     saveManagerInterface->setPreviousActivity(currentActivity);
 }
@@ -154,11 +152,14 @@ void Engine::displayEnd() {
     Music::stop();
     currentInterface = endInterface;
     initiateWindowSize();
+
     Mix_Volume(-1, MIX_MAX_VOLUME);
-    Mix_VolumeMusic(MIX_MAX_VOLUME/8);
+    Mix_VolumeMusic(MIX_MAX_VOLUME / 8);
+
     ambianceMusic = nullptr;
     ambianceMusic = new Music("./assets/sounds/wont_stop.wav");
     ambianceMusic->play(-1);
+
     auto *policeSound = new Sound("./assets/sounds/police.wav");
     policeSound->play();
 }

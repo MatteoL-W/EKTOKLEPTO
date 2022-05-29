@@ -10,7 +10,7 @@ Text *loadSaveManager;
 Text *eraseSaveManager;
 Text *goBackSaveManager;
 
-Image* backgroundSaveManager;
+Image *backgroundSaveManager;
 
 SaveManager::SaveManager() {
     x = 50;
@@ -48,7 +48,7 @@ void SaveManager::update(int choice, int loadChoice) {
 }
 
 void SaveManager::draw() {
-    backgroundSaveManager->draw(glm::vec2(0,0), 1200, 720);
+    backgroundSaveManager->draw(glm::vec2(0, 0), 1200, 720);
 
     saveSaveManager->draw();
     loadSaveManager->draw();

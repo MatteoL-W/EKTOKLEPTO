@@ -2,10 +2,7 @@
 #include "../include/Box.hpp"
 #include "../include/tools/draw.hpp"
 
-Box::~Box() {}
-
 void Box::draw() {
-    // ToDo changer couleur fond
     glColor3f(0, 0, 0);
     drawRect(TLPosition, BRPosition);
 }

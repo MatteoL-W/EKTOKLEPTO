@@ -5,13 +5,15 @@
 
 class Box {
 public:
-    Box(float p_xCoord1, float p_yCoord1, float p_xCoord2, float p_yCoord2, float p_xMax = 0, float p_yMax = 0, float p_speed = 0.005)
+    Box(float p_xCoord1, float p_yCoord1, float p_xCoord2, float p_yCoord2, float p_xMax = 0, float p_yMax = 0,
+        float p_speed = 0.005)
             : TLPosition(p_xCoord1, p_yCoord1), BRPosition(p_xCoord2, p_yCoord2),
               TLInitialPosition(p_xCoord1, p_yCoord1), BRInitialPosition(p_xCoord2, p_yCoord2),
-              TLMaxPosition(p_xCoord1 + p_xMax, p_yCoord1 + p_yMax), BRMaxPosition(p_xCoord2 + p_xMax, p_yCoord2 + p_yMax),
+              TLMaxPosition(p_xCoord1 + p_xMax, p_yCoord1 + p_yMax),
+              BRMaxPosition(p_xCoord2 + p_xMax, p_yCoord2 + p_yMax),
               TLDestination(TLMaxPosition), direction(glm::normalize(TLDestination - TLPosition)), speed(p_speed) {}
 
-    ~Box();
+    ~Box() = default;
 
     void update();
 

@@ -15,13 +15,17 @@ public:
     ~Text() = default;
 
     void draw();
+
     void drawInGame();
 
-    void changeText(std::string newText) { content = std::move(newText);};
+    void changeText(std::string newText) { content = std::move(newText); };
 
-    void changeColor(SDL_Color newColor) { color = newColor;};
+    void changeColor(SDL_Color newColor) { color = newColor; };
 
-    void apply() { generateSurface(); bindTexture(); }
+    void apply() {
+        generateSurface();
+        bindTexture();
+    }
 
     void deleteTexture();
 
@@ -36,7 +40,7 @@ private:
 
     SDL_Color color;
 
-    SDL_Surface* renderedText;
+    SDL_Surface *renderedText;
 
     GLuint textureBind = 0;
 

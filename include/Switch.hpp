@@ -6,7 +6,7 @@
 
 class Switch {
 public:
-    Switch(int p_id, int p_type, float p_x, float p_y):id(p_id), type(p_type), x(p_x), y(p_y) {};
+    Switch(int p_id, int p_type, float p_x, float p_y) : id(p_id), type(p_type), x(p_x), y(p_y) {};
 
     ~Switch() = default;
 
@@ -20,14 +20,16 @@ public:
 
     void setActivity(bool newState) { active = newState; };
 
-    void linksToZones(std::vector<Zone*> &zones);
+    void linksToZones(std::vector<Zone *> &zones);
 
-    std::vector<Zone*> getZones() { return zonesLinked; };
+    std::vector<Zone *> getZones() { return zonesLinked; };
 
     void activate();
+
     void deactivate();
 
     float getX() const { return x; };
+
     float getY() const { return y; };
 
 private:
@@ -37,5 +39,5 @@ private:
 
     bool active = false;
 
-    std::vector<Zone*> zonesLinked;
+    std::vector<Zone *> zonesLinked;
 };

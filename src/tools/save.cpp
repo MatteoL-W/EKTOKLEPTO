@@ -1,8 +1,12 @@
 #include "../include/tools/save.hpp"
 
+/**
+ * @brief Get the amount of saved game
+ * @return
+ */
 int getSlotUsedAmount() {
     std::string savedLevel;
-    std::ifstream savedFile (Game::saveEmplacements);
+    std::ifstream savedFile(Game::saveEmplacements);
     int counter = 0;
 
     if (savedFile.is_open()) {
@@ -25,7 +29,7 @@ int getSlotUsedAmount() {
  */
 std::string readSave(int saveId) {
     std::string savedLevel;
-    std::ifstream savedFile (Game::saveEmplacements);
+    std::ifstream savedFile(Game::saveEmplacements);
     std::string saveInformation[5][MAX_LEVELS];
     int partCounting = -1, counter = 0;
 
@@ -35,7 +39,7 @@ std::string readSave(int saveId) {
         while (getline(savedFile, currentLine)) {
             if (currentLine.empty()) {
                 if (partCounting == saveId) {
-                    return saveInformation[partCounting][counter-1];
+                    return saveInformation[partCounting][counter - 1];
                 }
                 partCounting++;
                 counter = 0;
@@ -47,7 +51,7 @@ std::string readSave(int saveId) {
         }
 
         if (partCounting == saveId) {
-            return saveInformation[partCounting][counter-1];
+            return saveInformation[partCounting][counter - 1];
         }
 
         savedFile.close();
@@ -59,22 +63,18 @@ std::string readSave(int saveId) {
  * @brief Save in the save file the current level.
  * @param saveContent
  */
-void save(const std::string& saveContent) {
-    std::ofstream saveFile (Game::saveEmplacements, std::ios::app);
-    if (saveFile.is_open())
-    {
+void save(const std::string &saveContent) {
+    std::ofstream saveFile(Game::saveEmplacements, std::ios::app);
+    if (saveFile.is_open()) {
         saveFile << "\n" << saveContent << "\n";
         saveFile.close();
-    }
-    else std::cout << "Unable to open file - save";
+    } else std::cout << "Unable to open file - save";
 }
 
 void eraseSaves() {
-    std::ofstream saveFile (Game::saveEmplacements);
-    if (saveFile.is_open())
-    {
+    std::ofstream saveFile(Game::saveEmplacements);
+    if (saveFile.is_open()) {
         saveFile << "";
         saveFile.close();
-    }
-    else std::cout << "Unable to open file - eraseSaves";
+    } else std::cout << "Unable to open file - eraseSaves";
 }

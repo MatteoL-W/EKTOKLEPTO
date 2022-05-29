@@ -18,6 +18,7 @@ public:
     void setTrajectory(glm::vec2 initial, glm::vec2 final);
 
     void setMap(Map *newMap) { map = newMap; };
+
     void newLevel(int level);
 
     void setZoom(int newZoom) { zoom = newZoom; };

@@ -57,7 +57,7 @@ std::vector<Box *> QuadTreeNode::findCorrespondingBoxes(glm::vec2 playerPosition
         return this->boxes;
 
     if (!isLeaf()) {
-        std::vector<Box*> returnedBoxes;
+        std::vector<Box *> returnedBoxes;
         bool top = playerPositionTL.y > centerQuad.y;
         bool bottom = playerPositionBR.y < centerQuad.y;
         bool left = playerPositionTL.x < centerQuad.x;
@@ -65,20 +65,23 @@ std::vector<Box *> QuadTreeNode::findCorrespondingBoxes(glm::vec2 playerPosition
 
         if (top) {
             if (right) {
-                std::vector<Box*> topRightQuad = topRight->findCorrespondingBoxes(playerPositionTL, playerPositionBR);
+                std::vector<Box *> topRightQuad = topRight->findCorrespondingBoxes(playerPositionTL, playerPositionBR);
                 returnedBoxes.insert(returnedBoxes.end(), topRightQuad.begin(), topRightQuad.end());
             }
             if (left) {
-                std::vector<Box*> topLeftQuad = topLeft->findCorrespondingBoxes(playerPositionTL, playerPositionBR);
+                std::vector<Box *> topLeftQuad = topLeft->findCorrespondingBoxes(playerPositionTL, playerPositionBR);
                 returnedBoxes.insert(returnedBoxes.end(), topLeftQuad.begin(), topLeftQuad.end());
             }
-        } if (bottom) {
+        }
+        if (bottom) {
             if (right) {
-                std::vector<Box*> bottomRightQuad = bottomRight->findCorrespondingBoxes(playerPositionTL, playerPositionBR);
+                std::vector<Box *> bottomRightQuad = bottomRight->findCorrespondingBoxes(playerPositionTL,
+                                                                                         playerPositionBR);
                 returnedBoxes.insert(returnedBoxes.end(), bottomRightQuad.begin(), bottomRightQuad.end());
             }
             if (left) {
-                std::vector<Box*> bottomLeftQuad = bottomLeft->findCorrespondingBoxes(playerPositionTL, playerPositionBR);
+                std::vector<Box *> bottomLeftQuad = bottomLeft->findCorrespondingBoxes(playerPositionTL,
+                                                                                       playerPositionBR);
                 returnedBoxes.insert(returnedBoxes.end(), bottomLeftQuad.begin(), bottomLeftQuad.end());
             }
         }
@@ -123,32 +126,33 @@ void QuadTreeNode::insertBox(Box *box, int count) {
 
     if (isLeaf() && boxes.size() > 3) {
         if (count < MAX_RECURSIVE_HEIGHT) {
-            // Initialization
             initNodes();
+            count++;
 
             // Loop on all the boxes already here
-            count++;
             for (auto &currentBox: boxes) {
                 insertAtTheRightPlace(currentBox, count);
-//                if (currentBox->getSpeed() != 0) {
-//                    Box* afterMvtBox = currentBox;
-//                    afterMvtBox->setTLPosition(afterMvtBox->getTLMaxPosition());
-//                    afterMvtBox->setBRPosition(afterMvtBox->getBRMaxPosition());
-//                    insertAtTheRightPlace(afterMvtBox, count);
-//                }
+//                Box *afterMvtBox = box;
+//                afterMvtBox->setTLPosition(afterMvtBox->getTLMaxPosition());
+//                afterMvtBox->setBRPosition(afterMvtBox->getBRMaxPosition());
+//                insertAtTheRightPlace(afterMvtBox, count);
             }
+
             boxes.clear();
         } else {
             boxes.push_back(box);
         }
+
         return;
     }
 
     if (!isLeaf() && count < MAX_RECURSIVE_HEIGHT) {
         count++;
         insertAtTheRightPlace(box, count);
+
         if (box->getSpeed() != 0) {
-            Box* afterMvtBox = box;
+            // If the box is moving, add the pointer in the node containing the max position.
+            Box *afterMvtBox = box;
             afterMvtBox->setTLPosition(afterMvtBox->getTLMaxPosition());
             afterMvtBox->setBRPosition(afterMvtBox->getBRMaxPosition());
             insertAtTheRightPlace(afterMvtBox, count);
@@ -203,6 +207,9 @@ void QuadTreeNode::insertAtTheRightPlace(Box *box, int count) const {
     }
 }
 
+/**
+ * @brief Update mobile boxes
+ */
 void QuadTreeNode::updateBoxes() {
     if (isLeaf()) {
         for (auto &box: boxes) {

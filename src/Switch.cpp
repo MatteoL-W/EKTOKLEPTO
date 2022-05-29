@@ -2,13 +2,8 @@
 #include "../include/Switch.hpp"
 #include "../include/tools/draw.hpp"
 
-
-void Switch::update() {
-    // get if the switch is active
-}
-
 void Switch::draw() {
-    glColor3f(1,1,1);
+    glColor3f(1, 1, 1);
     drawRect(glm::vec2(x - 0.2, y + top), glm::vec2(x + 0.2, y));
 }
 

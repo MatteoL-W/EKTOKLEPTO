@@ -11,7 +11,7 @@ class Engine {
 public:
     Engine();
 
-    ~Engine();
+    ~Engine() = default;
 
     void clean();
 
@@ -27,8 +27,6 @@ public:
 
     constexpr static const float PLAYER_Y_AXIS = 0.25;
 
-    constexpr static const float GL_VIEW_SIZE = 20.;
-
     static SDL_Renderer *renderer;
 
     static Music *ambianceMusic;
@@ -39,8 +37,8 @@ public:
 
     static void initiateWindowSize();
 
-    //Activity Handle
-    void setCurrentInterface(Interface* activity) { currentInterface = activity; };
+    //Activity Handling
+    void setCurrentInterface(Interface *activity) { currentInterface = activity; };
 
     void startGame(int level = 0);
 
@@ -50,7 +48,7 @@ public:
 
     void resumeGame();
 
-    void openSaveManager(Interface* currentActivity);
+    void openSaveManager(Interface *currentActivity);
 
 private:
     SDL_Window *window;
@@ -61,7 +59,7 @@ private:
 
     Interface *currentInterface;
 
-    static void initiateSDLLibs() ;
+    static void initiateSDLLibs();
 
     static void startMusic();
 

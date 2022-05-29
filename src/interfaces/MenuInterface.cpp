@@ -5,8 +5,6 @@
 enum ChoiceMenu {
     start = 1, openSaveManager, quit
 };
-const int MAX_CHOICES_MENU = 3;
-ChoiceMenu currentChoiceMenu = start;
 
 /**
  * @brief Handle SDL Events in the menu

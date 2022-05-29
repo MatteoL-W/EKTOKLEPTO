@@ -19,6 +19,7 @@ public:
     ~Player() = default;
 
     void draw();
+
     void drawGhost();
 
     void drawEndPlace();
@@ -27,11 +28,14 @@ public:
 
     void posUpdate();
 
-    void reset() { BLPosition = BLPositionStart; hasFinished = false; };
+    void reset() {
+        BLPosition = BLPositionStart;
+        hasFinished = false;
+    };
 
     void setStatus(bool p_hasFinished) { hasFinished = p_hasFinished; };
 
-    bool getStatus() { return hasFinished; };
+    bool getStatus() const { return hasFinished; };
 
     void setBoxes(std::vector<Box *> p_boxes) { nearBoxes = p_boxes; };
 
@@ -42,35 +46,53 @@ public:
     void removeCurrentFromArray(size_t id);
 
     void setMovingRight(bool right) { movingRight = right; };
+
     void setMovingLeft(bool left) { movingLeft = left; };
 
     glm::vec2 getCenteredPosition() const { return {BLPosition.x + width / 2, BLPosition.y + height / 2}; };
+
     glm::vec2 getCenteredPositionEnd() const { return {BLPositionEnd.x + width / 2, BLPositionEnd.y + height / 2}; };
 
     glm::vec2 getBLPosition() const { return BLPosition; };
-    glm::vec2 getBRPosition() const { glm::vec2 playerBR = BLPosition; playerBR.x = BLPosition.x + width; return playerBR; };
+
+    glm::vec2 getBRPosition() const {
+        glm::vec2 playerBR = BLPosition;
+        playerBR.x = BLPosition.x + width;
+        return playerBR;
+    };
+
     glm::vec2 getBLPositionStart() const { return BLPositionStart; };
+
     glm::vec2 getBLPositionEnd() const { return BLPositionEnd; };
+
     glm::vec2 getTLPosition() const { return {BLPosition.x, BLPosition.y + height}; };
+
     glm::vec2 getTRPosition() const { return {BLPosition.x + width, BLPosition.y + height}; };
 
     float getWidth() const { return width; };
+
     float getHeight() const { return height; };
+
     float getFixWidth() const { return fixWidth; };
+
     float getFixHeight() const { return fixHeight; };
 
     float getCurrentChanges() const { return currentChanges; };
 
     void setMaxiMode();
+
     void setMiniMode();
 
     void unsetMaxiMode();
+
     void unsetMiniMode();
 
     void setWarpedGravity();
+
     void unsetWarpedGravity();
 
     void setSuperJumpMode() { superJump = true; };
+
     void unsetSuperJumpMode() { superJump = false; };
 
 private:
@@ -84,8 +106,8 @@ private:
     float fixWidth, fixHeight;
     float width, height;
     float r, g, b;
-    Image* background;
-    Image* ghost;
+    Image *background;
+    Image *ghost;
 
     const float xMaxSpeed = 0.14;
     float yMaxSpeedUp = 0.55;
@@ -119,5 +141,5 @@ private:
 
     void setPropsFromType();
 
-    Sound* jumpSound;
+    Sound *jumpSound;
 };

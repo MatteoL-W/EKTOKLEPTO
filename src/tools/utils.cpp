@@ -42,9 +42,9 @@ void drawCurrentSquare(float x, float y) {
     glDisable(GL_BLEND);
 
     glPushMatrix();
-    glColor3f(1,1,1);
+    glColor3f(1, 1, 1);
     glTranslatef(x, y + 0.35f, 0);
-    glRotatef(45,0,0,1);
+    glRotatef(45, 0, 0, 1);
 
     glBegin(GL_QUADS);
     glVertex2f(10, 10);

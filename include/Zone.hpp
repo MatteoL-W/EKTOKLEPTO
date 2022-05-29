@@ -3,7 +3,9 @@
 #include "glm/vec2.hpp"
 #include "Player.hpp"
 
-enum Changes { ReverseGravity = 1, Mini, Maxi, Jump };
+enum Changes {
+    ReverseGravity = 1, Mini, Maxi, Jump
+};
 
 class Zone {
 public:
@@ -24,9 +26,9 @@ public:
 
     int getIdSwitch() const { return idSwitch; };
 
-    void applyChanges(Player* currentPlayer);
+    void applyChanges(Player *currentPlayer);
 
-    int getId() { return idChange; };
+    int getId() const { return idChange; };
 
 private:
     int idChange;

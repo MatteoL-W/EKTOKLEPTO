@@ -18,12 +18,12 @@ public:
 
     void render() override;
 
-    void setPreviousActivity(Interface* p_previousActivity) { previousActivity = p_previousActivity; };
+    void setPreviousActivity(Interface *p_previousActivity) { previousActivity = p_previousActivity; };
 
 private:
     Engine *engine;
 
-    SaveManager* saveManager;
+    SaveManager *saveManager;
 
     void handleRequest();
 
@@ -31,6 +31,6 @@ private:
 
     void refreshSaveManagerTexts();
 
-    Interface* previousActivity;
+    Interface *previousActivity;
 };
 
