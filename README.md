@@ -1,5 +1,5 @@
-# Thomas Was Alone Recoding Project
-### by [Axel Dona](https://github.com/AxelDona) and [Mattéo Leclercq](https://github.com/MatteoL-W/)
+# EKTOKLEPTO
+## by [Axel Dona](https://github.com/AxelDona) and [Mattéo Leclercq](https://github.com/MatteoL-W/)
 ### Setup forked from [SDL2_Boilerplate](https://github.com/MatteoL-W/SDL2_Boilerplate)
 
 ## Installation
